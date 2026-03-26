@@ -1,0 +1,672 @@
+/* Reset and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #fff;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🐱</text></svg>'), auto;
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: rgb(52, 85, 139);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: white;
+    font-size: 22px;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.nav-link:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+/* Main Container */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    padding: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.photo-column {
+    flex: 0 0 33.333%;
+    max-width: 33.333%;
+    padding: 0 15px;
+}
+
+.intro-column {
+    flex: 0 0 66.667%;
+    max-width: 66.667%;
+    padding: 0 15px;
+}
+
+.avatar-container {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.avatar-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1;
+    object-position: center -2px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-left: 2vw;
+}
+
+.contact-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s;
+}
+
+.contact-link:hover {
+    color: rgb(52, 85, 139);
+    text-decoration: none;
+}
+
+.icon {
+    color: rgb(52, 85, 139);
+    width: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+.icon1::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%2334558b' d='M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon2::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%2334558b' d='M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon3::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%2334558b' d='M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Introduction */
+.intro-card {
+    text-align: left;
+}
+
+.intro-text {
+    margin: 1vw 0;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.name-highlight {
+    font-weight: bold;
+}
+
+.link {
+    color: black;
+    text-decoration: underline;
+}
+
+.link:hover {
+    color: rgb(52, 85, 139);
+}
+
+.label {
+    font-weight: bold;
+}
+
+/* Sections */
+.section {
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    font-size: 22px;
+    text-align: left;
+    font-weight: bold;
+    padding: 1rem 0;
+    margin-bottom: 0.5rem;
+}
+
+.section-content {
+    padding: 0 5vw;
+}
+
+/* News Section */
+.list-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-group-item {
+    text-align: left;
+    border: 0px;
+    padding: 0.25vw 0px 0.25vw 0vw;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.list-group-item strong {
+    color: rgb(52, 85, 139);
+    font-weight: bold;
+}
+
+.list-group-item span {
+    color: #333;
+}
+
+/* Year Sections */
+.year-section {
+    margin-bottom: 1.5rem;
+}
+
+.year-header {
+    background: #f8f9fa;
+    padding: 0.75rem 1.25rem;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">👆</text></svg>'), pointer;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s;
+}
+
+.year-header:hover {
+    background: #e9ecef;
+}
+
+.expand-icon {
+    color: rgb(52, 85, 139);
+    transition: transform 0.5s ease;
+}
+
+.expand-icon.collapsed {
+    transform: rotate(-90deg);
+}
+
+.year-content {
+    padding: 0 5vw;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.year-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding: 0 5vw;
+}
+
+/* Research Cards */
+.research-card {
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.3s;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: #fff;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🔬</text></svg>'), auto;
+}
+
+.research-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.research-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.research-desc {
+    font-size: 16px;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.research-award {
+    font-size: 16px;
+    color: rgb(52, 85, 139);
+    font-weight: 500;
+}
+
+.research-status {
+    font-size: 16px;
+    color: rgb(52, 85, 139);
+    font-weight: 500;
+}
+
+/* Awards Section */
+.row {
+    display: flex;
+    border: 0px;
+    font-size: 16px;
+    margin: 0px 0px 1vw;
+}
+
+.col-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.col-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.award-text {
+    margin: 0;
+    color: #333;
+}
+
+/* Experience Section */
+.experience-item {
+    display: flex;
+    gap: 2rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+    margin-bottom: 1rem;
+    font-size: 16px;
+}
+
+.exp-year {
+    color: rgb(52, 85, 139);
+    font-weight: bold;
+    flex: 0 0 100px;
+}
+
+.exp-details {
+    flex: 1;
+}
+
+.exp-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.exp-desc {
+    color: #555;
+    font-size: 14px;
+}
+
+/* Hobbies Section */
+.hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.hobby-item {
+    text-align: center;
+    padding: 1rem;
+    transition: transform 0.3s;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">⭐</text></svg>'), auto;
+}
+
+.hobby-item:hover {
+    transform: translateY(-5px);
+}
+
+.hobby-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.hobby-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+/* Back to Top */
+.back-to-top {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.top-link {
+    color: rgb(52, 85, 139);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(52, 85, 139);
+    border-radius: 4px;
+    transition: all 0.3s;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🚀</text></svg>'), pointer;
+}
+
+.top-link:hover {
+    background-color: rgb(52, 85, 139);
+    color: white;
+    text-decoration: none;
+}
+
+/* Footer */
+.footer {
+    background-color: rgba(52, 85, 139, 0.9);
+    color: white;
+    margin-top: 2rem;
+}
+
+.footer-text {
+    margin: 0;
+    padding: 0.5vw 3vw;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .navbar-brand {
+        font-size: 20px;
+    }
+    
+    .nav-link {
+        font-size: 14px;
+    }
+    
+    .profile-section {
+        flex-direction: column;
+    }
+    
+    .photo-column,
+    .intro-column {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .photo-column {
+        margin-bottom: 2rem;
+    }
+    
+    .contact-info {
+        padding-left: 0;
+    }
+    
+    .hobbies-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .award-item,
+    .experience-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .award-year,
+    .exp-year {
+        flex: none;
+    }
+}
+
+@media (min-width: 1079px) {
+    .footer {
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 1079px) {
+    .footer {
+        width: 100%;
+    }
+}
+
+/* Links */
+a {
+    color: rgb(52, 85, 139);
+    text-decoration: none;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🐾</text></svg>'), pointer;
+}
+
+a:hover {
+    text-decoration: underline;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">💖</text></svg>'), pointer;
+}
+
+/* Research Images */
+.research-image-container {
+    flex: 0 0 180px;
+    text-align: center;
+}
+
+.research-image {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Research Content */
+.research-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.research-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    color: #333;
+    line-height: 1.4;
+}
+
+.research-desc {
+    font-size: 15px;
+    margin-bottom: 0.75rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.research-award {
+    font-size: 14px;
+    color: rgb(52, 85, 139);
+    font-weight: 500;
+    margin-top: auto;
+}
+
+.research-status {
+    font-size: 14px;
+    color: rgb(52, 85, 139);
+    font-weight: 500;
+    margin-top: auto;
+}
+
+/* Books Section */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.book-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: box-shadow 0.3s, transform 0.3s;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">📚</text></svg>'), auto;
+}
+
+.book-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.book-cover-container {
+    margin-bottom: 1rem;
+}
+
+.book-cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.book-info {
+    padding: 0.5rem 0;
+}
+
+.book-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    color: #333;
+}
+
+.book-author {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.book-date {
+    font-size: 12px;
+    color: rgb(52, 85, 139);
+    margin-bottom: 0.5rem;
+}
+
+.book-link {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: rgb(52, 85, 139);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.book-link:hover {
+    background-color: rgb(40, 70, 120);
+    text-decoration: none;
+    color: white;
+}
+
+/* Utility Classes */
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+
+/* Footer */
+#footer {
+    background-color: rgba(52, 85, 139, 0.9);
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-text {
+    margin-bottom: 0;
+    padding: 0.5vw 3vw 0.5vw 3vw;
+    font-size: 12px;
+}

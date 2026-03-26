@@ -1,83 +1,385 @@
 <!DOCTYPE html>
-<html>
-    <head>
-<meta charset="utf-8">
-<title>傅昱坚-个人简介</title>
-<base target="_blank">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">    
-<meta name="description" content="傅昱坚的个人简介，浙江大学临床医学八年制在读，专注肿瘤与代谢疾病临床研究，分享科研经历与Web程序设计学习期待。">
-<style>
-    body {
-        font-family: "Microsoft YaHei", sans-serif;
-        line-height: 2;
-        margin: 30px;
-        background-color: #ffffff;
-    }
-    h1, h2 {
-        color: #1a0404;
-    }
-    p
-    {
-        color: #281502;
-    }
-    .info-row {
-        margin-bottom: 10px;
-    }
-    a {
-        color: #1a0dab;
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-    </style>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yujian Fu's Homepage</title>
+    <meta name="description" content="傅昱坚的个人简介，浙江大学临床医学八年制在读，专注肿瘤与代谢疾病临床研究。">
+    <link href="style.css" rel="stylesheet">
 </head>
-    <body>
-    <h1 style="text-align: center; font-size: 40px;" >个人简介</h1>
-    <h1><b>傅昱坚</b></h1> 
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">傅昱坚</div>
+        <div class="navbar-links">
+            <a href="#publications" class="nav-link">科研经历</a>
+            <a href="#experience" class="nav-link">个人经历</a>
+            <a href="#hobbies" class="nav-link">兴趣爱好</a>
+            <a href="#book" class="nav-link">阅读书单</a>
+            
+        </div>
+    </div>
 
-    <img src=https://s41.ax1x.com/2026/03/04/pe9DCo6.jpg alt="头像" style="width: 200px; height: auto;  float: right; margin-right: 20px; margin-bottom: 20px;">
-    <p><b>性别</b>：男 </p>
-    <p><b>生日：</b>2006年1月4日</p> 
-    <p><b>MBTI</b>: ENFJ</p> 
+    <div class="main-container">
+        <div class="profile-section">
+            <div class="photo-column">
+                <div class="avatar-container">
+                    <img src="images/photo.jpg" alt="avatar" class="avatar-image">
+                </div>
+                <div class="contact-info">
+                    <a href="mailto:3240104192@zju.edu.cn" class="contact-link">
+                        <span class="icon icon1"></span> 3240104192@zju.edu.cn
+                    </a>
+                    <a href="tel:18058521616" class="contact-link">
+                        <span class="icon icon2"></span> 18058521616
+                    </a>
+                    <a href="https://cn.bing.com/maps/search?mepi=58%7E%7EEmbedded%7ELargeMapLink&ty=18&v=2&sV=1&qpvt=%E6%B5%99%E6%B1%9F%E6%9D%AD%E5%B7%9E&FORM=MIRE&q=%E6%B5%99%E6%B1%9F%E7%9C%81%E6%9D%AD%E5%B7%9E%E5%B8%82&ppois=30.245920181274414_120.2107925415039_%E6%B5%99%E6%B1%9F%E7%9C%81%E6%9D%AD%E5%B7%9E%E5%B8%82_%7E&cp=p16wn6v0ht8g&lvl=21&style=r" class="contact-link">
+                        <span class="icon icon3"></span> 浙江杭州
+                    </a>
+                </div>
+            </div>
 
-    <p><b>邮箱：</b><a href="mailto:3240104192@zju.edu.cn">3240104192@zju.edu.cn </a></p>
-    <p><b>Tel:</b> <Tel>18058521616</Tel> </p>
-    <p><b>坐标：</b><a href="https://cn.bing.com/maps/search?mepi=58%7E%7EEmbedded%7ELargeMapLink&ty=18&v=2&sV=1&qpvt=%E6%B5%99%E6%B1%9F%E6%9D%AD%E5%B7%9E&FORM=MIRE&q=%E6%B5%99%E6%B1%9F%E7%9C%81%E6%9D%AD%E5%B7%9E%E5%B8%82&ppois=30.245920181274414_120.2107925415039_%E6%B5%99%E6%B1%9F%E7%9C%81%E6%9D%AD%E5%B7%9E%E5%B8%82_%7E&cp=p16wn6v0ht8g&lvl=21&style=r">浙江杭州</a></p> 
-    <p>
-        <b>学校：</b><a href="https://www.zju.edu.cn/">浙江大学 </a>
-    </p>
-    <p><b>大类：</b>医学实/试验班（临床医学八年制）</p> 
-    <p><b>本科专业：</b>信息管理与信息系统（奇奇怪怪的专业选择...） </p>
-    <p><b>爱好：</b>篮球、羽毛球、乒乓球、游泳、健身、跑步、音乐、美食... </p>
-    <p><b>标签：</b>科研小牛马 </p>
-    <hr>
-    <h2>科研经历：</h2>
-    <p>
-        1.参与“精筛肠安”项目，凭借结直肠癌早筛相关创新方案，在蒲公英大学生创新创业大赛中脱颖而出，荣获铜奖，展现了将医学技术转化为实际应用的创新能力与实践素养。​<br>
-        2.作为核心成员参与“预见肠安——结直肠癌早筛的浙大领航方案”项目，聚焦结直肠癌早筛领域的技术突破与产业落地，在2025年浙江省国际大学生创新大赛产业赛道中斩获金奖，为推动早筛技术产业化、助力公共卫生防控贡献青春力量。​<br>
-        3.深度参与多囊卵巢综合征（PCOS）对2型糖尿病（T2DM）影响的 meta 分析，通过系统整合国内外相关研究数据，探索两种疾病间的关联机制，为临床诊疗与风险预测提供循证依据，目前已有1 篇相关学术论文处于投稿阶段。​​<br>
-        4.深度参与膳食胆碱与血浆胆碱对炎症性肠病（IBD）发病影响的队列研究，参与统计分析等核心工作，致力于揭示膳食营养与肠道疾病的关联，为 IBD 的预防与膳食干预提供科学参考。​​<br>
-        5.参与开展肠道炎症（含 IBD、克罗恩病 CD、溃疡性结肠炎 UC）与肠道相关癌症（小肠癌、结直肠癌）发病风险的关联研究，通过挖掘疾病间的病理生理联系，为癌症早期预警与防控策略制定提供理论支撑。​<br>
-        6.聚焦骨骼健康领域，开展动物实验研究：探究胆损伤对小鼠骨量的影响，通过构建动物模型，分析病理状态下骨骼代谢的变化规律，为相关骨病的机制研究与治疗靶点挖掘提供实验基础；​<br>
-        7.研究不同高脂饮食方式对小鼠骨量的影响，对比不同饮食干预方案下骨骼健康的差异，为膳食指导与代谢性骨病防控提供科学依据。​​<br>
-        8.围绕神经-骨骼调控机制，参与“神经系统对骨量调节调控轴”主题综述的撰写工作，系统梳理国内外该领域的研究进展，总结调控通路与关键分子，为后续研究方向的明确与创新突破提供理论参考.​<br>
-        9.参与急性髓系白血病CHA疗法的临床机制研究，在实验室中负责数据收集与分析工作，致力于评估该疗法的疗效与安全性，为急性髓系白血病的治疗策略优化提供科学依据。​<br>​
-        10.参与急性髓系白血病（AML）患者CHA疗法的国自然基金项目申请，负责相关研究内容的撰写,路线图绘制等工作，致力于推动该项目的顺利申请与后续研究的开展，为AML患者提供更有效的治疗方案。
-    ​</p>
-    <hr>
-    <h2>对Web程序设计课程的初印象：</h2>
-    
-        <p>首先这门课对我来说是一个全新的领域，之前没有接触过web相关的内容，所以选课的时候毫不犹豫地选择了这一门课，期待通过这门课程能够系统地学习Web开发的基础知识和技能，掌握前端和后端的开发技术，能够独立完成一个简单的Web项目。</p>
-        <p>然后<a href="https://person.zju.edu.cn/siwei#0">傅四维老师</a>讲课的时候给人一种很专业的感觉，内容丰富又有调理，有着计算机科学独有的逻辑性，又有联系生活实际的案例，虚实结合，让人感觉妙趣横生，忍不住放下手机认真听故事。而且老师的企业项目管理经历也让人觉得很有说服力，感觉能学到很多实用的东西，不仅仅是理论知识，还有实际中企业进行项目开发的实际情况，这对我来说是非常有吸引力的。</p>
-        <p>再次就是有机会能在管院的课程中，得到计算机专业老师的教导，同时又少了一些对原理的深入探究，多了几分实际操作的应用，对这门课不禁更充满热情与期待。</p>
-        <p>最后就是管院的课程还是比较有深度和高度的，人少但内容不少</p>
-    
-    <hr>
-    <h2>程序设计课程的期待：</h2>
-        <p>期待能够通过这门课程系统地学习Web开发的基础知识和技能，掌握前端和后端的开发技术，能够独立完成一个简单的Web项目。​</p>
-        <p>期待能做出自己的一些成果，在学期结束能有一个完整的成果，享受这一份成就感和满足感。​</p>
-        <p>期待自己在平时能保持这份热忱与兴趣，探索web程序设计的更多可能性，学习到更多深入有关ai的知识。​</p>
-    
-</body>
-    </html>
+            <div class="intro-column">
+                <div class="intro-card">
+                    <p class="intro-text">
+                        <span class="name-highlight">傅昱坚</span>，男，2006年1月4日出生，MBTI类型为ENFJ。目前就读于<a href="https://www.zju.edu.cn/" class="link">浙江大学</a><a href="http://www.som.zju.edu.cn/" class="link">管理学院</a>，医学实/试验班（临床医学八年制）在读，本科专业为信息管理与信息系统。
+                    </p>
+                    <p class="intro-text">
+                        专注于肿瘤与代谢疾病的临床研究，积极参与多项科研项目，包括结直肠癌早筛、多囊卵巢综合征与2型糖尿病关联研究、炎症性肠病队列研究等。热爱运动，喜欢篮球、羽毛球、乒乓球、游泳、健身、跑步，同时也对音乐和美食有浓厚兴趣。
+                    </p>
+                    <p class="intro-text">
+                        <span class="label">标签：</span>科研小牛马
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="news">
+            <div class="section-header">最新动态</div>
+            <div class="section-content">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <strong>2026-03</strong>: <span>参与的多囊卵巢综合征（PCOS）对2型糖尿病（T2DM）影响的meta分析论文投稿中</span>
+                    </div>
+                    <div class="list-group-item">
+                        <strong>2025</strong>: <span>"预见肠安"项目在浙江省国际大学生创新大赛产业赛道中斩获金奖</span>
+                    </div>
+                    <div class="list-group-item">
+                        <strong>2025</strong>: <span>"精筛肠安"项目在蒲公英大学生创新创业大赛中荣获铜奖</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="publications">
+            <div class="section-header">科研经历</div>
+            
+            <div class="year-section">
+                <div class="year-header" onclick="toggleYear(this)">
+                    <span class="expand-icon">▾</span>
+                    <span>2025-2026</span>
+                </div>
+                <div class="year-content">
+                    <div class="research-card">
+                        <div class="research-image-container">
+                            <img src="images/结直肠癌早筛.jpg" alt="结直肠癌早筛项目" class="research-image">
+                        </div>
+                        <div class="research-content">
+                            <p class="research-title">结直肠癌早筛项目</p>
+                            <p class="research-desc">参与"精筛肠安"和"预见肠安"项目，聚焦结直肠癌早筛领域的技术突破与产业落地</p>
+                            <p class="research-award">获奖：蒲公英大学生创新创业大赛铜奖、浙江省国际大学生创新大赛金奖</p>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <div class="research-image-container">
+                            <img src="images/多囊卵巢综合征与2型糖尿病关联研究.png" alt="多囊卵巢综合征与2型糖尿病关联研究" class="research-image">
+                        </div>
+                        <div class="research-content">
+                            <p class="research-title">多囊卵巢综合征与2型糖尿病关联研究</p>
+                            <p class="research-desc">深度参与PCOS对T2DM影响的meta分析，通过系统整合国内外相关研究数据，探索两种疾病间的关联机制</p>
+                            <p class="research-status">状态：论文投稿中</p>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <div class="research-image-container">
+                            <img src="images/膳食胆碱与炎症性肠病队列研究.png" alt="膳食胆碱与炎症性肠病队列研究" class="research-image">
+                        </div>
+                        <div class="research-content">
+                            <p class="research-title">膳食胆碱与炎症性肠病队列研究</p>
+                            <p class="research-desc">参与膳食胆碱与血浆胆碱对IBD发病影响的队列研究，负责统计分析等核心工作</p>
+                            <p class="research-status">状态：进行中</p>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <div class="research-image-container">
+                            <img src="images/肠道炎症与癌症风险关联研究.png" alt="肠道炎症与癌症风险关联研究" class="research-image">
+                        </div>
+                        <div class="research-content">
+                            <p class="research-title">肠道炎症与癌症风险关联研究</p>
+                            <p class="research-desc">参与开展IBD、克罗恩病、溃疡性结肠炎与肠道相关癌症发病风险的关联研究</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="year-section">
+                <div class="year-header" onclick="toggleYear(this)">
+                    <span class="expand-icon">▾</span>
+                    <span>2024-2025</span>
+                </div>
+                <div class="year-content">
+                    <div class="research-card">
+                        <div class="research-image-container">
+                            <img src="images/骨骼健康动物实验研究.png" alt="骨骼健康动物实验研究" class="research-image">
+                        </div>
+                        <div class="research-content">
+                            <p class="research-title">骨骼健康动物实验研究</p>
+                            <p class="research-desc">探究胆损伤对小鼠骨量的影响，以及不同高脂饮食方式对小鼠骨量的影响</p>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <div class="research-image-container">
+                            <img src="images/神经系统对骨量调节调控轴综述.png" alt="神经系统对骨量调节调控轴综述" class="research-image">
+                        </div>
+                        <div class="research-content">
+                            <p class="research-title">神经系统对骨量调节调控轴综述</p>
+                            <p class="research-desc">参与"神经系统对骨量调节调控轴"主题综述的撰写工作，系统梳理国内外研究进展</p>
+                        </div>
+                    </div>
+                    <div class="research-card">
+                        <div class="research-image-container">
+                            <img src="images/急性髓系白血病CHA疗法研究.png" alt="急性髓系白血病CHA疗法研究" class="research-image">
+                        </div>
+                        <div class="research-content">
+                            <p class="research-title">急性髓系白血病CHA疗法研究</p>
+                            <p class="research-desc">参与临床机制研究及国自然基金项目申请，负责数据收集、分析及研究内容撰写</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="awards">
+            <div class="section-header">获奖与荣誉</div>
+            <div class="section-content">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">2025</div>
+                            <div class="col-9">
+                                <p class="award-text">浙江省国际大学生创新大赛产业赛道金奖</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">2025</div>
+                            <div class="col-9">
+                                <p class="award-text">蒲公英大学生创新创业大赛铜奖</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="experience">
+            <div class="section-header">个人经历</div>
+            <div class="section-content">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">2024-至今</div>
+                            <div class="col-9">
+                                <p class="exp-title">浙江大学管理学院</p>
+                                <p class="exp-desc">医学实/试验班（临床医学八年制）在读</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">本科</div>
+                            <div class="col-9">
+                                <p class="exp-title">信息管理与信息系统专业</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="hobbies">
+            <div class="section-header">兴趣爱好</div>
+            <div class="hobbies-grid">
+                <div class="hobby-item">
+                    <span class="hobby-icon">🏀</span>
+                    <p class="hobby-name">篮球</p>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-icon">🏸</span>
+                    <p class="hobby-name">羽毛球</p>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-icon">🏓</span>
+                    <p class="hobby-name">乒乓球</p>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-icon">🏊</span>
+                    <p class="hobby-name">游泳</p>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-icon">💪</span>
+                    <p class="hobby-name">健身</p>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-icon">🏃</span>
+                    <p class="hobby-name">跑步</p>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-icon">🎵</span>
+                    <p class="hobby-name">音乐</p>
+                </div>
+                <div class="hobby-item">
+                    <span class="hobby-icon">🍽️</span>
+                    <p class="hobby-name">美食</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="books">
+            <div class="section-header" id = "book">阅读书单</div>
+            <div class="books-grid">
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/活着.png" alt="活着" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">活着</p>
+                        <p class="book-author">余华</p>
+                        <p class="book-date">2024年3月</p>
+                        <a href="https://item.jd.com/10201816884739.html?spmTag=YTAyMTkuYjAwMjM1Ni5jMDAwMDQ2ODkuMCUyM2hpc2tleXdvcmQlMkNhMDI0MC5iMDAyNDkzLmMwMDAwNDAyNy4xJTIzc2t1X2NhcmQ" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/三体.jpg" alt="三体" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">三体</p>
+                        <p class="book-author">刘慈欣</p>
+                        <p class="book-date">2024年5月</p>
+                        <a href="https://item.jd.com/11757834.html?spmTag=YTAyMTkuYjAwMjM1Ni5jMDAwMDQ2ODkuMCUyM2hpc2tleXdvcmQlMkNhMDI0MC5iMDAyNDkzLmMwMDAwNDAyNy4xJTIzc2t1X2NhcmQ" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/人类简史.jpg" alt="人类简史" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">人类简史</p>
+                        <p class="book-author">尤瓦尔·赫拉利</p>
+                        <p class="book-date">2024年7月</p>
+                        <a href="https://item.jd.com/14966968.html?spmTag=YTAyMTkuYjAwMjM1Ni5jMDAwMDQ2ODkuMCUyM2hpc2tleXdvcmQlMkNhMDI0MC5iMDAyNDkzLmMwMDAwNDAyNy4zJTIzc2t1X2NhcmQ" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/生物必修二.jpg" alt="高中生物必修二" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">高中生物必修二</p>
+                        <p class="book-author">新华书店</p>
+                        <p class="book-date">2024年1月</p>
+                        <a href="https://item.jd.com/10135173314500.html?spmTag=YTAyMTkuYjAwMjM1Ni5jMDAwMDQ2ODkuMCUyM2hpc2tleXdvcmQlMkNhMDI0MC5iMDAyNDkzLmMwMDAwNDAyNy4xJTIzc2t1X2NhcmQ" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/刑法学讲义.jpg" alt="刑法学讲义" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">刑法学讲义</p>
+                        <p class="book-author">罗翔</p>
+                        <p class="book-date">2024年11月</p>
+                        <a href="https://item.jd.com/10163943377239.html?spmTag=YTAyMTkuYjAwMjM1Ni5jMDAwMDQ2ODkuMCUyM2hpc2tleXdvcmQlMkNhMDI0MC5iMDAyNDkzLmMwMDAwNDAyNy40JTIzc2t1X2NhcmQ" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/圆圈正义.jpg" alt="圆圈正义" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">圆圈正义</p>
+                        <p class="book-author">罗翔</p>
+                        <p class="book-date">2023年1月</p>
+                        <a href="https://item.jd.com/10210347347090.html?extension_id=eyJhZCI6IjI2OCIsImNoIjoiMiIsInNrdSI6IjEwMjEwMzQ3MzQ3MDkwIiwidHMiOiIxNzc0NDkwODgyIiwidW5pcWlkIjoie1wiY2xpY2tfaWRcIjpcIjQ4NDY0MzFhLTZhODAtNGI5ZS04OWZiLTNjYzY1YTA2NDM0ZFwiLFwibWF0ZXJpYWxfaWRcIjpcIjY4NTQzNTQ2MzU4XCIsXCJwb3NfaWRcIjpcIjI2OFwiLFwic2lkXCI6XCJhNjdjNzg0MS04MTQyLTRhMjItOGMwMS1iMGM4YzUyY2RjN2RcIn0ifQ%3D%3D&jd_pop=4846431a-6a80-4b9e-89fb-3cc65a06434d&abt=0" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/斗罗大陆三.jpg" alt="斗罗大陆第三部" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">斗罗大陆第三部</p>
+                        <p class="book-author">唐家三少</p>
+                        <p class="book-date">2023年3月</p>
+                        <a href="https://item.jd.com/10023054503260.html?extension_id=eyJhZCI6IjI2OCIsImNoIjoiMiIsInNrdSI6IjEwMDIzMDU0NTAzMjYwIiwidHMiOiIxNzc0NDkxMDY3IiwidW5pcWlkIjoie1wiY2xpY2tfaWRcIjpcIjA3YjVmNzY4LTA1ZjQtNDEzZi05Y2ZjLWYwNDMzZmJlYTc3OVwiLFwibWF0ZXJpYWxfaWRcIjpcIjY2MzY0OTk5MThcIixcInBvc19pZFwiOlwiMjY4XCIsXCJzaWRcIjpcIjI2MDY0MTY4LTViYTMtNDQ5ZS05ODQyLTRlYzZmNzQxYTZhNVwifSJ9&jd_pop=07b5f768-05f4-413f-9cfc-f0433fbea779&abt=0" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/斗罗大陆2绝世唐门.jpg" alt="斗罗大陆2绝世唐门" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">斗罗大陆2绝世唐门</p>
+                        <p class="book-author">唐家三少</p>
+                        <p class="book-date">2023年5月</p>
+                        <a href="https://item.jd.com/10023055432972.html?extension_id=eyJhZCI6IjI2OCIsImNoIjoiMiIsInNrdSI6IjEwMDIzMDU1NDMyOTcyIiwidHMiOiIxNzc0NDkxMTUzIiwidW5pcWlkIjoie1wiY2xpY2tfaWRcIjpcIjliYzJmMGE0LTZmZTMtNDhhNy1hMzdlLTk2MjY0NDY0ODRjOVwiLFwibWF0ZXJpYWxfaWRcIjpcIjY2MzY0OTk5MTlcIixcInBvc19pZFwiOlwiMjY4XCIsXCJzaWRcIjpcImY0NmQ3OTM4LWE5YmYtNDdhMC1iNDAyLTA0ODE4YTA3N2E3MFwifSJ9&jd_pop=9bc2f0a4-6fe3-48a7-a37e-9626446484c9&abt=0" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/斗罗大陆4终极斗罗.jpg" alt="斗罗大陆4终极斗罗" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">斗罗大陆4终极斗罗</p>
+                        <p class="book-author">唐家三少</p>
+                        <p class="book-date">2023年7月</p>
+                        <a href="https://item.jd.com/10073382279647.html?extension_id=eyJhZCI6IjI2OCIsImNoIjoiMiIsInNrdSI6IjEwMDczMzgyMjc5NjQ3IiwidHMiOiIxNzc0NDkxMzg0IiwidW5pcWlkIjoie1wiY2xpY2tfaWRcIjpcIjZmZDI5ODU4LTAyN2EtNGY0Ni1hOGNlLWE3ZjY5OTkwOTZiN1wiLFwibWF0ZXJpYWxfaWRcIjpcIjg2NjMxNTY0Njg0MDY0MTMxNDZcIixcInBvc19pZFwiOlwiMjY4XCIsXCJzaWRcIjpcIjM0MWM5NWM5LTZlYTAtNDExNi1iZjA5LWU5ZTRiNWYxODUzMVwifSJ9&jd_pop=6fd29858-027a-4f46-a8ce-a7f6999096b7&abt=0" class="book-link">京东购买</a>
+                    </div>
+                </div>
+                <div class="book-item">
+                    <div class="book-cover-container">
+                        <img src="images/斗罗大陆5重生唐三.jpg" alt="斗罗大陆5重生唐三" class="book-cover">
+                    </div>
+                    <div class="book-info">
+                        <p class="book-title">斗罗大陆5重生唐三</p>
+                        <p class="book-author">唐家三少</p>
+                        <p class="book-date">2025年9月</p>
+                        <a href="https://item.jd.com/10040024794951.html?extension_id=eyJhZCI6IjI2OCIsImNoIjoiMiIsInNrdSI6IjEwMDQwMDI0Nzk0OTUxIiwidHMiOiIxNzc0NDkxNDcwIiwidW5pcWlkIjoie1wiY2xpY2tfaWRcIjpcIjlhNjg4OWIxLWFlYjktNDNkNS1hZTAwLTMzNjhiMDZhYzQ3ZVwiLFwibWF0ZXJpYWxfaWRcIjpcIjEwMTM5NjM3ODA2XCIsXCJwb3NfaWRcIjpcIjI2OFwiLFwic2lkXCI6XCJiODMyZmM1Mi1kYWE4LTQ0NTktOWRjYy1mZjY0MTc4YzA3ZGRcIn0ifQ%3D%3D&jd_pop=9a6889b1-aeb9-43d5-ae00-3368b06ac47e&abt=0" class="book-link">京东购买</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-top">
+            <a href="#" class="top-link">返回顶部</a>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <p class="footer-text">
+            Copyright © 2026 Yujian Fu. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script>
+        function toggleYear(header) {
+            const yearSection = header.parentElement;
+            const yearContent = yearSection.querySelector('.year-content');
+            const expandIcon = header.querySelector('.expand-icon');
+            
+            yearContent.classList.toggle('collapsed');
+            expandIcon.classList.toggle('collapsed');
+        }
+    </script>
