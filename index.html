@@ -8,6 +8,7 @@
     <meta name="description" content="傅昱坚的个人简介，浙江大学临床医学八年制在读，专注肿瘤与代谢疾病临床研究。">
     <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/ToneOZ-Tsuipita/dist/ToneOZ-Tsuipita-TC/result.css' />
     <link href="style.css" rel="stylesheet">
+    <script src="surf-game.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -47,8 +48,9 @@
                         <span class="name-highlight">傅昱坚</span>，男，2006年1月4日出生，MBTI类型为ENFJ。目前就读于<a href="https://www.zju.edu.cn/" class="zju">浙江大学</a><a href="http://www.som.zju.edu.cn/" class="link">管理学院</a>，医学实/试验班（临床医学八年制）在读，本科专业为信息管理与信息系统。
                     </p>
                     <p class="intro-text">
-                        专注于肿瘤与代谢疾病的临床研究，积极参与多项科研项目，包括结直肠癌早筛、多囊卵巢综合征与2型糖尿病关联研究、炎症性肠病队列研究等。热爱运动，喜欢篮球、羽毛球、乒乓球、游泳、健身、跑步，同时也对音乐和美食有浓厚兴趣。
-                    </p>
+                        深耕肿瘤与代谢疾病临床研究，聚焦疾病分子机制与临床转化，推动基础研究成果向精准诊疗落地。深度参与多项重点科研项目：探索结直肠癌精准早筛技术与生物标志物，解析多囊卵巢综合征与 2 型糖尿病的共病机制及干预靶点，搭建炎症性肠病临床队列并探究疾病进展规律，为临床诊疗提供循证依据。
+工作之余热爱运动，视健康体魄为高效工作的基础，常参与篮球、羽毛球、乒乓球等球类运动，在协作与竞技中锤炼能力；坚持游泳、健身、跑步，在锻炼中强健体魄、释放压力。
+同时钟情音乐与美食，以旋律舒缓身心，热衷探索各地风味并亲手烹饪，在生活美好中汲取力量。始终坚信，科研的严谨与生活的热情相融相生，怀执着与热爱方能稳步前行。                    </p>
                     <p class="intro-text">
                         <span class="label">标签：</span>科研小牛马
                     </p>
@@ -76,11 +78,11 @@
         <div class="section" id="publications">
             <div class="section-header">科研经历</div>
             
-            <div class="year-section">
-                <div class="year-header" onclick="toggleYear(this)">
-                    <span class="expand-icon">▾</span>
-                    <span>2025-2026</span>
-                </div>
+    <div class="year-section">
+        <div class="year-header" data-year="2025-2026">
+            <span class="expand-icon">▾</span>
+            <span>2025-2026</span>
+        </div>
                 <div class="year-content">
                     <div class="research-card">
                         <div class="research-image-container">
@@ -125,7 +127,7 @@
             </div>
 
             <div class="year-section">
-                <div class="year-header" onclick="toggleYear(this)">
+                <div class="year-header" data-year="2024-2025">
                     <span class="expand-icon">▾</span>
                     <span>2024-2025</span>
                 </div>
@@ -388,6 +390,35 @@
                                 <a href="https://item.jd.com/10040024794951.html?extension_id=eyJhZCI6IjI2OCIsImNoIjoiMiIsInNrdSI6IjEwMDQwMDI0Nzk0OTUxIiwidHMiOiIxNzc0NDkxNDcwIiwidW5pcWlkIjoie1wiY2xpY2tfaWRcIjpcIjlhNjg4OWIxLWFlYjktNDNkNS1hZTAwLTMzNjhiMDZhYzQ3ZVwiLFwibWF0ZXJpYWxfaWRcIjpcIjEwMTM5NjM3ODA2XCIsXCJwb3NfaWRcIjpcIjI2OFwiLFwic2lkXCI6XCJiODMyZmM1Mi1kYWE4LTQ0NTktOWRjYy1mZjY0MTc8YzA3ZGRcIn0ifQ%3D%3D&jd_pop=9a6889b1-aeb9-43d5-ae00-3368b06ac47e&abt=0" class="book-link">京东购买</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="game">
+            <div class="section-header">冲浪游戏</div>
+            <div class="section-content">
+                <div class="game-container">
+                    <p class="game-description">
+                        控制冲浪者躲避障碍物，收集能量道具，获得高分！使用方向键或A/D键左右移动，空格键或点击跳跃，P键暂停，R键重新开始。
+                    </p>
+                    <div class="game-canvas-container">
+                        <canvas id="surf-game-canvas"></canvas>
+                    </div>
+                    <div class="game-instructions">
+                        <h3>游戏说明：</h3>
+                        <ul>
+                            <li><strong>控制方式：</strong>←→ 或 A/D 左右移动，空格键或点击跳跃</li>
+                            <li><strong>游戏目标：</strong>躲避障碍物，尽可能获得高分</li>
+                            <li><strong>能量道具：</strong>
+                                <span style="color:#FF4500">⚡ 加速</span> | 
+                                <span style="color:#00FFFF">🛡️ 护盾</span> | 
+                                <span style="color:#FFFF00">2× 双倍分数</span> | 
+                                <span style="color:#FF69B4">❤️ 额外生命</span>
+                            </li>
+                            <li><strong>障碍物：</strong>岩石、浮标、海鸥、小船 - 碰到会减少生命</li>
+                            <li><strong>得分：</strong>冲浪 +10，收集道具 +100，躲避障碍 +50</li>
+                        </ul>
                     </div>
                 </div>
             </div>
