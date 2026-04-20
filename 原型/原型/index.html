@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>求书 - 首页 | 你的校园智慧购书管家</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        body {
+            background-color: #f3f2f7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .sidebar-item {
+            transition: all 0.3s ease;
+        }
+        .sidebar-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: #7c3aed;
+        }
+        .sidebar-active {
+            background: linear-gradient(90deg, #a78bfa, #7c3aed);
+            color: white;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #ddd6fe;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden is-mb-ai-setting">
+<!-- 左侧固定侧边导航 -->
+<aside class="w-64 bg-white flex flex-col items-center py-8 shadow-sm z-10">
+<div class="mb-12 flex flex-col items-center">
+<div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-3">
+<iconify-icon class="text-purple-600" icon="ph:books-duotone" width="36"></iconify-icon>
+</div>
+<h1 class="text-2xl font-bold text-gray-800 tracking-wider">求书</h1>
+</div>
+<nav class="w-full px-4 space-y-2 flex-grow overflow-y-auto custom-scrollbar">
+<a class="sidebar-item sidebar-active flex items-center px-4 py-3 rounded-xl" href="index.html">
+<iconify-icon class="mr-3" icon="solar:home-2-bold" width="22"></iconify-icon>
+<span class="font-medium">首页</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="procurement.html">
+<iconify-icon class="mr-3" icon="solar:shop-2-outline" width="22"></iconify-icon>
+<span class="font-medium">采购</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="cart.html">
+<iconify-icon class="mr-3" icon="solar:cart-large-2-outline" width="22"></iconify-icon>
+<span class="font-medium">购物车</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="order_management.html">
+<iconify-icon class="mr-3" icon="solar:bill-list-outline" width="22"></iconify-icon>
+<span class="font-medium">订单管理</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl relative" href="notification.html">
+<iconify-icon class="mr-3" icon="solar:bell-bing-outline" width="22"></iconify-icon>
+<span class="font-medium">消息通知</span>
+<span class="absolute right-4 w-2 h-2 bg-red-500 rounded-full"></span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="learning_community.html">
+<iconify-icon class="mr-3" icon="solar:users-group-two-rounded-outline" width="22"></iconify-icon>
+<span class="font-medium">学习社区</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="profile.html">
+<iconify-icon class="mr-3" icon="solar:user-circle-outline" width="22"></iconify-icon>
+<span class="font-medium">个人中心</span>
+</a>
+</nav>
+<div class="mt-auto px-4 w-full">
+<button class="w-full py-4 bg-purple-100 text-purple-700 rounded-2xl font-bold flex items-center justify-center space-x-2 hover:bg-purple-200 transition-all" onclick="window.location.href='publish.html'">
+<iconify-icon icon="solar:add-circle-bold" width="20"></iconify-icon>
+<span>发布书籍</span>
+</button>
+</div>
+</aside>
+<!-- 右侧主内容区 -->
+<main class="flex-grow flex flex-col overflow-y-auto">
+<!-- 顶部用户信息栏 -->
+<header class="h-20 bg-gradient-to-r from-purple-100 to-white px-8 flex items-center justify-between sticky top-0 z-20">
+<div>
+<p class="text-xs text-purple-500 font-medium">Good Morning</p>
+<h2 class="text-xl font-bold text-gray-800">张伟，你好！</h2>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative">
+<input class="w-64 pl-4 pr-10 py-2 bg-white rounded-full border-none shadow-sm text-sm focus:ring-2 focus:ring-purple-400" placeholder="搜索关键词..." type="text"/>
+<iconify-icon class="absolute right-3 top-2.5 text-gray-400" icon="solar:magnifer-outline" width="18"></iconify-icon>
+</div>
+<div class="flex items-center space-x-3 text-gray-500">
+<button class="hover:text-purple-600 transition-colors"><iconify-icon icon="solar:question-circle-outline" width="24"></iconify-icon></button>
+<button class="hover:text-purple-600 transition-colors" onclick="window.location.href='notification.html'"><iconify-icon icon="solar:bell-outline" width="24"></iconify-icon></button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-200 cursor-pointer">
+<img alt="Detective Conan anime character wearing a grey baseball cap with blue number 55, black glasses, and light blue clothes on a white background, circular badge design" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/user_assets/2026-04-20/eb665e60ef30432c939657d65b9e6151.jpg"/>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-8">
+<!-- 顶部两个模块：官方专区 & 学习社区 -->
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+<!-- 官方专区 -->
+<div class="lg:col-span-2 bg-white rounded-3xl p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold text-gray-800">官方专区</h3>
+<a class="text-purple-500 text-xs hover:underline" href="#">查看更多</a>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 bg-purple-50 rounded-2xl flex flex-col items-center hover:bg-purple-100 transition-colors cursor-pointer group">
+<iconify-icon class="text-purple-400 mb-2 group-hover:scale-110 transition-transform" icon="mdi:school" width="32"></iconify-icon>
+<span class="text-sm font-medium">高教社</span>
+</div>
+<div class="p-4 bg-blue-50 rounded-2xl flex flex-col items-center hover:bg-blue-100 transition-colors cursor-pointer group">
+<iconify-icon class="text-blue-400 mb-2 group-hover:scale-110 transition-transform" icon="mdi:microscope" width="32"></iconify-icon>
+<span class="text-sm font-medium">科学社</span>
+</div>
+<div class="p-4 bg-red-50 rounded-2xl flex flex-col items-center hover:bg-red-100 transition-colors cursor-pointer group">
+<iconify-icon class="text-red-400 mb-2 group-hover:scale-110 transition-transform" icon="mdi:university" width="32"></iconify-icon>
+<span class="text-sm font-medium">浙大出版社</span>
+</div>
+<div class="p-4 bg-gray-50 rounded-2xl flex flex-col items-center hover:bg-gray-100 transition-colors cursor-pointer group">
+<iconify-icon class="text-gray-400 mb-2 group-hover:scale-110 transition-transform" icon="mdi:dots-horizontal" width="32"></iconify-icon>
+<span class="text-sm font-medium">更多</span>
+</div>
+</div>
+</div>
+<!-- 学习社区 -->
+<div class="lg:col-span-3 bg-purple-50 rounded-3xl p-6 shadow-sm border border-purple-100">
+<h3 class="text-lg font-bold text-gray-800 mb-6">学习社区</h3>
+<div class="grid grid-cols-2 gap-y-4 gap-x-8">
+<div class="flex items-center space-x-3 cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-150 transition-transform"></span>
+<span class="text-sm text-gray-600 group-hover:text-purple-600">wjf belike</span>
+</div>
+<div class="flex items-center space-x-3 cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-150 transition-transform"></span>
+<span class="text-sm text-gray-600 group-hover:text-purple-600">大英这么学</span>
+</div>
+<div class="flex items-center space-x-3 cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-150 transition-transform"></span>
+<span class="text-sm text-gray-600 group-hover:text-purple-600">wjf 求助...</span>
+</div>
+<div class="flex items-center space-x-3 cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-150 transition-transform"></span>
+<span class="text-sm text-gray-600 group-hover:text-purple-600">有机化学怎么学啊啊啊</span>
+</div>
+<div class="flex items-center space-x-3 cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-150 transition-transform"></span>
+<span class="text-sm text-gray-600 group-hover:text-purple-600">线性代数这么做！</span>
+</div>
+<div class="flex items-center space-x-3 cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-150 transition-transform"></span>
+<span class="text-sm text-gray-600 group-hover:text-purple-600">动物学复习</span>
+</div>
+<div class="flex items-center space-x-3 cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-150 transition-transform"></span>
+<span class="text-sm text-gray-600 group-hover:text-purple-600">植物学抱佛脚</span>
+</div>
+<div class="flex items-center space-x-3 cursor-pointer group">
+<span class="w-2 h-2 rounded-full bg-purple-400 group-hover:scale-150 transition-transform"></span>
+<span class="text-sm text-gray-600 group-hover:text-purple-600">离散数学不挂科指南</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 中间部分：智慧购书清单 & 热门书本 -->
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+<!-- 智慧购书清单 -->
+<div class="lg:col-span-3 bg-white rounded-3xl p-8 shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-xl font-bold text-gray-800">智慧购书清单</h3>
+<p class="text-sm text-gray-400 mt-1">基于您的本学期课程自动匹配</p>
+</div>
+<div class="flex space-x-2 bg-gray-50 p-1 rounded-lg">
+<button class="px-4 py-1.5 bg-white text-purple-600 text-sm font-bold rounded-md shadow-sm">本学期</button>
+<button class="px-4 py-1.5 text-gray-400 text-sm font-medium hover:text-gray-600">下学期</button>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-6 bg-purple-50 rounded-2xl border border-purple-100 hover:border-purple-300 transition-all cursor-pointer">
+<span class="text-lg font-bold text-gray-700">微积分（上册）</span>
+<span class="px-4 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-full">已匹配 20 本</span>
+</div>
+<div class="flex items-center justify-between p-6 bg-purple-50 rounded-2xl border border-purple-100 hover:border-purple-300 transition-all cursor-pointer">
+<span class="text-lg font-bold text-gray-700">线性代数（上册）</span>
+<span class="px-4 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-full">已匹配 11 本</span>
+</div>
+<div class="flex items-center justify-between p-6 bg-purple-50 rounded-2xl border border-purple-100 hover:border-purple-300 transition-all cursor-pointer">
+<span class="text-lg font-bold text-gray-700">有机化学（上册）</span>
+<span class="px-4 py-1.5 bg-purple-600 text-white text-xs font-bold rounded-full">已匹配 9 本</span>
+</div>
+<div class="flex items-center justify-between p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:border-purple-200 transition-all cursor-pointer">
+<span class="text-lg font-bold text-gray-500">大学英语 IV</span>
+<span class="px-4 py-1.5 bg-gray-200 text-gray-500 text-xs font-bold rounded-full">已匹配 42 本</span>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="text-gray-400 flex items-center hover:text-purple-600 font-medium transition-colors">
+                            查看完整清单 <iconify-icon class="ml-2" icon="solar:arrow-right-outline" width="20"></iconify-icon>
+</button>
+</div>
+</div>
+<!-- 热门书本 -->
+<div class="lg:col-span-2 bg-white rounded-3xl p-8 shadow-sm flex flex-col">
+<h3 class="text-xl font-bold text-gray-800 mb-8">热门书本</h3>
+<div class="flex-grow space-y-6">
+<div class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors cursor-pointer" onclick="window.location.href='book_detail.html'">
+<div class="w-16 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Book 1" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/b050d7235a48448089a311e45806bbba.jpg"/>
+</div>
+<div>
+<h4 class="font-bold text-gray-700">高等数学辅导讲义</h4>
+<p class="text-xs text-gray-400 mt-1">张宇 · 九成新</p>
+<p class="text-purple-600 font-bold mt-2">¥ 15.00</p>
+</div>
+</div>
+<div class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors cursor-pointer" onclick="window.location.href='book_detail.html'">
+<div class="w-16 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Book 2" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/1601d120157d4ee5a01985bf0475646e.jpg"/>
+</div>
+<div>
+<h4 class="font-bold text-gray-700">考研英语真题解析</h4>
+<p class="text-xs text-gray-400 mt-1">陈正康 · 全新未拆</p>
+<p class="text-purple-600 font-bold mt-2">¥ 28.50</p>
+</div>
+</div>
+<div class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors cursor-pointer" onclick="window.location.href='book_detail.html'">
+<div class="w-16 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Book 3" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/a9893d7604714cff987a313abf983f23.jpg"/>
+</div>
+<div>
+<h4 class="font-bold text-gray-700">离散数学及其应用</h4>
+<p class="text-xs text-gray-400 mt-1">Rosen · 七成新 有笔记</p>
+<p class="text-purple-600 font-bold mt-2">¥ 12.00</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-gray-100">
+<button class="w-full text-center text-gray-400 hover:text-purple-600 font-medium transition-colors" onclick="window.location.href='procurement.html'">查看更多</button>
+</div>
+</div>
+</div>
+</div>
+<footer class="p-8 text-center text-gray-400 text-xs">
+            © 2026 求书校园二手书平台 | 智慧服务支撑 · 当前日期: 2026年04月20日
+        </footer>
+</main>
+</body></html>

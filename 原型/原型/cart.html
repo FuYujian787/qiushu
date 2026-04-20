@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>求书 - 购物车 | 你的校园智慧购书管家</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        body {
+            background-color: #f3f2f7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .sidebar-item {
+            transition: all 0.3s ease;
+        }
+        .sidebar-item:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: #7c3aed;
+        }
+        .sidebar-active {
+            background: linear-gradient(90deg, #a78bfa, #7c3aed);
+            color: white;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #ddd6fe;
+            border-radius: 10px;
+        }
+        .cart-checkbox {
+            accent-color: #7c3aed;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden is-mb-ai-setting">
+<!-- 左侧固定侧边导航 -->
+<aside class="w-64 bg-white flex flex-col items-center py-8 shadow-sm z-10">
+<div class="mb-12 flex flex-col items-center">
+<div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-3">
+<iconify-icon class="text-purple-600" icon="ph:books-duotone" width="36"></iconify-icon>
+</div>
+<h1 class="text-2xl font-bold text-gray-800 tracking-wider">求书</h1>
+</div>
+<nav class="w-full px-4 space-y-2 flex-grow overflow-y-auto custom-scrollbar">
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="index.html">
+<iconify-icon class="mr-3" icon="solar:home-2-outline" width="22"></iconify-icon>
+<span class="font-medium">首页</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="procurement.html">
+<iconify-icon class="mr-3" icon="solar:shop-2-outline" width="22"></iconify-icon>
+<span class="font-medium">采购</span>
+</a>
+<a class="sidebar-item sidebar-active flex items-center px-4 py-3 rounded-xl" href="cart.html">
+<iconify-icon class="mr-3" icon="solar:cart-large-2-bold" width="22"></iconify-icon>
+<span class="font-medium">购物车</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="order_management.html">
+<iconify-icon class="mr-3" icon="solar:bill-list-outline" width="22"></iconify-icon>
+<span class="font-medium">订单管理</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl relative" href="notification.html">
+<iconify-icon class="mr-3" icon="solar:bell-bing-outline" width="22"></iconify-icon>
+<span class="font-medium">消息通知</span>
+<span class="absolute right-4 w-2 h-2 bg-red-500 rounded-full"></span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="learning_community.html">
+<iconify-icon class="mr-3" icon="solar:users-group-two-rounded-outline" width="22"></iconify-icon>
+<span class="font-medium">学习社区</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="profile.html">
+<iconify-icon class="mr-3" icon="solar:user-circle-outline" width="22"></iconify-icon>
+<span class="font-medium">个人中心</span>
+</a>
+</nav>
+<div class="mt-auto px-4 w-full">
+<button class="w-full py-4 bg-purple-100 text-purple-700 rounded-2xl font-bold flex items-center justify-center space-x-2 hover:bg-purple-200 transition-all" onclick="window.location.href='publish.html'">
+<iconify-icon icon="solar:add-circle-bold" width="24"></iconify-icon>
+<span>发布图书</span>
+</button>
+</div>
+</aside>
+<!-- 右侧内容区 -->
+<main class="flex-grow flex flex-col overflow-y-auto custom-scrollbar">
+<!-- 顶部用户信息区 -->
+<header class="h-20 bg-gradient-to-r from-purple-100 to-white px-8 flex items-center justify-between sticky top-0 z-20">
+<div>
+<p class="text-xs text-purple-500 font-medium">Good Morning</p>
+<h2 class="text-xl font-bold text-gray-800">张伟，你好！</h2>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative">
+<input class="w-64 pl-10 pr-4 py-2 bg-white rounded-full text-sm border-none focus:ring-2 focus:ring-purple-400 shadow-sm" placeholder="搜索书名、作者或课程码..." type="text"/>
+<iconify-icon class="absolute left-3 top-2.5 text-gray-400" icon="solar:magnifer-outline" width="18"></iconify-icon>
+</div>
+<div class="flex items-center space-x-3 text-gray-500">
+<button class="hover:text-purple-600 transition-colors">
+<iconify-icon icon="solar:question-circle-outline" width="24"></iconify-icon>
+</button>
+<button class="hover:text-purple-600 transition-colors relative" onclick="window.location.href='notification.html'">
+<iconify-icon icon="solar:bell-bing-outline" width="24"></iconify-icon>
+<span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-200 cursor-pointer ml-2">
+<img alt="Detective Conan anime character wearing a grey baseball cap with blue number 55, black glasses, and light blue clothes on a white background, circular badge design" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/user_assets/2026-04-20/44702acab8af4e13893eece3f143ea37.jpg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- 购物车内容 -->
+<div class="px-10 py-8">
+<div class="flex flex-col lg:flex-row gap-8">
+<!-- 左侧商品列表 -->
+<div class="flex-grow">
+<div class="bg-white rounded-3xl p-8 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xl font-bold text-gray-800">我的购物车 (3)</h3>
+<div class="flex items-center space-x-4">
+<label class="flex items-center space-x-2 cursor-pointer group">
+<input class="cart-checkbox w-5 h-5 rounded border-gray-300" type="checkbox"/>
+<span class="text-sm text-gray-500 group-hover:text-purple-600">全选</span>
+</label>
+<button class="text-sm text-gray-400 hover:text-red-500 flex items-center">
+<iconify-icon class="mr-1" icon="solar:trash-bin-trash-outline"></iconify-icon> 批量删除
+                                </button>
+<button class="text-sm text-gray-400 hover:text-purple-600 flex items-center">
+<iconify-icon class="mr-1" icon="solar:heart-outline"></iconify-icon> 移入收藏
+                                </button>
+</div>
+</div>
+<!-- 商品项 1 -->
+<div class="flex items-center py-6 border-b border-gray-50 group">
+<input checked="" class="cart-checkbox w-5 h-5 rounded border-gray-300 mr-6" type="checkbox"/>
+<div class="w-24 h-32 bg-gray-50 rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Calculus textbook cover" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/ad22810fd2f843659afd9b1bbe12ae29.jpg"/>
+</div>
+<div class="ml-6 flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-bold text-gray-800 text-lg hover:text-purple-600 cursor-pointer">微积分（上册）</h4>
+<p class="text-sm text-gray-400 mt-1">作者：同济大学数学系 · 高等教育出版社</p>
+<div class="mt-2 flex items-center space-x-2">
+<span class="px-2 py-0.5 bg-purple-50 text-purple-600 text-xs font-medium rounded">匹配课程：MATH1001</span>
+<span class="px-2 py-0.5 bg-green-50 text-green-600 text-xs font-medium rounded">九成新</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-purple-600">¥ 25.00</p>
+<p class="text-xs text-gray-400 mt-1 line-through">¥ 52.00</p>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="text-xs text-gray-400">卖家：</span>
+<div class="flex items-center space-x-1 cursor-pointer hover:text-purple-600">
+<div class="w-5 h-5 rounded-full bg-gray-200 overflow-hidden">
+<img alt="Seller avatar" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/a50d6f3666d4496fb9fc706c4a95e27b.jpg"/>
+</div>
+<span class="text-xs font-medium">李同学</span>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center bg-gray-100 rounded-lg px-2 py-1">
+<button class="p-1 hover:text-purple-600"><iconify-icon icon="solar:minus-circle-outline"></iconify-icon></button>
+<span class="mx-3 text-sm font-bold w-4 text-center">1</span>
+<button class="p-1 hover:text-purple-600"><iconify-icon icon="solar:add-circle-outline"></iconify-icon></button>
+</div>
+<p class="text-sm font-bold text-gray-800 w-20 text-right">小计: ¥ 25.00</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 商品项 2 -->
+<div class="flex items-center py-6 border-b border-gray-50 group">
+<input checked="" class="cart-checkbox w-5 h-5 rounded border-gray-300 mr-6" type="checkbox"/>
+<div class="w-24 h-32 bg-gray-50 rounded-xl overflow-hidden flex-shrink-0">
+<img alt="English textbook cover" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/c0734117987d4080957f75d2b79f6878.jpg"/>
+</div>
+<div class="ml-6 flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-bold text-gray-800 text-lg hover:text-purple-600 cursor-pointer">大学英语 IV 综合教程</h4>
+<p class="text-sm text-gray-400 mt-1">作者：外研社 · 第三版</p>
+<div class="mt-2 flex items-center space-x-2">
+<span class="px-2 py-0.5 bg-purple-50 text-purple-600 text-xs font-medium rounded">匹配课程：ENGL2002</span>
+<span class="px-2 py-0.5 bg-blue-50 text-blue-600 text-xs font-medium rounded">全新未拆</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-purple-600">¥ 35.00</p>
+<p class="text-xs text-gray-400 mt-1 line-through">¥ 68.00</p>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="text-xs text-gray-400">卖家：</span>
+<div class="flex items-center space-x-1 cursor-pointer hover:text-purple-600">
+<div class="w-5 h-5 rounded-full bg-gray-200 overflow-hidden">
+<img alt="Seller avatar" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/c98ced04da09462bb75d7bbf194e2b65.jpg"/>
+</div>
+<span class="text-xs font-medium">王学姐</span>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center bg-gray-100 rounded-lg px-2 py-1">
+<button class="p-1 hover:text-purple-600"><iconify-icon icon="solar:minus-circle-outline"></iconify-icon></button>
+<span class="mx-3 text-sm font-bold w-4 text-center">1</span>
+<button class="p-1 hover:text-purple-600"><iconify-icon icon="solar:add-circle-outline"></iconify-icon></button>
+</div>
+<p class="text-sm font-bold text-gray-800 w-20 text-right">小计: ¥ 35.00</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 商品项 3 -->
+<div class="flex items-center py-6 group">
+<input class="cart-checkbox w-5 h-5 rounded border-gray-300 mr-6" type="checkbox"/>
+<div class="w-24 h-32 bg-gray-50 rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Computer science book cover" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/dbccb38d6dd547c899ddf9f1df6407f1.jpg"/>
+</div>
+<div class="ml-6 flex-grow">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-bold text-gray-800 text-lg hover:text-purple-600 cursor-pointer">计算机操作系统</h4>
+<p class="text-sm text-gray-400 mt-1">作者：汤小丹 · 西安电子科技大学出版社</p>
+<div class="mt-2 flex items-center space-x-2">
+<span class="px-2 py-0.5 bg-purple-50 text-purple-600 text-xs font-medium rounded">匹配课程：CS301</span>
+<span class="px-2 py-0.5 bg-orange-50 text-orange-600 text-xs font-medium rounded">七成新 有笔记</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-purple-600">¥ 18.00</p>
+<p class="text-xs text-gray-400 mt-1 line-through">¥ 45.00</p>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<span class="text-xs text-gray-400">卖家：</span>
+<div class="flex items-center space-x-1 cursor-pointer hover:text-purple-600">
+<div class="w-5 h-5 rounded-full bg-gray-200 overflow-hidden">
+<img alt="Seller avatar" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/c98ced04da09462bb75d7bbf194e2b65.jpg"/>
+</div>
+<span class="text-xs font-medium">张学长</span>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center bg-gray-100 rounded-lg px-2 py-1">
+<button class="p-1 hover:text-purple-600"><iconify-icon icon="solar:minus-circle-outline"></iconify-icon></button>
+<span class="mx-3 text-sm font-bold w-4 text-center">1</span>
+<button class="p-1 hover:text-purple-600"><iconify-icon icon="solar:add-circle-outline"></iconify-icon></button>
+</div>
+<p class="text-sm font-bold text-gray-800 w-20 text-right">小计: ¥ 18.00</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 推荐商品区 -->
+<div class="mt-8 bg-white rounded-3xl p-8 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xl font-bold text-gray-800">猜你还需要</h3>
+<button class="text-sm text-purple-600 font-bold hover:underline">换一批</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- 推荐项 1 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+<img alt="Data Structure book" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/ad8a8b7f9aa748f5b5f24b1059862c09.jpg"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-purple-600 shadow-md hover:bg-purple-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+<iconify-icon icon="solar:cart-plus-outline" width="22"></iconify-icon>
+</button>
+</div>
+<h4 class="font-bold text-gray-700 text-sm truncate">数据结构教程</h4>
+<p class="text-xs text-gray-400 mt-1">严蔚敏 · 清华大学</p>
+<p class="text-purple-600 font-bold mt-2">¥ 15.50</p>
+</div>
+<!-- 推荐项 2 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+<img alt="Linear Algebra book" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/20860f271d4147ecad835fb6e6d7d676.jpg"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-purple-600 shadow-md hover:bg-purple-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+<iconify-icon icon="solar:cart-plus-outline" width="22"></iconify-icon>
+</button>
+</div>
+<h4 class="font-bold text-gray-700 text-sm truncate">线性代数</h4>
+<p class="text-xs text-gray-400 mt-1">同济大学数学系</p>
+<p class="text-purple-600 font-bold mt-2">¥ 12.00</p>
+</div>
+<!-- 推荐项 3 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+<img alt="Python programming book" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/4d9aba43862d4054b632391cae6155e0.jpg"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-purple-600 shadow-md hover:bg-purple-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+<iconify-icon icon="solar:cart-plus-outline" width="22"></iconify-icon>
+</button>
+</div>
+<h4 class="font-bold text-gray-700 text-sm truncate">Python从入门到实践</h4>
+<p class="text-xs text-gray-400 mt-1">埃里克·马瑟斯</p>
+<p class="text-purple-600 font-bold mt-2">¥ 45.00</p>
+</div>
+<!-- 推荐项 4 -->
+<div class="group cursor-pointer">
+<div class="relative aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden mb-3">
+<img alt="Probability Theory book" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://modao.cc/agent-py/media/generated_images/2026-04-20/f9aafafda5ce48e685b8962dae110239.jpg"/>
+<button class="absolute bottom-3 right-3 w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-purple-600 shadow-md hover:bg-purple-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+<iconify-icon icon="solar:cart-plus-outline" width="22"></iconify-icon>
+</button>
+</div>
+<h4 class="font-bold text-gray-700 text-sm truncate">概率论与数理统计</h4>
+<p class="text-xs text-gray-400 mt-1">浙江大学 · 第四版</p>
+<p class="text-purple-600 font-bold mt-2">¥ 14.50</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 右侧结算卡片 -->
+<div class="w-full lg:w-96 flex-shrink-0">
+<div class="bg-white rounded-3xl p-8 shadow-sm sticky top-24">
+<h3 class="text-xl font-bold text-gray-800 mb-6">订单摘要</h3>
+<div class="space-y-4 mb-6">
+<div class="flex justify-between">
+<span class="text-gray-400">商品总价 (2件)</span>
+<span class="font-bold text-gray-700">¥ 60.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-400">运费 (预估)</span>
+<span class="font-bold text-gray-700">¥ 0.00</span>
+</div>
+<div class="flex justify-between items-center py-2 border-y border-gray-50">
+<div class="flex items-center text-purple-600">
+<iconify-icon class="mr-1" icon="solar:ticket-bold"></iconify-icon>
+<span class="text-sm font-medium">使用优惠券</span>
+</div>
+<iconify-icon class="text-gray-300" icon="solar:alt-arrow-right-outline"></iconify-icon>
+</div>
+</div>
+<div class="relative mb-6">
+<input class="w-full pl-4 pr-16 py-3 bg-gray-50 rounded-xl text-sm border-none focus:ring-1 focus:ring-purple-400" placeholder="折扣码..." type="text"/>
+<button class="absolute right-2 top-2 px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-lg hover:bg-purple-700 transition-colors">
+                                应用
+                            </button>
+</div>
+<div class="pt-6 border-t border-gray-50 mb-8">
+<div class="flex justify-between items-end">
+<span class="text-lg font-bold text-gray-800">应付总额</span>
+<span class="text-3xl font-bold text-purple-600">¥ 60.00</span>
+</div>
+</div>
+<button class="w-full py-4 bg-purple-600 text-white rounded-2xl font-bold shadow-lg shadow-purple-200 hover:bg-purple-700 hover:shadow-xl transition-all flex items-center justify-center space-x-2" onclick="window.location.href='order_management.html'">
+<span>去结算</span>
+<iconify-icon icon="solar:arrow-right-outline" width="20"></iconify-icon>
+</button>
+<div class="mt-6 flex items-center justify-center space-x-4">
+<iconify-icon icon="logos:alipay" width="24"></iconify-icon>
+<iconify-icon icon="logos:wechat-pay" width="24"></iconify-icon>
+<iconify-icon icon="logos:unionpay" width="32"></iconify-icon>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="p-8 text-center text-gray-400 text-xs mt-auto">
+            © 2026 求书校园二手书平台 | 智慧服务支撑 · 当前日期: 2026年04月20日
+        </footer>
+</main>
+</body></html>
