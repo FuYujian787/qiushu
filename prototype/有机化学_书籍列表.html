@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>有机化学书籍列表 - 求书 | 校园二手书平台</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.3.4.3.js"></script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
+<style>
+        body { background-color: #f3f2f7; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .sidebar-item { transition: all 0.3s ease; }
+        .sidebar-item:hover { background: rgba(139, 92, 246, 0.1); color: #7c3aed; }
+        .sidebar-active { background: linear-gradient(90deg, #a78bfa, #7c3aed); color: white; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #ddd6fe; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden is-mb-ai-setting">
+<aside class="w-64 bg-white flex flex-col items-center py-8 shadow-sm z-10">
+<div class="mb-12 flex flex-col items-center">
+<div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-3 cursor-pointer" onclick="window.location.href='index.html'">
+<iconify-icon class="text-purple-600" icon="ph:books-duotone" width="36"></iconify-icon>
+</div>
+<h1 class="text-2xl font-bold text-gray-800 tracking-wider">求书</h1>
+</div>
+<nav class="w-full px-4 space-y-2 flex-grow overflow-y-auto custom-scrollbar">
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="index.html">
+<iconify-icon class="mr-3" icon="solar:home-2-outline" width="22"></iconify-icon>
+<span class="font-medium">首页</span>
+</a>
+<a class="sidebar-item sidebar-active flex items-center px-4 py-3 rounded-xl" href="procurement.html">
+<iconify-icon class="mr-3" icon="solar:shop-2-bold" width="22"></iconify-icon>
+<span class="font-medium">采购</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="cart.html">
+<iconify-icon class="mr-3" icon="solar:cart-large-2-outline" width="22"></iconify-icon>
+<span class="font-medium">购物车</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="order_management.html">
+<iconify-icon class="mr-3" icon="solar:bill-list-outline" width="22"></iconify-icon>
+<span class="font-medium">订单管理</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl relative" href="notification.html">
+<iconify-icon class="mr-3" icon="solar:bell-bing-outline" width="22"></iconify-icon>
+<span class="font-medium">消息通知</span>
+<span class="absolute right-4 w-2 h-2 bg-red-500 rounded-full"></span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="learning_community.html">
+<iconify-icon class="mr-3" icon="solar:users-group-two-rounded-outline" width="22"></iconify-icon>
+<span class="font-medium">学习社区</span>
+</a>
+<a class="sidebar-item flex items-center px-4 py-3 text-gray-500 rounded-xl" href="profile.html">
+<iconify-icon class="mr-3" icon="solar:user-circle-outline" width="22"></iconify-icon>
+<span class="font-medium">个人中心</span>
+</a>
+</nav>
+<div class="mt-auto px-4 w-full">
+<button class="w-full py-4 bg-purple-100 text-purple-700 rounded-2xl font-bold flex items-center justify-center space-x-2 hover:bg-purple-200 transition-all" onclick="window.location.href='publish.html'">
+<iconify-icon icon="solar:add-circle-bold" width="20"></iconify-icon>
+<span>发布书籍</span>
+</button>
+</div>
+</aside>
+<main class="flex-grow overflow-y-auto custom-scrollbar flex flex-col">
+<header class="h-20 bg-gradient-to-r from-purple-100 to-white px-8 flex items-center justify-between sticky top-0 z-20">
+<div>
+<p class="text-xs text-purple-500 font-medium">Good Morning</p>
+<h2 class="text-xl font-bold text-gray-800">张伟，你好！</h2>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative group">
+<input class="w-64 py-2 pl-12 pr-4 bg-white border border-transparent rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:bg-white transition-all group-hover:border-purple-200 text-sm" placeholder="搜索课程名称或书名..." type="text"/>
+<iconify-icon class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" icon="solar:magnifer-outline" width="18"></iconify-icon>
+</div>
+<div class="flex items-center space-x-3 text-gray-500">
+<button class="hover:text-purple-600 transition-colors"><iconify-icon icon="solar:question-circle-outline" width="24"></iconify-icon></button>
+<button class="hover:text-purple-600 transition-colors relative" onclick="window.location.href='notification.html'"><iconify-icon icon="solar:bell-outline" width="24"></iconify-icon><span class="absolute top-0.5 right-0.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span></button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-200 cursor-pointer ml-2"><img alt="User Avatar" class="w-full h-full object-cover" src="https://modao.cc/agent-py/media/user_assets/2026-04-27/869e82098b9f4a27a8300c095e109bdb.jpg"/></div>
+</div>
+</div>
+</header>
+<div class="p-8">
+<div class="mb-8 flex items-center justify-between">
+<div>
+<nav aria-label="Breadcrumb" class="flex mb-2">
+<ol class="inline-flex items-center space-x-1 md:space-x-3 text-xs text-gray-400">
+<li class="inline-flex items-center"><a class="hover:text-purple-600" href="index.html">首页</a></li>
+<li><div class="flex items-center"><iconify-icon icon="solar:alt-arrow-right-outline" width="12"></iconify-icon><a class="ml-1 hover:text-purple-600 md:ml-2" href="procurement.html">采购</a></div></li>
+<li aria-current="page"><div class="flex items-center"><iconify-icon icon="solar:alt-arrow-right-outline" width="12"></iconify-icon><span class="ml-1 md:ml-2 text-purple-600 font-medium">有机化学</span></div></li>
+</ol>
+</nav>
+<h3 class="text-2xl font-bold text-gray-800">有机化学书籍列表</h3>
+</div>
+<div class="bg-white px-4 py-2 rounded-2xl shadow-sm text-sm border border-gray-100"><span class="text-gray-400">共找到 </span><span class="text-purple-600 font-bold">9</span><span class="text-gray-400"> 本相关书籍</span></div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+<script>
+                    const grid = document.currentScript.parentElement;
+                    const books = [
+                        {title: "有机化学 第五版 (汪世新)", seller: "刘同学 · 化学院", price: "22.0", quality: "九成新"},
+                        {title: "有机化学基础教程", seller: "马同学 · 化学院", price: "18.5", quality: "八成新"},
+                        {title: "Organic Chemistry (Global Edition)", seller: "John · Int School", price: "68.0", quality: "九五新"},
+                        {title: "有机化学学习指南", seller: "林同学 · 化学院", price: "12.0", quality: "七成新"},
+                        {title: "基础有机化学 (大绿本)", seller: "韩同学 · 化学院", price: "40.0", quality: "九成新"},
+                        {title: "有机化学笔记精选", seller: "冯同学 · 化学院", price: "25.0", quality: "有笔记"},
+                        {title: "有机化学复习全书", seller: "朱同学 · 化学院", price: "15.0", quality: "八成新"},
+                        {title: "大学有机化学", seller: "郭同学 · 化学院", price: "20.0", quality: "九成新"},
+                        {title: "有机化学习题集", seller: "沈同学 · 化学院", price: "9.9", quality: "八成新"}
+                    ];
+                    books.forEach((book, i) => {
+                        const card = `
+                        <div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+                            <div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+                                <img alt="Organic Chemistry Book ${i+1}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+                                <div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">${book.quality}</div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-bold text-gray-800 line-clamp-2">${book.title}</h4>
+                                    <span class="text-purple-600 font-bold ml-2">¥${book.price}</span>
+                                </div>
+                                <p class="text-xs text-gray-400 mb-4 flex items-center">
+                                    <iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: ${book.seller}
+                                </p>
+                                <div class="flex">
+                                    <button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+                                        <iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+                                </div>
+                            </div>
+                        </div>`;
+                        grid.insertAdjacentHTML('beforeend', card);
+                    });
+                </script>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">九成新</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">有机化学 第五版 (汪世新)</h4>
+<span class="text-purple-600 font-bold ml-2">¥22.0</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: 刘同学 · 化学院
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">八成新</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">有机化学基础教程</h4>
+<span class="text-purple-600 font-bold ml-2">¥18.5</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: 马同学 · 化学院
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">九五新</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">Organic Chemistry (Global Edition)</h4>
+<span class="text-purple-600 font-bold ml-2">¥68.0</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: John · Int School
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">七成新</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">有机化学学习指南</h4>
+<span class="text-purple-600 font-bold ml-2">¥12.0</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: 林同学 · 化学院
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">九成新</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">基础有机化学 (大绿本)</h4>
+<span class="text-purple-600 font-bold ml-2">¥40.0</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: 韩同学 · 化学院
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 6" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">有笔记</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">有机化学笔记精选</h4>
+<span class="text-purple-600 font-bold ml-2">¥25.0</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: 冯同学 · 化学院
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 7" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">八成新</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">有机化学复习全书</h4>
+<span class="text-purple-600 font-bold ml-2">¥15.0</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: 朱同学 · 化学院
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 8" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">九成新</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">大学有机化学</h4>
+<span class="text-purple-600 font-bold ml-2">¥20.0</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: 郭同学 · 化学院
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-3xl p-4 shadow-sm hover:shadow-md transition-shadow group">
+<div class="relative aspect-[3/4] bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+<img alt="Organic Chemistry Book 9" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="/agent-py/static/source/images/placeholder.svg"/>
+<div class="absolute top-3 left-3 px-3 py-1 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold rounded-full">八成新</div>
+</div>
+<div>
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-gray-800 line-clamp-2">有机化学习题集</h4>
+<span class="text-purple-600 font-bold ml-2">¥9.9</span>
+</div>
+<p class="text-xs text-gray-400 mb-4 flex items-center">
+<iconify-icon class="mr-1" icon="solar:user-outline" width="12"></iconify-icon>
+                                    卖家: 沈同学 · 化学院
+                                </p>
+<div class="flex">
+<button class="w-full py-2.5 bg-gray-100 text-gray-700 text-xs font-bold rounded-xl hover:bg-purple-100 hover:text-purple-700 transition-colors flex items-center justify-center">
+<iconify-icon class="mr-1" icon="solar:cart-large-2-outline" width="14"></iconify-icon>
+                                        加入购物车
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<footer class="mt-auto p-8 text-center text-gray-400 text-xs">
+                © 2026 求书校园二手书平台 | 智慧服务支撑 · 当前日期: 2026年04月27日
+            </footer>
+</div>
+</main>
+</body></html>

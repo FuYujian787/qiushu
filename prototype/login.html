@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>登录 - 求书 | 校园二手书平台</title>
@@ -9,63 +8,77 @@
 <script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.1.0.7.js"></script>
 <style>
         body {
-            background-color: #f3f4f6;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f3f2f7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
         .login-card {
             background: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.1), 0 8px 10px -6px rgba(124, 58, 237, 0.1);
         }
-        .btn-purple {
-            background-color: #7c3aed;
-        }
-        .btn-purple:hover {
-            background-color: #6d28d9;
+        .input-focus:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4">
-<div class="max-w-md w-full">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 is-mb-ai-setting">
+<div class="w-full max-w-md">
+<!-- Logo -->
+<div class="flex flex-col items-center mb-8">
+<div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-3 shadow-sm">
+<iconify-icon class="text-purple-600" icon="ph:books-duotone" width="36"></iconify-icon>
+</div>
+<h1 class="text-3xl font-bold text-gray-800 tracking-wider">求书</h1>
+<p class="text-gray-400 mt-2">你的校园智慧购书管家</p>
+</div>
 <!-- 登录卡片 -->
-<div class="login-card p-10 flex flex-col relative overflow-hidden">
-<!-- 装饰性扫码入口 -->
-<div class="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-<div class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 rotate-45 bg-purple-600 w-24 h-10 flex items-end justify-center pb-1 cursor-pointer">
-<iconify-icon class="text-white" icon="mdi:qrcode-scan" width="16"></iconify-icon>
-</div>
-</div>
-<h2 class="text-2xl font-bold text-gray-800 mb-8">密码登录</h2>
-<div class="space-y-4 mb-6">
+<div class="login-card p-10 flex flex-col">
+<h2 class="text-2xl font-bold text-gray-800 mb-8">账号登录</h2>
+<div class="space-y-5 mb-6">
 <div>
-<input class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all" placeholder="手机号 / 邮箱" type="text"/>
+<label class="block text-sm font-medium text-gray-700 mb-1.5 ml-1">用户名</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+<iconify-icon icon="solar:user-outline" width="20"></iconify-icon>
+</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-xl outline-none transition-all input-focus" placeholder="请输入用户名" type="text" value="张伟"/>
+</div>
 </div>
 <div>
-<input class="w-full p-4 bg-gray-50 border border-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all" placeholder="密码" type="password"/>
+<label class="block text-sm font-medium text-gray-700 mb-1.5 ml-1">密码</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+<iconify-icon icon="solar:lock-password-outline" width="20"></iconify-icon>
+</span>
+<input class="w-full pl-11 pr-4 py-3.5 bg-gray-50 border border-gray-100 rounded-xl outline-none transition-all input-focus" placeholder="请输入密码" type="password"/>
 </div>
+</div>
+</div>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<input class="w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500" id="remember" type="checkbox"/>
+<label class="ml-2 text-sm text-gray-500 cursor-pointer" for="remember">记住我</label>
+</div>
+<a class="text-sm text-purple-600 hover:text-purple-700 font-medium" href="#">忘记密码？</a>
 </div>
 <div class="flex items-start mb-8">
-<input class="mt-1 w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500" id="login-agree" type="checkbox"/>
-<label class="ml-2 text-sm text-gray-500" for="login-agree">
-                    我已阅读并同意 <a class="text-purple-600" href="#">《服务协议》</a> 和 <a class="text-purple-600" href="#">《隐私协议》</a>
+<input checked="" class="mt-1 w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500" id="agree-login" type="checkbox"/>
+<label class="ml-2 text-sm text-gray-500" for="agree-login">
+    我已阅读并同意 <a class="text-purple-600 font-medium" href="#">《服务协议》</a> 和 <a class="text-purple-600 font-medium" href="#">《隐私协议》</a>
 </label>
 </div>
-<button class="w-full py-3 btn-purple text-white rounded-lg font-medium transition-colors mb-6 shadow-lg shadow-purple-200" onclick="window.location.href='index.html'">
-                开始使用
+<button class="w-full py-4 bg-purple-600 text-white rounded-xl font-bold shadow-lg shadow-purple-200 hover:bg-purple-700 transition-all mb-6" onclick="window.location.href='index.html'">
+                登录
             </button>
-<div class="flex flex-col items-center space-y-3">
-<a class="text-sm text-gray-500 hover:text-purple-600 transition-colors" href="#">验证码登录</a>
-<a class="text-sm text-gray-500 hover:text-purple-600 transition-colors" href="#">浙大通行证一键登录</a>
-<div class="pt-4">
+<div class="text-center">
 <span class="text-sm text-gray-400">还没有账号？</span>
-<a class="text-sm text-purple-600 font-medium ml-1 hover:underline" href="register.html">前往注册</a>
-</div>
+<a class="text-sm text-purple-600 font-bold ml-1 hover:text-purple-700" href="register.html">前往注册</a>
 </div>
 </div>
 </div>
 <!-- 底部版权信息 -->
-<div class="mt-8 text-gray-400 text-xs">
-        © 2026 求书校园二手书平台 · 当前日期: 2026年04月20日
-    </div>
-</body>
-</html>
+<footer class="mt-12 text-center text-gray-400 text-xs">
+        © 2026 求书校园二手书平台 | 智慧服务支撑 · 当前日期: 2026年04月27日
+    </footer>
+</body></html>
