@@ -23,7 +23,7 @@
     <a class="sidebar-item" data-page="procurement"><iconify-icon class="mr-3" icon="solar:shop-2-outline" width="22"></iconify-icon><span>采购</span></a>
     <a class="sidebar-item" data-page="cart"><iconify-icon class="mr-3" icon="solar:cart-large-2-outline" width="22"></iconify-icon><span>购物车</span></a>
     <a class="sidebar-item" data-page="orders"><iconify-icon class="mr-3" icon="solar:bill-list-outline" width="22"></iconify-icon><span>订单管理</span></a>
-    <a class="sidebar-item relative" data-page="notifications"><iconify-icon class="mr-3" icon="solar:bell-bing-outline" width="22"></iconify-icon><span>消息通知</span></a>
+    <a class="sidebar-item relative" data-page="notifications"><iconify-icon class="mr-3" icon="solar:bell-bing-outline" width="22"></iconify-icon><span>消息通知</span><span id="notificationBadge" class="absolute right-2 top-2 w-2.5 h-2.5 bg-red-500 rounded-full hidden"></span></a>
     <a class="sidebar-item" data-page="community"><iconify-icon class="mr-3" icon="solar:users-group-two-rounded-outline" width="22"></iconify-icon><span>学习社区</span></a>
     <a class="sidebar-item" data-page="profile"><iconify-icon class="mr-3" icon="solar:user-circle-outline" width="22"></iconify-icon><span>个人中心</span></a>
   </nav>
@@ -70,7 +70,8 @@
     publishedBooks: 'qushu_published_books',
     orders: 'qushu_orders',
     notifications: 'qushu_user_notifications',
-    userPosts: 'qushu_user_posts'
+    userPosts: 'qushu_user_posts',
+    loggedInUser: 'qushu_logged_in_user'
   };
 
   const INIT = window.INITIAL_DATA || {};
@@ -102,6 +103,19 @@
   const saveOrders = () => localStorage.setItem(KEYS.orders, JSON.stringify(STATE.orders));
   const saveNotifications = () => localStorage.setItem(KEYS.notifications, JSON.stringify(STATE.userNotifications));
   const saveUserPosts = () => localStorage.setItem(KEYS.userPosts, JSON.stringify(STATE.userPosts));
+
+  // 更新消息通知小红点
+  const updateNotificationBadge = () => {
+    const badge = $('#notificationBadge');
+    if (!badge) return;
+    if (STATE.isLoggedIn && STATE.currentUser) {
+      const notifs = STATE.userNotifications[STATE.currentUser.name] || [];
+      const hasUnread = notifs.some(n => n.unread);
+      badge.classList.toggle('hidden', !hasUnread);
+    } else {
+      badge.classList.add('hidden');
+    }
+  };
 
   // 合并预设帖子与用户帖子
   const getMergedPosts = () => [...PRESET_POSTS, ...STATE.userPosts];
@@ -173,6 +187,7 @@
       dateEl.textContent = '今天是 ' + new Date().toISOString().slice(0,10) + '，来看点新书吧';
       if (avatarEl) avatarEl.src = DEFAULT_AVATAR;
     }
+    updateNotificationBadge();
   };
 
   window.handleAvatarClick = () => {
@@ -351,17 +366,36 @@
   window.removeFromCart = (id) => { STATE.cart = STATE.cart.filter(i => i.id !== id); renderCurrentPage(); };
   window.proceedToPayment = () => navigateTo('payment');
 
-  // 支付
+  // 支付 - 显示卖家上传的二维码
   const renderPayment = (container) => {
     const total = STATE.cart.reduce((s,i)=>s+parseFloat(i.price)*i.qty,0).toFixed(2);
+    // 收集购物车中所有卖家上传的二维码
+    let alipayQr = null;
+    let wechatQr = null;
+    for (const item of STATE.cart) {
+      if (item.alipayQr) alipayQr = item.alipayQr;
+      if (item.wechatQr) wechatQr = item.wechatQr;
+    }
+    let qrSection = '';
+    if (alipayQr) {
+      qrSection += `<div class="mb-6"><h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center justify-center"><iconify-icon icon="logos:alipay" width="24" class="mr-2"></iconify-icon>支付宝扫码支付</h3><div class="w-48 h-48 mx-auto bg-white border-2 rounded-2xl overflow-hidden"><img src="${alipayQr}" class="w-full h-full object-contain"></div></div>`;
+    }
+    if (wechatQr) {
+      qrSection += `<div class="mb-6"><h3 class="text-lg font-bold text-gray-700 mb-3 flex items-center justify-center"><iconify-icon icon="logos:wechat" width="24" class="mr-2"></iconify-icon>微信扫码支付</h3><div class="w-48 h-48 mx-auto bg-white border-2 rounded-2xl overflow-hidden"><img src="${wechatQr}" class="w-full h-full object-contain"></div></div>`;
+    }
+    if (!qrSection) {
+      // 如果没有卖家上传二维码，显示默认占位
+      qrSection = `<div class="w-64 h-64 bg-white border-2 rounded-2xl my-8 mx-auto"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%23f0f0f0'/%3E%3Ctext x='100' y='110' text-anchor='middle' fill='%23333'%3E卖家未上传收款码%3C/text%3E%3C/svg%3E" class="w-full h-full object-cover"></div>`;
+    }
     container.innerHTML = `
       <div class="max-w-md mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden">
-        <div class="bg-purple-600 p-8 text-white text-center"><iconify-icon icon="logos:alipay" width="64"></iconify-icon><h2 class="text-xl font-bold">支付宝支付</h2></div>
-        <div class="p-8 flex flex-col items-center"><p class="text-4xl font-bold">¥${total}</p>
-        <div class="w-64 h-64 bg-white border-2 rounded-2xl my-8"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='200' height='200' fill='%23f0f0f0'/%3E%3Ctext x='100' y='110' text-anchor='middle' fill='%23333'%3EQR码%3C/text%3E%3C/svg%3E" class="w-full h-full object-cover"></div>
+        <div class="bg-purple-600 p-8 text-white text-center"><iconify-icon icon="solar:wallet-money-outline" width="64"></iconify-icon><h2 class="text-xl font-bold mt-2">扫码支付</h2></div>
+        <div class="p-8 flex flex-col items-center"><p class="text-4xl font-bold mb-6">¥${total}</p>
+        ${qrSection}
         <div class="w-full space-y-4"><div class="w-full py-4 bg-purple-600 text-white rounded-2xl font-bold text-center cursor-pointer" onclick="completePayment()">我已完成支付</div></div></div>
       </div>`;
   };
+
   window.completePayment = () => {
     if (!STATE.cart.length) return;
     const buyer = STATE.currentUser;
@@ -395,10 +429,14 @@
     container.innerHTML = `<h2 class="text-2xl font-bold mb-6">我的订单</h2><div class="space-y-4">${userOrders.map(o => `<div class="bg-white rounded-3xl p-6 shadow-sm flex justify-between"><div><h4 class="font-bold">${o.title}</h4><p class="text-xs text-gray-400">${o.id} · ${o.date}</p></div><span class="text-purple-600 font-bold">¥${o.price} (${o.status})</span></div>`).join('')}</div>`;
   };
 
-  // 消息
+  // 消息 - 进入页面时标记已读
   const renderNotifications = (container) => {
     if (!STATE.isLoggedIn) { container.innerHTML = '<div class="bg-white rounded-3xl p-10 shadow-sm text-center text-gray-400">请先登录查看消息</div>'; return; }
     const notifs = STATE.userNotifications[STATE.currentUser.name] || [];
+    // 进入消息页面时将所有消息标记为已读
+    notifs.forEach(n => n.unread = false);
+    saveNotifications();
+    updateNotificationBadge();
     if (!notifs.length) {
       container.innerHTML = '<div class="bg-white rounded-3xl p-10 shadow-sm text-center text-gray-400"><iconify-icon icon="solar:bell-bing-outline" width="48" class="mx-auto mb-4 text-gray-300"></iconify-icon><p class="text-lg">暂无消息通知</p></div>';
       return;
@@ -478,7 +516,7 @@
       renderCurrentPage();
     };
   };
-  window.logout = () => { STATE.isLoggedIn = false; STATE.currentUser = null; updateHeader(); navigateTo('login'); };
+  window.logout = () => { STATE.isLoggedIn = false; STATE.currentUser = null; localStorage.removeItem(KEYS.loggedInUser); updateHeader(); navigateTo('login'); };
 
   // 发布闲置
   const renderPublish = (container) => {
@@ -489,18 +527,33 @@
         <div class="space-y-5">
           <div><label class="block text-sm font-medium text-gray-700 mb-1">书名 <span class="text-red-400">*</span></label><input class="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none input-focus" type="text" id="publishTitle" placeholder="请输入书名"></div>
           <div><label class="block text-sm font-medium text-gray-700 mb-1">卖价 (¥) <span class="text-red-400">*</span></label><input class="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none input-focus" type="number" id="publishPrice" placeholder="0.00" step="0.01" min="0"></div>
+          <div><label class="block text-sm font-medium text-gray-700 mb-1">原价 (¥)</label><input class="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none input-focus" type="number" id="publishOldPrice" placeholder="0.00" step="0.01" min="0"></div>
           <div><label class="block text-sm font-medium text-gray-700 mb-1">出版社 <span class="text-red-400">*</span></label><input class="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none input-focus" type="text" id="publishPublisher" placeholder="例如：高等教育出版社"></div>
           <div><label class="block text-sm font-medium text-gray-700 mb-1">成色 <span class="text-red-400">*</span></label><select class="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none input-focus" id="publishCondition"><option value="">请选择</option><option value="全新未拆">全新未拆</option><option value="九成新">九成新</option><option value="八成新">八成新</option><option value="有笔记">有笔记</option><option value="七成新">七成新</option></select></div>
           <div><label class="block text-sm font-medium text-gray-700 mb-1">分类</label><select class="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl outline-none input-focus" id="publishCategory"><option value="教材">教材</option><option value="考研">考研</option><option value="选修">选修</option><option value="其他">其他</option></select></div>
           <div><label class="block text-sm font-medium text-gray-700 mb-1">书籍图片</label><div class="upload-preview rounded-xl p-4 text-center cursor-pointer" id="uploadImageTrigger"><img id="publishImagePreview" src="R-C.jpg" class="mx-auto h-40 object-cover rounded-lg mb-2"><p class="text-xs text-gray-400">点击更换图片</p><input type="file" id="publishImageInput" accept="image/*" class="hidden"></div></div>
+          <div><label class="block text-sm font-medium text-gray-700 mb-1 mt-2">支付宝收款二维码（买家支付时显示）</label><div class="upload-preview rounded-xl p-4 text-center cursor-pointer" id="uploadAlipayQrTrigger"><img id="publishAlipayQrPreview" class="mx-auto h-32 object-contain rounded-lg mb-2 hidden"><p class="text-xs text-gray-400">点击上传支付宝收款码</p><input type="file" id="publishAlipayQrInput" accept="image/*" class="hidden"></div></div>
+          <div><label class="block text-sm font-medium text-gray-700 mb-1 mt-2">微信收款二维码（买家支付时显示）</label><div class="upload-preview rounded-xl p-4 text-center cursor-pointer" id="uploadWechatQrTrigger"><img id="publishWechatQrPreview" class="mx-auto h-32 object-contain rounded-lg mb-2 hidden"><p class="text-xs text-gray-400">点击上传微信收款码</p><input type="file" id="publishWechatQrInput" accept="image/*" class="hidden"></div></div>
         </div>
         <div class="mt-8"><div class="w-full py-4 bg-purple-600 text-white rounded-xl font-bold text-center cursor-pointer hover:bg-purple-700" id="confirmPublishBtn">确认发布</div></div>
       </div>`;
     let uplImg = null;
+    let uplAlipayQr = null;
+    let uplWechatQr = null;
     document.getElementById('uploadImageTrigger').onclick = () => document.getElementById('publishImageInput').click();
     document.getElementById('publishImageInput').onchange = (e) => {
       const file = e.target.files[0];
       if (file) { const r = new FileReader(); r.onload = (ev) => { uplImg = ev.target.result; document.getElementById('publishImagePreview').src = uplImg; }; r.readAsDataURL(file); }
+    };
+    document.getElementById('uploadAlipayQrTrigger').onclick = () => document.getElementById('publishAlipayQrInput').click();
+    document.getElementById('publishAlipayQrInput').onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) { const r = new FileReader(); r.onload = (ev) => { uplAlipayQr = ev.target.result; const el = document.getElementById('publishAlipayQrPreview'); el.src = uplAlipayQr; el.classList.remove('hidden'); }; r.readAsDataURL(file); }
+    };
+    document.getElementById('uploadWechatQrTrigger').onclick = () => document.getElementById('publishWechatQrInput').click();
+    document.getElementById('publishWechatQrInput').onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) { const r = new FileReader(); r.onload = (ev) => { uplWechatQr = ev.target.result; const el = document.getElementById('publishWechatQrPreview'); el.src = uplWechatQr; el.classList.remove('hidden'); }; r.readAsDataURL(file); }
     };
     document.getElementById('confirmPublishBtn').onclick = () => {
       const title = document.getElementById('publishTitle').value.trim();
@@ -510,14 +563,18 @@
       const cat = document.getElementById('publishCategory').value;
       if (!title || !price || !pub || !cond) { alert('请填写完整必填项'); return; }
       if (isNaN(parseFloat(price)) || parseFloat(price) <= 0) { alert('请输入有效价格'); return; }
+      const oldPriceInput = document.getElementById('publishOldPrice').value.trim();
+      let oldPrice = oldPriceInput ? parseFloat(oldPriceInput).toFixed(1) : (parseFloat(price)*1.5).toFixed(1);
       const newBook = {
         id: Date.now() + Math.floor(Math.random()*1000),
         title, author: pub,
         price: parseFloat(price).toFixed(1),
-        oldPrice: (parseFloat(price)*1.5).toFixed(1),
+        oldPrice: oldPrice,
         condition: cond, seller: STATE.currentUser.name,
         img: uplImg || IMG_POOL[0],
-        category: cat, isUserPublished: true
+        category: cat, isUserPublished: true,
+        alipayQr: uplAlipayQr,
+        wechatQr: uplWechatQr
       };
       STATE.publishedBooks.unshift(newBook);
       savePublishedBooks();
@@ -548,6 +605,7 @@
     if (user) {
       STATE.currentUser = {...user};
       STATE.isLoggedIn = true;
+      localStorage.setItem(KEYS.loggedInUser, user.name);
       updateHeader();
       navigateTo('home');
     } else alert('登录失败，请检查账号密码');
@@ -564,6 +622,7 @@
     saveUsers();
     STATE.currentUser = {...newUser};
     STATE.isLoggedIn = true;
+    localStorage.setItem(KEYS.loggedInUser, newUser.name);
     updateHeader();
     alert('注册成功');
     navigateTo('home');
@@ -603,7 +662,20 @@
   // 初始化
   window.addEventListener('DOMContentLoaded', () => {
     $('#currentDate').textContent = '今天是 ' + new Date().toISOString().slice(0,10) + '，来看点新书吧';
-    generateProducts().then(() => navigateTo('login'));
+    generateProducts().then(() => {
+      // 尝试恢复登录状态
+      const savedUsername = localStorage.getItem(KEYS.loggedInUser);
+      if (savedUsername) {
+        const user = USERS_FILE.find(u => u.name === savedUsername);
+        if (user) {
+          STATE.currentUser = {...user};
+          STATE.isLoggedIn = true;
+          navigateTo('home');
+          return;
+        }
+      }
+      navigateTo('login');
+    });
     document.getElementById('globalSearch')?.addEventListener('input', handleSearch);
     $$('.sidebar-item').forEach(el => el.addEventListener('click', (e) => {
       e.preventDefault();
