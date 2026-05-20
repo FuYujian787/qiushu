@@ -1,0 +1,21 @@
+{
+  "subjects": ["微积分", "线性代数", "大学英语", "有机化学", "数据结构", "概率论", "计算机网络", "操作系统", "高等数学", "考研政治", "微观经济学", "宏观经济学"],
+  "conditions": ["九成新", "八成新", "全新未拆", "有笔记", "七成新"],
+  "categoryMap": {
+    "微积分": "教材", "线性代数": "教材", "大学英语": "教材", "有机化学": "教材",
+    "数据结构": "选修", "概率论": "选修", "计算机网络": "选修", "操作系统": "选修",
+    "高等数学": "教材", "考研政治": "考研", "微观经济学": "选修", "宏观经济学": "选修"
+  },
+  "filterChips": ["全部", "教材", "考研", "选修"],
+  "smartBooks": [
+    {"name": "微积分（上册）", "matchCount": 20},
+    {"name": "线性代数（上册）", "matchCount": 11},
+    {"name": "有机化学（上册）", "matchCount": 9}
+  ],
+  "homePublishers": [
+    {"name": "高教社", "icon": "mdi:school", "color": "purple"},
+    {"name": "科学社", "icon": "mdi:microscope", "color": "blue"},
+    {"name": "浙大出版社", "icon": "mdi:university", "color": "red"},
+    {"name": "更多", "icon": "mdi:dots-horizontal", "color": "gray"}
+  ]
+}
