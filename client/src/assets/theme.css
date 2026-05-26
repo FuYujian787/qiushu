@@ -1,0 +1,1099 @@
+/**
+ * 紫金求思 · 品牌视觉系统
+ * ============================================
+ * 设计语言：瑞士国际主义排版 × 东方书卷留白 × 玻璃拟态
+ *
+ * 配色体系：
+ *   --lavender-primary: #DCD0FF  (薰衣草淡紫)
+ *   --lavender-gradient: #E6E6FA → #F3EFFFF  (空气感渐变)
+ *   --glass-bg:        rgba(255,255,255,0.88)
+ *   --glass-border:    rgba(220,208,255,0.4)
+ *   --glass-shadow:    rgba(74,59,90,0.06)
+ *
+ * 字体体系（Apple / Vercel 级回退链）：
+ *   中文：苹方 → 冬青黑体 → 华文细黑 → 系统默认
+ *   英文/数字：Inter → SF Pro → Helvetica Neue → sans-serif
+ * ============================================
+ */
+
+/* ========== 字体导入（Inter 已在 index.html 通过 Google Fonts 加载） ========== */
+
+:root {
+  /* ========== 字体家族 ========== */
+  --font-cn: 'PingFang SC', 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-en: 'Inter', -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --font-brand: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'STHeiti', sans-serif;
+
+  /* ========== 淡紫色系 ========== */
+  --lavender-primary: #DCD0FF;
+  --lavender-primary-dark: #C4B5E0;
+  --lavender-primary-light: #F3EFFFF;
+  --lavender-accent: #9B8EC4;
+  --lavender-accent-soft: #B8A9DA;
+  --lavender-accent-mist: rgba(155, 142, 196, 0.12);
+
+  /* ========== 渐变品牌色 ========== */
+  --gradient-brand: linear-gradient(135deg, #DCD0FF 0%, #C4B5E0 50%, #B8A9DA 100%);
+  --gradient-brand-subtle: linear-gradient(135deg, rgba(220, 208, 255, 0.6) 0%, rgba(196, 181, 224, 0.4) 100%);
+  --gradient-text: linear-gradient(135deg, #4A3B5A 0%, #7A6B8A 40%, #C4B5E0 100%);
+  --gradient-text-light: linear-gradient(135deg, #7A6B8A 0%, #B8A9DA 50%, #DCD0FF 100%);
+
+  /* ========== 玻璃拟态（Glassmorphism） ========== */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-bg-dark: rgba(220, 208, 255, 0.35);
+  --glass-border: rgba(220, 208, 255, 0.4);
+  --glass-border-strong: rgba(200, 188, 240, 0.6);
+  --glass-shadow: 0 8px 32px 0 rgba(74, 59, 90, 0.06);
+  --glass-shadow-hover: 0 12px 40px 0 rgba(155, 142, 196, 0.10);
+
+  /* ========== 文字色（深灰紫代替纯黑） ========== */
+  --text-primary: #4A3B5A;
+  --text-secondary: #7A6B8A;
+  --text-tertiary: #AFA0BF;
+  --text-on-primary: #FFFFFF;
+
+  /* ========== 背景 ========== */
+  --bg-body: #f8f6fc;
+  --bg-card: var(--glass-bg);
+  --bg-sidebar: rgba(255, 255, 255, 0.72);
+
+  /* ========== 动画曲线 ========== */
+  --ease-spring: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --ease-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --transition-fast: 0.2s var(--ease-spring);
+  --transition-normal: 0.3s var(--ease-spring);
+  --transition-slow: 0.5s var(--ease-spring);
+  --transition-elastic: 0.6s var(--ease-elastic);
+}
+
+/* ========== 全局字体 ========== */
+html, body {
+  font-family: var(--font-cn);
+}
+
+/* ========== 品牌文字：渐变色文字 ========== */
+.text-gradient-brand {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.text-gradient-light {
+  background: var(--gradient-text-light);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ========== 品牌文字：多层环境光晕阴影 ========== */
+.text-glow {
+  text-shadow:
+    0 0 40px rgba(196, 181, 224, 0.15),
+    0 0 80px rgba(220, 208, 255, 0.08),
+    0 4px 12px rgba(74, 59, 90, 0.08);
+}
+
+.text-glow-strong {
+  text-shadow:
+    0 0 20px rgba(196, 181, 224, 0.20),
+    0 0 60px rgba(220, 208, 255, 0.12),
+    0 4px 16px rgba(74, 59, 90, 0.10);
+}
+
+/* ========== 品牌文字：悬停呼吸动画 ========== */
+.brand-text-hover {
+  display: inline-block;
+  transition: all var(--transition-normal);
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 40px rgba(196, 181, 224, 0.10),
+    0 0 80px rgba(220, 208, 255, 0.05),
+    0 4px 12px rgba(74, 59, 90, 0.06);
+}
+
+.brand-text-hover:hover {
+  letter-spacing: 0.12em;
+  text-shadow:
+    0 0 60px rgba(196, 181, 224, 0.25),
+    0 0 100px rgba(220, 208, 255, 0.15),
+    0 4px 20px rgba(74, 59, 90, 0.10);
+  /* 渐变色位移产生流光效果 */
+  background: linear-gradient(135deg, #C4B5E0 0%, #DCD0FF 40%, #B8A9DA 70%, #4A3B5A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ========== 品牌文字：底部装饰线（悬停展开） ========== */
+.brand-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.brand-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-brand);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: width var(--transition-normal);
+}
+
+.brand-underline:hover::after {
+  width: 100%;
+}
+
+/* ========== 全局玻璃卡片 ========== */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: all var(--transition-normal);
+  /* 【性能优化】GPU 硬件加速：强制浏览器使用 GPU 渲染毛玻璃和动画 */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.glass-card:hover {
+  box-shadow: var(--glass-shadow-hover);
+  border-color: var(--glass-border-strong);
+  transform: translateY(-2px);
+}
+
+/* ========== 毛玻璃导航/侧栏 ========== */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid var(--glass-border);
+  /* 【性能优化】GPU 硬件加速 */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+.glass-header {
+  background: rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--glass-border);
+  /* 【性能优化】GPU 硬件加速 */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ========== 淡紫按钮 ========== */
+.btn-lavender {
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 16px rgba(155, 142, 196, 0.20);
+  width: 100% !important;
+}
+.btn-lavender:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(155, 142, 196, 0.30);
+}
+.btn-lavender:active {
+  transform: translateY(0px);
+}
+
+/* ========== 丁香紫渐变按钮（用于数据仪表盘强调） ========== */
+.btn-lilac {
+  background: linear-gradient(135deg, #8A2BE2, #7B68EE);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 16px rgba(138, 43, 226, 0.25);
+}
+.btn-lilac:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(138, 43, 226, 0.35);
+}
+
+/* ========== 主题滚动条 ========== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(155, 142, 196, 0.20);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(155, 142, 196, 0.40);
+}
+
+/* ============================================================
+ * 私聊系统 — 高奢科技感私人数字化会客室
+ * Chat System — Luxury Tech Private Digital Lounge
+ * ============================================================
+ *
+ * 设计语言：
+ *   1. 无边界流体画布（Borderless Fluid Canvas）
+ *      - 大面积负空间留白
+ *      - 彻底取消粗重纯色气泡
+ *   2. 高饱和度毛玻璃晶体
+ *      - backdrop-filter: blur(30px) saturate(120%)
+ *      - 发丝级发光边框：1px solid rgba(220, 208, 255, 0.25)
+ *   3. 动态身份刻度
+ *      - 左上角及头像边缘 1px 细线微缩数字身份刻度
+ *   4. 三大状态光影反馈
+ *      - PENDING: 呼吸态淡紫高光
+ *      - DELIVERED: 冷冽金属色
+ *      - READ: 金色流光划过（Golden Glint）
+ * ============================================================ */
+
+/* ===== 私聊容器 — 无边界流体画布 ===== */
+.chat-fluid-canvas {
+  display: flex;
+  height: 100%;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== 对话列表侧栏 ===== */
+.chat-conversations-panel {
+  width: 320px;
+  min-width: 280px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(30px) saturate(120%);
+  -webkit-backdrop-filter: blur(30px) saturate(120%);
+  border-right: 1px solid rgba(220, 208, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-conversations-header {
+  padding: 1.5rem 1.25rem 1rem;
+  border-bottom: 1px solid rgba(220, 208, 255, 0.12);
+}
+
+.chat-conversations-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chat-conversations-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+/* ===== 对话条目 ===== */
+.chat-conversation-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.chat-conversation-item:hover {
+  background: rgba(220, 208, 255, 0.1);
+  border-color: rgba(220, 208, 255, 0.15);
+}
+
+.chat-conversation-item.active {
+  background: rgba(220, 208, 255, 0.15);
+  border-color: rgba(220, 208, 255, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(220, 208, 255, 0.2);
+}
+
+/* ===== 对话头像（带身份刻度） ===== */
+.chat-avatar-wrapper {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+}
+
+.chat-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 身份刻度 — 1px 细线环绕 */
+.chat-identity-badge {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.45rem;
+  font-weight: 500;
+  color: rgba(155, 142, 196, 0.5);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+  padding: 0 0.25rem;
+  border-radius: 2px;
+  border: 0.5px solid rgba(220, 208, 255, 0.2);
+  line-height: 1.2;
+}
+
+/* 头像边缘 1px 身份刻度环 */
+.chat-avatar-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid rgba(220, 208, 255, 0.3);
+  pointer-events: none;
+}
+
+.chat-avatar-ring.verified {
+  border-color: rgba(167, 139, 250, 0.5);
+  box-shadow: 0 0 6px rgba(167, 139, 250, 0.15);
+}
+
+/* ===== 对话信息 ===== */
+.chat-conversation-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.chat-conversation-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chat-conversation-identity {
+  font-size: 0.6rem;
+  color: rgba(155, 142, 196, 0.5);
+  letter-spacing: 0.05em;
+  font-weight: 400;
+}
+
+.chat-conversation-preview {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.chat-conversation-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.375rem;
+  flex-shrink: 0;
+}
+
+.chat-conversation-time {
+  font-size: 0.65rem;
+  color: rgba(155, 142, 196, 0.4);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.chat-unread-badge {
+  min-width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  color: var(--text-primary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.375rem;
+  box-shadow: 0 2px 8px rgba(196, 181, 224, 0.3);
+}
+
+/* ===== 主聊天区域 ===== */
+.chat-main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  position: relative;
+  min-width: 0;
+}
+
+/* ===== 顶部悬浮交易胶囊 ===== */
+.chat-top-capsule {
+  position: relative;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  border-bottom: 1px solid rgba(220, 208, 255, 0.12);
+  z-index: 10;
+}
+
+.chat-partner-info {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.chat-partner-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.chat-partner-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+}
+
+.chat-partner-identity {
+  font-size: 0.65rem;
+  color: rgba(155, 142, 196, 0.5);
+  letter-spacing: 0.05em;
+}
+
+/* ===== 悬浮 3D 交易晶体胶囊 ===== */
+.chat-trade-capsule {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem 0.5rem 0.75rem;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(220, 208, 255, 0.25);
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 16px rgba(155, 142, 196, 0.1);
+  will-change: transform, box-shadow;
+}
+
+.chat-trade-capsule:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(155, 142, 196, 0.2);
+  border-color: rgba(220, 208, 255, 0.4);
+}
+
+.chat-trade-capsule-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.chat-trade-capsule-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.chat-trade-capsule-arrow {
+  font-size: 0.7rem;
+  color: rgba(155, 142, 196, 0.5);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.chat-trade-capsule.expanded .chat-trade-capsule-arrow {
+  transform: rotate(180deg);
+}
+
+/* ===== 一键出价毛玻璃折叠面板 ===== */
+.chat-order-panel {
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  max-height: 0;
+  opacity: 0;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border-bottom: 1px solid rgba(220, 208, 255, 0.1);
+}
+
+.chat-order-panel.open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.chat-order-panel-inner {
+  padding: 1rem 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.chat-order-book {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 0.875rem;
+  border: 1px solid rgba(220, 208, 255, 0.12);
+}
+
+.chat-order-book-img {
+  width: 2.5rem;
+  height: 3.5rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  background: rgba(220, 208, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.chat-order-book-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-order-book-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+}
+
+.chat-order-book-price {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.chat-order-input-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.chat-order-price-input {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(220, 208, 255, 0.2);
+  border-radius: 0.75rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+  transition: all 0.25s;
+}
+
+.chat-order-price-input:focus {
+  border-color: rgba(196, 181, 224, 0.5);
+  box-shadow: 0 0 0 3px rgba(220, 208, 255, 0.1);
+}
+
+.chat-order-submit-btn {
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(155, 142, 196, 0.2);
+  white-space: nowrap;
+}
+
+.chat-order-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(155, 142, 196, 0.3);
+}
+
+/* ===== 消息流区域 ===== */
+.chat-messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ===== 消息卡片 — 高饱和度毛玻璃晶体 ===== */
+.chat-message-card {
+  max-width: 70%;
+  padding: 0.875rem 1.125rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(30px) saturate(120%);
+  -webkit-backdrop-filter: blur(30px) saturate(120%);
+  border: 1px solid rgba(220, 208, 255, 0.25);
+  box-shadow: 0 4px 24px rgba(74, 59, 90, 0.04);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  will-change: transform, opacity, box-shadow;
+  /* 硬件加速 */
+  transform: translateZ(0);
+}
+
+/* 自己发送的消息 — 右对齐 */
+.chat-message-card.own {
+  align-self: flex-end;
+  background: rgba(220, 208, 255, 0.25);
+  border-color: rgba(220, 208, 255, 0.35);
+}
+
+/* 对方消息 — 左对齐 */
+.chat-message-card.other {
+  align-self: flex-start;
+}
+
+/* ===== 消息状态光影反馈 ===== */
+
+/* PENDING — 呼吸态淡紫高光 */
+.chat-message-card.status-pending {
+  border-color: rgba(220, 208, 255, 0.4);
+  box-shadow:
+    0 0 12px rgba(220, 208, 255, 0.15),
+    0 4px 24px rgba(74, 59, 90, 0.04);
+  animation: chatBreathingGlow 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes chatBreathingGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 8px rgba(220, 208, 255, 0.1),
+      0 4px 24px rgba(74, 59, 90, 0.04);
+    border-color: rgba(220, 208, 255, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(220, 208, 255, 0.25),
+      0 0 40px rgba(196, 181, 224, 0.1),
+      0 4px 24px rgba(74, 59, 90, 0.04);
+    border-color: rgba(220, 208, 255, 0.5);
+  }
+}
+
+/* DELIVERED — 冷冽金属色 */
+.chat-message-card.status-delivered {
+  border-color: rgba(167, 139, 250, 0.3);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(167, 139, 250, 0.15),
+    0 4px 24px rgba(74, 59, 90, 0.04);
+}
+
+/* READ — 金色流光划过（Golden Glint） */
+.chat-message-card.status-read {
+  border-color: rgba(220, 208, 255, 0.25);
+}
+
+.chat-message-card.status-read::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.5px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(230, 215, 184, 0.6) 20%,
+    rgba(220, 200, 160, 0.8) 50%,
+    rgba(230, 215, 184, 0.6) 80%,
+    transparent 100%
+  );
+  animation: chatGoldenGlint 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes chatGoldenGlint {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* ===== 冰封结晶（优雅降级 — 断网/超时） ===== */
+.chat-message-card.frozen {
+  opacity: 0.8;
+  filter: saturate(0.6) brightness(1.05);
+  border-color: rgba(200, 220, 255, 0.2);
+  box-shadow:
+    0 0 0 0.5px rgba(200, 220, 255, 0.1),
+    0 4px 24px rgba(74, 59, 90, 0.02);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.chat-message-card.frozen:hover {
+  opacity: 0.9;
+  filter: saturate(0.8) brightness(1.1);
+  box-shadow:
+    0 0 16px rgba(200, 220, 255, 0.15),
+    0 4px 24px rgba(74, 59, 90, 0.04);
+}
+
+/* ===== 消息发送者信息 ===== */
+.chat-message-sender {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.375rem;
+}
+
+.chat-message-sender-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.chat-message-sender-badge {
+  font-size: 0.5rem;
+  color: rgba(155, 142, 196, 0.4);
+  letter-spacing: 0.05em;
+  border: 0.5px solid rgba(220, 208, 255, 0.15);
+  padding: 0 0.25rem;
+  border-radius: 2px;
+  line-height: 1.2;
+}
+
+/* ===== 消息内容 ===== */
+.chat-message-content {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.65;
+  letter-spacing: 0.03em;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* ===== 消息时间戳 ===== */
+.chat-message-time {
+  font-size: 0.6rem;
+  color: rgba(155, 142, 196, 0.35);
+  letter-spacing: 0.03em;
+  margin-top: 0.375rem;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.375rem;
+}
+
+.chat-message-status-icon {
+  font-size: 0.55rem;
+}
+
+/* ===== 系统消息（全息信件） ===== */
+.chat-message-card.system {
+  align-self: center;
+  max-width: 85%;
+  background: rgba(220, 208, 255, 0.12);
+  border-color: rgba(220, 208, 255, 0.2);
+  border-style: dashed;
+  text-align: center;
+}
+
+.chat-system-content {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+  line-height: 1.6;
+}
+
+.chat-system-order {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(220, 208, 255, 0.2);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ===== 输入区域 ===== */
+.chat-input-area {
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  border-top: 1px solid rgba(220, 208, 255, 0.1);
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.chat-input-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.chat-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(220, 208, 255, 0.2);
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+  resize: none;
+  line-height: 1.5;
+  min-height: 2.75rem;
+  max-height: 8rem;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-sizing: border-box;
+}
+
+.chat-input:focus {
+  border-color: rgba(196, 181, 224, 0.5);
+  box-shadow: 0 0 0 3px rgba(220, 208, 255, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.chat-input::placeholder {
+  color: rgba(155, 142, 196, 0.35);
+}
+
+.chat-send-btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(155, 142, 196, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.chat-send-btn:hover:not(:disabled) {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(155, 142, 196, 0.3);
+}
+
+.chat-send-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.chat-send-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== 发送按钮粒子湮灭动效容器 ===== */
+.chat-send-particle-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 100;
+}
+
+.chat-send-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(220, 208, 255, 0.8);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* ===== 空状态 ===== */
+.chat-empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: rgba(155, 142, 196, 0.4);
+}
+
+.chat-empty-icon {
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+.chat-empty-text {
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+/* ===== 瀑布流错峰入场动画 ===== */
+.chat-message-enter-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chat-message-enter-from {
+  opacity: 0;
+  transform: translateY(15px) scale(0.97);
+}
+
+.chat-message-leave-active {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.chat-message-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+}
+
+/* ===== 消息卡片悬停微动效 ===== */
+.chat-message-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 32px rgba(74, 59, 90, 0.06);
+}
+
+.chat-message-card.own:hover {
+  box-shadow: 0 8px 32px rgba(155, 142, 196, 0.1);
+}
+
+/* ===== 时间分隔线 ===== */
+.chat-date-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  align-self: center;
+  width: 100%;
+}
+
+.chat-date-divider-line {
+  flex: 1;
+  height: 0.5px;
+  background: rgba(220, 208, 255, 0.15);
+}
+
+.chat-date-divider-text {
+  font-size: 0.65rem;
+  color: rgba(155, 142, 196, 0.3);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* ===== 加载骨架屏 ===== */
+.chat-skeleton {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chat-skeleton-message {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.chat-skeleton-message.own {
+  flex-direction: row-reverse;
+}
+
+.chat-skeleton-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: rgba(220, 208, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.chat-skeleton-bubble {
+  height: 2.5rem;
+  border-radius: 1rem;
+  background: rgba(220, 208, 255, 0.08);
+  flex: 1;
+  max-width: 60%;
+  animation: chatSkeletonPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes chatSkeletonPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}

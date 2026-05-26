@@ -1,0 +1,1409 @@
+/**
+ * ============================================================
+ * 紫金求思 · 社区模块视觉系统
+ * Community Theme — 晶体玻璃拟态 × 极简呼吸感排版
+ * ============================================================
+ *
+ * 设计体系：
+ *   1. 极简主义呼吸感排版（Intellectual White Space）
+ *      - 元素间距增加 30%
+ *      - line-height: 1.75
+ *      - letter-spacing: 0.03em
+ *   2. 严格的文字颜色层级
+ *      - 标题: #4A3B5A（深灰紫）
+ *      - 正文摘要: #7A6B8A（次级灰紫）
+ *      - 时间戳/标签: rgba(155, 142, 196, 0.6)（半透明淡紫）
+ *   3. 晶体玻璃拟态
+ *      - backdrop-filter: blur(24px) saturate(120%)
+ *      - background: rgba(255, 255, 255, 0.45)
+ *      - border: 1px solid rgba(220, 208, 255, 0.3)
+ *   4. 电影级错峰入场
+ *      - cubic-bezier(0.16, 1, 0.3, 1)
+ *      - 每条 15ms 间隔，从下往上 15px 浮现
+ *   5. 流体悬停
+ *      - Z 轴浮起 3px
+ * ============================================================
+ */
+
+/* ============================================================
+ * 三栏布局
+ * ============================================================ */
+.three-column-layout {
+  display: flex;
+  gap: 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  min-height: calc(100vh - 120px);
+}
+
+/* ===== 左栏 (20%) ===== */
+.left-sidebar {
+  width: 20%;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.sidebar-sticky {
+  position: sticky;
+  top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sidebar-section {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border: 1px solid rgba(220, 208, 255, 0.3);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  box-shadow: 0 8px 32px 0 rgba(74, 59, 90, 0.06);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.sidebar-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(155, 142, 196, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar-icon {
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
+/* ===== 分类按钮 ===== */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  border: none;
+  border-radius: 0.75rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+}
+
+.category-chip:hover {
+  background: rgba(220, 208, 255, 0.15);
+  transform: translateX(3px);
+}
+
+.category-chip.active {
+  background: rgba(220, 208, 255, 0.25);
+  box-shadow: inset 0 0 0 1px rgba(220, 208, 255, 0.4);
+}
+
+.chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.chip-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4A3B5A;
+  letter-spacing: 0.03em;
+  flex: 1;
+}
+
+.chip-count {
+  font-size: 0.75rem;
+  color: rgba(155, 142, 196, 0.6);
+  font-weight: 500;
+  background: rgba(220, 208, 255, 0.15);
+  padding: 0.125rem 0.5rem;
+  border-radius: 1rem;
+}
+
+/* ===== 排序按钮 ===== */
+.sort-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 0.625rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+}
+
+.sort-btn:hover {
+  background: rgba(220, 208, 255, 0.12);
+}
+
+.sort-btn.active {
+  background: rgba(220, 208, 255, 0.2);
+  color: #4A3B5A;
+  font-weight: 600;
+}
+
+.sort-icon {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.sort-label {
+  font-size: 0.85rem;
+  color: #7A6B8A;
+  letter-spacing: 0.03em;
+}
+
+.sort-btn.active .sort-label {
+  color: #4A3B5A;
+}
+
+/* ===== 发布按钮 ===== */
+.new-post-btn-glow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  border: none;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, #DCD0FF 0%, #C4B5E0 50%, #B8A9DA 100%);
+  color: #4A3B5A;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 20px rgba(196, 181, 224, 0.3);
+  letter-spacing: 0.05em;
+}
+
+.new-post-btn-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(196, 181, 224, 0.45);
+}
+
+.new-post-btn-glow:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 1rem;
+}
+
+/* ============================================================
+ * 中栏 (55%)：主信息流
+ * ============================================================ */
+.main-feed {
+  width: 55%;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ===== 新帖发布表单 ===== */
+.new-post-form {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border: 1px solid rgba(220, 208, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(74, 59, 90, 0.08);
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.form-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4A3B5A;
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+.form-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: rgba(155, 142, 196, 0.5);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.form-close-btn:hover {
+  color: #4A3B5A;
+  background: rgba(220, 208, 255, 0.15);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.875rem 1.125rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(220, 208, 255, 0.25);
+  border-radius: 0.875rem;
+  outline: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #4A3B5A;
+  letter-spacing: 0.03em;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: rgba(196, 181, 224, 0.6);
+  box-shadow: 0 0 0 4px rgba(220, 208, 255, 0.12);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(155, 142, 196, 0.4);
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 0.875rem 1.125rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(220, 208, 255, 0.25);
+  border-radius: 0.875rem;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #4A3B5A;
+  letter-spacing: 0.03em;
+  line-height: 1.75;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: rgba(155, 142, 196, 0.5);
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+
+.form-submit-btn {
+  padding: 0.625rem 1.5rem;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  color: #4A3B5A;
+  border: none;
+  border-radius: 0.875rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 16px rgba(155, 142, 196, 0.2);
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+.form-submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(155, 142, 196, 0.3);
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== 帖子列表 ===== */
+.posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ===== 帖子卡片 ===== */
+.post-card {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border: 1px solid rgba(220, 208, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(74, 59, 90, 0.06);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  will-change: transform, box-shadow;
+}
+
+.post-card:hover {
+  transform: translateY(-3px) translateZ(3px);
+  box-shadow: 0 16px 48px 0 rgba(155, 142, 196, 0.12);
+  border-color: rgba(220, 208, 255, 0.5);
+}
+
+/* ===== 帖子头部 ===== */
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.author-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #4A3B5A;
+  flex-shrink: 0;
+}
+
+.author-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.author-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4A3B5A;
+  letter-spacing: 0.03em;
+}
+
+.author-meta {
+  font-size: 0.75rem;
+  color: rgba(155, 142, 196, 0.6);
+  letter-spacing: 0.03em;
+}
+
+.post-time {
+  font-size: 0.75rem;
+  color: rgba(155, 142, 196, 0.5);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+/* ===== 帖子标题 ===== */
+.post-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #4A3B5A;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  transition: color 0.2s;
+}
+
+.post-card:hover .post-title {
+  color: #3A2B4A;
+}
+
+/* ===== 帖子正文 ===== */
+.post-content {
+  font-size: 0.9rem;
+  color: #7A6B8A;
+  line-height: 1.75;
+  letter-spacing: 0.03em;
+  margin: 0 0 1rem 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ===== 书名高亮标签 ===== */
+.book-mention-tag {
+  position: relative;
+  display: inline;
+  color: #7C3AED;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: rgba(220, 208, 255, 0.15);
+  padding: 0.05em 0.15em;
+  border-radius: 0.25em;
+}
+
+.book-mention-tag:hover {
+  background: rgba(220, 208, 255, 0.3);
+  color: #6D28D9;
+}
+
+.mention-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 0.25em;
+  background: radial-gradient(ellipse at center, rgba(220, 208, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.book-mention-tag:hover .mention-glow {
+  opacity: 1;
+}
+
+/* ===== 帖子统计 ===== */
+.post-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.75rem 0 0 0;
+  border-top: 1px solid rgba(220, 208, 255, 0.15);
+  margin-bottom: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8rem;
+  color: rgba(155, 142, 196, 0.6);
+  letter-spacing: 0.03em;
+}
+
+.stat-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  color: rgba(155, 142, 196, 0.6);
+}
+
+.like-btn:hover {
+  background: rgba(220, 208, 255, 0.12);
+}
+
+.like-btn.liked {
+  color: #EC4899;
+}
+
+.hot-badge {
+  margin-left: auto;
+  background: rgba(255, 200, 100, 0.12);
+  padding: 0.25rem 0.625rem;
+  border-radius: 1rem;
+  font-weight: 500;
+}
+
+/* ============================================================
+ * 回复区域
+ * ============================================================ */
+.replies-section {
+  margin-top: 0.5rem;
+}
+
+.replies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-bottom: 0.875rem;
+}
+
+.reply-item {
+  background: rgba(250, 245, 255, 0.4);
+  padding: 0.875rem 1rem;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(220, 208, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.reply-item:hover {
+  background: rgba(250, 245, 255, 0.6);
+  border-color: rgba(220, 208, 255, 0.25);
+}
+
+.reply-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.375rem;
+}
+
+.reply-avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E6E6FA, #DCD0FF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #4A3B5A;
+  flex-shrink: 0;
+}
+
+.reply-author {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4A3B5A;
+  letter-spacing: 0.03em;
+}
+
+.reply-author-meta {
+  font-size: 0.7rem;
+  color: rgba(155, 142, 196, 0.5);
+  letter-spacing: 0.03em;
+}
+
+.reply-time {
+  font-size: 0.7rem;
+  color: rgba(155, 142, 196, 0.4);
+  letter-spacing: 0.03em;
+  margin-left: auto;
+}
+
+.reply-like-btn {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  color: rgba(155, 142, 196, 0.5);
+  cursor: pointer;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.reply-like-btn:hover {
+  background: rgba(220, 208, 255, 0.1);
+}
+
+.reply-like-btn.liked {
+  color: #EC4899;
+}
+
+.reply-content {
+  font-size: 0.85rem;
+  color: #7A6B8A;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  margin: 0;
+}
+
+/* ===== 内联回复输入框 ===== */
+.inline-reply-area {
+  position: relative;
+}
+
+.reply-input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.reply-input {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(220, 208, 255, 0.2);
+  border-radius: 0.875rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: #4A3B5A;
+  outline: none;
+  letter-spacing: 0.03em;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.reply-input:focus {
+  border-color: rgba(196, 181, 224, 0.5);
+  box-shadow: 0 0 0 3px rgba(220, 208, 255, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.reply-input::placeholder {
+  color: rgba(155, 142, 196, 0.35);
+}
+
+.reply-send-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  color: #4A3B5A;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(155, 142, 196, 0.15);
+}
+
+.reply-send-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(155, 142, 196, 0.25);
+}
+
+.reply-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== 回复预览 ===== */
+.reply-preview {
+  margin-top: 0.625rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px) saturate(100%);
+  -webkit-backdrop-filter: blur(16px) saturate(100%);
+  border: 1px solid rgba(220, 208, 255, 0.15);
+}
+
+.preview-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: rgba(155, 142, 196, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.375rem;
+}
+
+.preview-text {
+  font-size: 0.85rem;
+  color: #7A6B8A;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ============================================================
+ * 右栏 (25%)：知识上下文联动
+ * ============================================================ */
+.right-panel {
+  width: 25%;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+.panel-section {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border: 1px solid rgba(220, 208, 255, 0.3);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 32px 0 rgba(74, 59, 90, 0.06);
+}
+
+.panel-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(155, 142, 196, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.panel-icon {
+  font-size: 0.85rem;
+}
+
+/* ===== 关联书籍列表 ===== */
+.related-books-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.related-book-item {
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px) saturate(100%);
+  -webkit-backdrop-filter: blur(12px) saturate(100%);
+  border: 1px solid rgba(220, 208, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.related-book-item:hover {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(220, 208, 255, 0.3);
+  transform: translateX(2px);
+}
+
+.book-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.book-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4A3B5A;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.book-status {
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+}
+
+.book-status.available {
+  color: #10B981;
+}
+
+.book-status.unavailable {
+  color: rgba(155, 142, 196, 0.5);
+}
+
+.book-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.price-label {
+  display: block;
+  font-size: 0.6rem;
+  color: rgba(155, 142, 196, 0.4);
+  letter-spacing: 0.05em;
+}
+
+.price-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #4A3B5A;
+}
+
+.book-action {
+  flex-shrink: 0;
+}
+
+.action-hint {
+  font-size: 0.7rem;
+  color: #7C3AED;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* ===== 无书籍占位 ===== */
+.no-books-placeholder {
+  text-align: center;
+  padding: 1.5rem 0.5rem;
+}
+
+.placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.4;
+}
+
+.placeholder-text {
+  font-size: 0.85rem;
+  color: rgba(155, 142, 196, 0.5);
+  margin: 0 0 0.375rem 0;
+  letter-spacing: 0.03em;
+}
+
+.placeholder-hint {
+  font-size: 0.75rem;
+  color: rgba(155, 142, 196, 0.35);
+  margin: 0;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+}
+
+/* ===== 热门标签 ===== */
+.hot-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.hot-tag {
+  padding: 0.375rem 0.75rem;
+  background: rgba(220, 208, 255, 0.12);
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  color: #7A6B8A;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.03em;
+}
+
+.hot-tag:hover {
+  background: rgba(220, 208, 255, 0.25);
+  color: #4A3B5A;
+}
+
+/* ===== 社区统计 ===== */
+.community-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.375rem 0;
+  border-bottom: 1px solid rgba(220, 208, 255, 0.08);
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: rgba(155, 142, 196, 0.5);
+  letter-spacing: 0.03em;
+}
+
+.stat-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4A3B5A;
+}
+
+.stat-value.hot {
+  color: #F59E0B;
+}
+
+/* ============================================================
+ * 骨架屏
+ * ============================================================ */
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.skeleton-card {
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  animation: skeletonPulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.skeleton-line {
+  height: 0.875rem;
+  background: rgba(220, 208, 255, 0.15);
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 1.25rem;
+}
+
+.skeleton-meta {
+  width: 35%;
+  height: 0.75rem;
+}
+
+.skeleton-body {
+  width: 100%;
+}
+
+.skeleton-body.short {
+  width: 75%;
+}
+
+@keyframes skeletonPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+ * 加载更多
+ * ============================================================ */
+.load-more-container {
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.load-more-btn {
+  padding: 0.75rem 2rem;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px) saturate(100%);
+  -webkit-backdrop-filter: blur(16px) saturate(100%);
+  border: 1px solid rgba(220, 208, 255, 0.25);
+  border-radius: 1rem;
+  color: #7A6B8A;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  letter-spacing: 0.05em;
+}
+
+.load-more-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(220, 208, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.load-more-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+ * 空状态
+ * ============================================================ */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border: 1px solid rgba(220, 208, 255, 0.2);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.3;
+}
+
+.empty-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #4A3B5A;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.03em;
+}
+
+.empty-desc {
+  font-size: 0.9rem;
+  color: rgba(155, 142, 196, 0.5);
+  margin: 0 0 1.5rem 0;
+  letter-spacing: 0.03em;
+}
+
+.empty-action-btn {
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  color: #4A3B5A;
+  border: none;
+  border-radius: 0.875rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  letter-spacing: 0.03em;
+}
+
+.empty-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(155, 142, 196, 0.25);
+}
+
+/* ============================================================
+ * 毛玻璃 Popover（书名悬停浮窗）
+ * ============================================================ */
+.book-popover {
+  position: fixed;
+  z-index: 1000;
+  width: 260px;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px) saturate(120%);
+  -webkit-backdrop-filter: blur(24px) saturate(120%);
+  border: 1px solid rgba(220, 208, 255, 0.3);
+  box-shadow: 0 16px 48px rgba(74, 59, 90, 0.12);
+  pointer-events: auto;
+}
+
+.popover-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid rgba(220, 208, 255, 0.12);
+}
+
+.popover-book-icon {
+  font-size: 1.1rem;
+}
+
+.popover-book-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4A3B5A;
+  letter-spacing: 0.03em;
+}
+
+/* ===== Popover 加载动画 ===== */
+.popover-loading {
+  display: flex;
+  gap: 0.375rem;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(196, 181, 224, 0.4);
+  animation: dotBounce 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) infinite alternate;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dotBounce {
+  0% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+}
+
+/* ===== Popover 书籍列表 ===== */
+.popover-summary {
+  font-size: 0.75rem;
+  color: #10B981;
+  font-weight: 500;
+  margin-bottom: 0.625rem;
+  letter-spacing: 0.03em;
+}
+
+.popover-book-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.popover-book-item:hover {
+  background: rgba(220, 208, 255, 0.1);
+}
+
+.popover-book-name {
+  flex: 1;
+  font-size: 0.78rem;
+  color: #4A3B5A;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popover-book-price {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #4A3B5A;
+}
+
+.popover-book-condition {
+  font-size: 0.65rem;
+  color: rgba(155, 142, 196, 0.5);
+}
+
+.popover-more {
+  font-size: 0.7rem;
+  color: rgba(155, 142, 196, 0.4);
+  text-align: center;
+  padding: 0.375rem 0;
+  letter-spacing: 0.03em;
+}
+
+.popover-buy-btn {
+  width: 100%;
+  margin-top: 0.625rem;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  color: #4A3B5A;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.25s;
+  letter-spacing: 0.03em;
+}
+
+.popover-buy-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(155, 142, 196, 0.2);
+}
+
+.popover-empty {
+  font-size: 0.8rem;
+  color: rgba(155, 142, 196, 0.5);
+  text-align: center;
+  padding: 0.75rem 0;
+  letter-spacing: 0.03em;
+}
+
+/* ============================================================
+ * Vue Transition 动画
+ * ============================================================ */
+
+/* ===== 错峰延迟入场（Stagger Effect） ===== */
+.stagger-enter-active {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+.stagger-leave-active {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-enter-from {
+  opacity: 0;
+  transform: translateY(15px);
+}
+
+.stagger-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* ===== 回复错峰入场 ===== */
+.reply-stagger-enter-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reply-delay, 0ms);
+}
+
+.reply-stagger-leave-active {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reply-stagger-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.reply-stagger-leave-to {
+  opacity: 0;
+}
+
+/* ===== 表单滑入 ===== */
+.form-slide-enter-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.form-slide-leave-active {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.form-slide-enter-from {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.97);
+}
+
+.form-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
+}
+
+/* ===== 预览淡入 ===== */
+.preview-fade-enter-active {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preview-fade-leave-active {
+  transition: all 0.15s ease;
+}
+
+.preview-fade-enter-from,
+.preview-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+/* ===== Popover 淡入 ===== */
+.popover-fade-enter-active {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.popover-fade-leave-active {
+  transition: all 0.15s ease;
+}
+
+.popover-fade-enter-from,
+.popover-fade-leave-to {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* ============================================================
+ * 响应式适配
+ * ============================================================ */
+@media (max-width: 1200px) {
+  .left-sidebar {
+    display: none;
+  }
+  .main-feed {
+    width: 65%;
+  }
+  .right-panel {
+    width: 35%;
+  }
+}
+
+@media (max-width: 900px) {
+  .right-panel {
+    display: none;
+  }
+  .main-feed {
+    width: 100%;
+  }
+  .three-column-layout {
+    padding: 0 0.75rem;
+  }
+}
+
+/* ============================================================
+ * 私聊按钮（迷你风格）
+ * 用于社区帖子、书籍详情等页面的用户头像旁
+ * ============================================================ */
+.chat-btn-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid rgba(220, 208, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  color: rgba(74, 59, 90, 0.6);
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-left: 0.375rem;
+  vertical-align: middle;
+  line-height: 1;
+  padding: 0;
+  position: relative;
+  top: -1px;
+}
+
+.chat-btn-mini:hover {
+  background: rgba(220, 208, 255, 0.25);
+  border-color: rgba(220, 208, 255, 0.5);
+  color: rgba(74, 59, 90, 0.9);
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgba(220, 208, 255, 0.3);
+}
+
+.chat-btn-mini:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 600px) {
+  .post-stats {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .hot-badge {
+    margin-left: 0;
+  }
+  .post-header {
+    flex-wrap: wrap;
+  }
+  .post-time {
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+}
+
+
