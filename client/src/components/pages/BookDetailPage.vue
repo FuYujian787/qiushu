@@ -17,7 +17,17 @@
 
       <div class="detail-info">
         <h1 class="detail-title">{{ book.title }}</h1>
-        <p class="detail-author">{{ book.author }} · {{ book.seller }}</p>
+        <p class="detail-author">
+          {{ book.author }} · {{ book.seller }}
+          <button
+            v-if="store.isLoggedIn.value && book.seller !== store.currentUser.value?.name"
+            class="chat-btn-mini"
+            @click.stop="startChat(book.seller)"
+            title="私聊卖家"
+          >
+            💬
+          </button>
+        </p>
         <div class="detail-price">
           <span class="current-price">¥{{ book.price }}</span>
           <span class="old-price">原价 ¥{{ book.oldPrice }}</span>
@@ -86,6 +96,16 @@ function onCoverLeave() {
     coverRef.value.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)'
   }
   flareStyle.value = {}
+}
+
+/** 私聊卖家 */
+function startChat(sellerName) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', sellerName)
+  store.navigateTo('chat')
 }
 </script>
 

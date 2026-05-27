@@ -28,6 +28,20 @@
           </div>
         </div>
       </div>
+      <div v-if="recentBuyers.length > 0" class="dashboard-buyers">
+        <span class="buyers-label">最近买家：</span>
+        <span v-for="b in recentBuyers" :key="b" class="buyer-tag">
+          {{ b }}
+          <button
+            v-if="store.isLoggedIn.value && b !== store.currentUser.value?.name"
+            class="chat-btn-mini"
+            @click.stop="startChat(b)"
+            title="私聊买家"
+          >
+            💬
+          </button>
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -69,6 +83,28 @@ function loadSellerStats() {
   } catch (e) {
     statsLoaded.value = false
   }
+}
+
+const recentBuyers = computed(() => {
+  if (!sellerName.value) return []
+  const set = new Set()
+  const orders = store.orders.value || []
+  for (const o of orders) {
+    if (o.seller === sellerName.value && o.buyer) {
+      set.add(o.buyer)
+    }
+  }
+  return [...set].slice(0, 5)
+})
+
+/** 私聊买家 */
+function startChat(buyerName) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', buyerName)
+  store.navigateTo('chat')
 }
 </script>
 
@@ -175,5 +211,33 @@ function loadSellerStats() {
   width: 1px;
   height: 3rem;
   background: var(--glass-border);
+}
+
+.dashboard-buyers {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.buyers-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.buyer-tag {
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  background: rgba(243, 239, 255, 0.6);
+  border-radius: 999px;
 }
 </style>

@@ -192,6 +192,14 @@
                   <path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
                 买家：{{ order.buyer }}
+                <button
+                  v-if="store.isLoggedIn.value && order.buyer !== store.currentUser.value?.name"
+                  class="chat-btn-mini"
+                  @click.stop="startChat(order.buyer)"
+                  title="私聊买家"
+                >
+                  💬
+                </button>
               </span>
             </div>
           </div>
@@ -260,6 +268,16 @@ function goPublish() {
 
 function openDetail(id) {
   store.navigateTo('bookDetail', id)
+}
+
+/** 私聊买家 */
+function startChat(buyerName) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', buyerName)
+  store.navigateTo('chat')
 }
 </script>
 

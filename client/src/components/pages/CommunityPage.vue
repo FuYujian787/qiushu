@@ -139,6 +139,14 @@
                 <span class="post-author-badge" v-if="post.authorInfo">
                   {{ post.authorInfo.college }} · {{ post.authorInfo.grade }}
                 </span>
+                <button
+                  v-if="store.isLoggedIn.value && post.author !== store.currentUser.value?.name"
+                  class="chat-btn-mini"
+                  @click.stop="startChat(post.author)"
+                  title="私聊"
+                >
+                  💬
+                </button>
               </div>
               <span class="post-time">{{ post.time }}</span>
             </div>
@@ -205,6 +213,14 @@
                     <span class="reply-author-badge" v-if="reply.authorInfo">
                       {{ reply.authorInfo.college }}
                     </span>
+                    <button
+                      v-if="store.isLoggedIn.value && reply.author !== store.currentUser.value?.name"
+                      class="chat-btn-mini"
+                      @click.stop="startChat(reply.author)"
+                      title="私聊"
+                    >
+                      💬
+                    </button>
                     <span class="reply-time">{{ reply.time }}</span>
                   </div>
                   <p class="reply-content">{{ reply.content }}</p>
@@ -854,6 +870,16 @@ function openProcurement(title) {
     store.searchQuery.value = title
   }
   store.navigateTo('procurement')
+}
+
+/** 私聊：跳转到聊天页并自动打开与该用户的对话 */
+function startChat(targetUser) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', targetUser)
+  store.navigateTo('chat')
 }
 </script>
 

@@ -62,6 +62,7 @@ const navItems = [
   { page: 'cart', label: '购物车', icon: 'solar:cart-large-2-outline' },
   { page: 'orders', label: '订单管理', icon: 'solar:bill-list-outline' },
   { page: 'notifications', label: '消息通知', icon: 'solar:bell-bing-outline' },
+  { page: 'chat', label: '私信', icon: 'solar:chat-round-dots-outline' },
   { page: 'community', label: '学习社区', icon: 'solar:users-group-two-rounded-outline' },
   { page: 'profile', label: '个人中心', icon: 'solar:user-circle-outline' },
 ]

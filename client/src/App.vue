@@ -18,6 +18,7 @@
         <PublishPage v-else-if="store.currentPage.value === 'publish'" />
         <BookDetailPage v-else-if="store.currentPage.value === 'bookDetail'" />
         <PaymentPage v-else-if="store.currentPage.value === 'payment'" />
+        <ChatPage v-else-if="store.currentPage.value === 'chat'" />
       </div>
     </main>
   </div>
@@ -42,6 +43,7 @@ import ProfilePage from './components/pages/ProfilePage.vue'
 import PublishPage from './components/pages/PublishPage.vue'
 import BookDetailPage from './components/pages/BookDetailPage.vue'
 import PaymentPage from './components/pages/PaymentPage.vue'
+import ChatPage from './components/pages/ChatPage.vue'
 
 const store = useStore()
 const authPages = ['login', 'register']
@@ -108,7 +110,38 @@ body::after {
 }
 </style>
 
+<style>
+/* ========== 全局私聊按钮样式 ========== */
+.chat-btn-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #DCD0FF, #C4B5E0);
+  color: #4a3f6b;
+  font-size: 0.75rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 2px 8px rgba(155, 142, 196, 0.25);
+  vertical-align: middle;
+  line-height: 1;
+}
+.chat-btn-mini:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 16px rgba(155, 142, 196, 0.4);
+  background: linear-gradient(135deg, #E8DFFF, #D4C8F0);
+}
+.chat-btn-mini:active {
+  transform: scale(0.95);
+}
+</style>
+
 <style scoped>
+
 .app-container {
   display: flex;
   height: 100vh;

@@ -9,6 +9,17 @@
             <div class="cart-item-info">
               <h4>{{ item.title }}</h4>
               <p class="cart-item-price">¥{{ item.price }} x {{ item.qty }}</p>
+              <p class="cart-item-seller" v-if="item.seller">
+                卖家：{{ item.seller }}
+                <button
+                  v-if="store.isLoggedIn.value && item.seller !== store.currentUser.value?.name"
+                  class="chat-btn-mini"
+                  @click.stop="startChat(item.seller)"
+                  title="私聊卖家"
+                >
+                  💬
+                </button>
+              </p>
             </div>
             <div class="cart-item-remove" @click="removeItem(item.id)">删除</div>
           </div>
@@ -39,6 +50,16 @@ function removeItem(id) {
 function goPayment() {
   store.navigateTo('payment')
 }
+
+/** 私聊卖家 */
+function startChat(sellerName) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', sellerName)
+  store.navigateTo('chat')
+}
 </script>
 
 <style scoped>
@@ -52,6 +73,7 @@ function goPayment() {
 .cart-item-info { margin-left: 1.5rem; flex-grow: 1; }
 .cart-item-info h4 { font-weight: 700; margin: 0; color: var(--text-primary); }
 .cart-item-price { font-size: 0.875rem; color: var(--text-tertiary); margin: 0.25rem 0 0 0; }
+.cart-item-seller { font-size: 0.75rem; color: var(--text-tertiary); margin: 0.25rem 0 0 0; display: flex; align-items: center; }
 .cart-item-remove { color: #f87171; cursor: pointer; font-size: 0.875rem; }
 .cart-empty { text-align: center; padding: 3rem; color: var(--text-tertiary); }
 .cart-summary { width: 24rem; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; padding: 2rem; box-shadow: var(--glass-shadow); flex-shrink: 0; }

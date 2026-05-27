@@ -13,7 +13,7 @@ DB_PATH = os.path.join(BASE_DIR, 'database.db')
 
 def init_database(app):
     """初始化数据库并填充种子数据"""
-    from models import db, User, Book, Post, Reply
+    from models import db, User, Book, Post, Reply, Message
 
     # 如果数据库已存在，备份
     if os.path.exists(DB_PATH):
@@ -133,6 +133,7 @@ def init_database(app):
         print(f'  - 书籍: 20 本（示例）+ 10 万级虚拟数据（JSON 文件）')
         print(f'  - 预设帖子: {len(preset_posts)} 个')
         print(f'  - 预设回复: {len(preset_replies)} 个')
+        print(f'  - 消息表: 已创建（Message 模型）')
 
 
     print(f'[INFO] 数据库位置: {DB_PATH}')

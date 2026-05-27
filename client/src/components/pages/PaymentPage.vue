@@ -7,6 +7,21 @@
       </div>
       <div class="payment-body">
         <p class="payment-total">¥{{ total }}</p>
+        <div v-if="sellers.length > 0" class="payment-sellers">
+          <p class="payment-seller-label">卖家：</p>
+          <span v-for="(s, i) in sellers" :key="s" class="payment-seller-tag">
+            {{ s }}
+            <button
+              v-if="store.isLoggedIn.value && s !== store.currentUser.value?.name"
+              class="chat-btn-mini"
+              @click.stop="startChat(s)"
+              title="私聊卖家"
+            >
+              💬
+            </button>
+            <template v-if="i < sellers.length - 1">、</template>
+          </span>
+        </div>
         <div v-if="alipayQr" class="qr-section">
           <h3><span class="iconify" data-icon="logos:alipay" data-width="24"></span> 支付宝扫码支付</h3>
           <div class="qr-img-wrap"><img :src="alipayQr" class="qr-img" /></div>
@@ -56,6 +71,14 @@ const wechatQr = computed(() => {
     if (item.wechatQr) return item.wechatQr
   }
   return null
+})
+
+const sellers = computed(() => {
+  const set = new Set()
+  for (const item of store.cart) {
+    if (item.seller) set.add(item.seller)
+  }
+  return [...set]
 })
 
 /* ===== 场景三：粒子爆破反馈 ===== */
@@ -124,6 +147,16 @@ function triggerParticles() {
     particles.value = []
   }, 1200)
 }
+
+/** 私聊卖家 */
+function startChat(sellerName) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', sellerName)
+  store.navigateTo('chat')
+}
 </script>
 
 <style scoped>
@@ -134,6 +167,9 @@ function triggerParticles() {
 .payment-header h2 { font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0 0 0; }
 .payment-body { padding: 2rem; display: flex; flex-direction: column; align-items: center; }
 .payment-total { font-size: 2.25rem; font-weight: 700; color: var(--text-primary); margin: 0 0 1.5rem 0; }
+.payment-sellers { margin-bottom: 1.5rem; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.25rem; flex-wrap: wrap; }
+.payment-seller-label { font-size: 0.875rem; color: var(--text-secondary); margin: 0; }
+.payment-seller-tag { font-size: 0.875rem; color: var(--text-primary); font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem; }
 .qr-section { margin-bottom: 1.5rem; text-align: center; }
 .qr-section h3 { font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.75rem 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
 .qr-img-wrap { width: 12rem; height: 12rem; margin: 0 auto; background: white; border: 2px solid var(--glass-border); border-radius: 1rem; overflow: hidden; }

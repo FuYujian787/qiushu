@@ -12,6 +12,14 @@
           <h4>{{ n.title }}</h4>
           <p class="notif-desc">{{ n.desc }}</p>
           <p class="notif-time">{{ n.time }}</p>
+          <button
+            v-if="n.fromUser && store.isLoggedIn.value && n.fromUser !== store.currentUser.value?.name"
+            class="chat-btn-mini notif-chat-btn"
+            @click="startChat(n.fromUser)"
+            title="回复私聊"
+          >
+            💬 回复
+          </button>
         </div>
       </div>
     </template>
@@ -38,6 +46,16 @@ onMounted(() => {
     store.markAllRead(store.currentUser.value.name)
   }
 })
+
+/** 回复私聊 */
+function startChat(fromUser) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', fromUser)
+  store.navigateTo('chat')
+}
 </script>
 
 <style scoped>
@@ -52,4 +70,5 @@ onMounted(() => {
 .notif-item h4 { font-weight: 700; margin: 0; color: var(--text-primary); }
 .notif-desc { font-size: 0.875rem; color: var(--text-secondary); margin: 0.5rem 0; }
 .notif-time { font-size: 0.75rem; color: var(--text-tertiary); margin: 0; }
+.notif-chat-btn { margin-top: 0.5rem; }
 </style>

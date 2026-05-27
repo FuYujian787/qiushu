@@ -46,6 +46,17 @@
               <h4 class="hot-title">{{ book.title }}</h4>
               <p class="hot-condition">{{ book.condition }}</p>
               <p class="hot-price">¥{{ book.price }}</p>
+              <p class="hot-seller" v-if="book.seller">
+                卖家：{{ book.seller }}
+                <button
+                  v-if="store.isLoggedIn.value && book.seller !== store.currentUser.value?.name"
+                  class="chat-btn-mini"
+                  @click.stop="startChat(book.seller)"
+                  title="私聊卖家"
+                >
+                  💬
+                </button>
+              </p>
             </div>
           </div>
         </div>
@@ -88,6 +99,16 @@ function onHotLeave(e, id) {
   const el = e.currentTarget
   el.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg)'
 }
+
+/** 私聊卖家 */
+function startChat(sellerName) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', sellerName)
+  store.navigateTo('chat')
+}
 </script>
 
 <style scoped>
@@ -128,4 +149,5 @@ function onHotLeave(e, id) {
 .hot-title { font-weight: 700; color: var(--text-primary); margin: 0; font-size: 0.875rem; }
 .hot-condition { font-size: 0.75rem; color: var(--text-tertiary); margin: 0.25rem 0; }
 .hot-price { color: var(--lavender-accent); font-weight: 700; margin: 0.5rem 0 0 0; }
+.hot-seller { font-size: 0.7rem; color: var(--text-tertiary); margin: 0.25rem 0 0 0; display: flex; align-items: center; }
 </style>

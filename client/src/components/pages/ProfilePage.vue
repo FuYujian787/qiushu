@@ -22,6 +22,13 @@
         <button class="save-btn" @click="saveProfile">保存修改</button>
         <button class="logout-btn" @click="doLogout">退出登录</button>
       </div>
+      <div class="profile-chat-section">
+        <p class="profile-chat-label">快速私聊其他用户：</p>
+        <div class="profile-chat-row">
+          <input v-model="chatTarget" placeholder="输入用户名" class="form-input" />
+          <button class="chat-btn" @click="startChat" :disabled="!chatTarget.trim()">💬 私聊</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -81,6 +88,23 @@ function saveProfile() {
 function doLogout() {
   store.logout()
 }
+
+const chatTarget = ref('')
+
+function startChat() {
+  const target = chatTarget.value.trim()
+  if (!target) return
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  if (target === store.currentUser.value?.name) {
+    alert('不能和自己私聊')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', target)
+  store.navigateTo('chat')
+}
 </script>
 
 <style scoped>
@@ -105,4 +129,48 @@ function doLogout() {
 .save-btn:hover { filter: brightness(0.95); }
 .logout-btn { flex: 1; padding: 0.75rem; background: rgba(254,242,242,0.8); color: #ef4444; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
 .logout-btn:hover { background: rgba(254,226,226,0.9); }
+
+.profile-chat-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.profile-chat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0 0 0.75rem 0;
+  font-weight: 500;
+}
+
+.profile-chat-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.profile-chat-row .form-input {
+  flex: 1;
+}
+
+.chat-btn {
+  padding: 0.75rem 1.25rem;
+  background: var(--gradient-brand);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(155, 142, 196, 0.3);
+}
+
+.chat-btn:hover:not(:disabled) {
+  filter: brightness(0.95);
+}
+
+.chat-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 </style>

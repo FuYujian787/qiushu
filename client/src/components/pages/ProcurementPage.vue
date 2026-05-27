@@ -17,7 +17,17 @@
             <h4 class="book-card-title">{{ book.title }}</h4>
             <span class="book-card-price">¥{{ book.price }}</span>
           </div>
-          <p class="book-card-seller">卖家: {{ book.seller }}</p>
+          <p class="book-card-seller">
+            卖家: {{ book.seller }}
+            <button
+              v-if="store.isLoggedIn.value && book.seller !== store.currentUser.value?.name"
+              class="chat-btn-mini"
+              @click.stop="startChat(book.seller)"
+              title="私聊卖家"
+            >
+              💬
+            </button>
+          </p>
           <div class="book-card-actions" @click.stop>
             <div class="add-cart-btn" @click="addToCart(book)">加入购物车</div>
           </div>
@@ -132,6 +142,16 @@ function addToCart(book) {
 
 function openDetail(id) {
   store.navigateTo('bookDetail', id)
+}
+
+/** 私聊卖家 */
+function startChat(sellerName) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', sellerName)
+  store.navigateTo('chat')
 }
 </script>
 

@@ -12,6 +12,17 @@
           <div class="order-info">
             <h4>{{ o.title }}</h4>
             <p class="order-meta">{{ o.id }} · {{ o.date }}</p>
+            <p class="order-seller" v-if="o.seller">
+              卖家：{{ o.seller }}
+              <button
+                v-if="store.isLoggedIn.value && o.seller !== store.currentUser.value?.name"
+                class="chat-btn-mini"
+                @click.stop="startChat(o.seller)"
+                title="私聊卖家"
+              >
+                💬
+              </button>
+            </p>
           </div>
           <div class="order-status">¥{{ o.price }} ({{ o.status }})</div>
         </div>
@@ -29,6 +40,16 @@ const userOrders = computed(() => {
   if (!store.currentUser.value) return []
   return store.orders.value.filter(o => o.buyer === store.currentUser.value.name)
 })
+
+/** 私聊卖家 */
+function startChat(sellerName) {
+  if (!store.isLoggedIn.value) {
+    alert('请先登录')
+    return
+  }
+  sessionStorage.setItem('chat_target_user', sellerName)
+  store.navigateTo('chat')
+}
 </script>
 
 <style scoped>
@@ -42,5 +63,6 @@ const userOrders = computed(() => {
 .order-item { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--glass-shadow); display: flex; justify-content: space-between; align-items: center; }
 .order-info h4 { font-weight: 700; margin: 0; color: var(--text-primary); }
 .order-meta { font-size: 0.75rem; color: var(--text-tertiary); margin: 0.25rem 0 0 0; }
+.order-seller { font-size: 0.75rem; color: var(--text-tertiary); margin: 0.25rem 0 0 0; display: flex; align-items: center; }
 .order-status { color: var(--lavender-accent); font-weight: 700; }
 </style>
