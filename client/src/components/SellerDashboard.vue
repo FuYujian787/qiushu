@@ -35,7 +35,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useStore } from '../stores/useStore'
-import { ElMessage } from 'element-plus'
 
 const store = useStore()
 const statsLoaded = ref(false)
@@ -49,17 +48,17 @@ const sellerName = computed(() => {
   return ''
 })
 
-onMounted(async () => {
-  await loadSellerStats()
+onMounted(() => {
+  loadSellerStats()
 })
 
-async function loadSellerStats() {
+function loadSellerStats() {
   if (!sellerName.value) {
     statsLoaded.value = false
     return
   }
   try {
-    const data = await store.fetchSellerStats(sellerName.value)
+    const data = store.fetchSellerStats(sellerName.value)
     if (data.success) {
       sellerStats.value = {
         total_books_sold: data.total_books_sold ?? 0,
@@ -68,7 +67,6 @@ async function loadSellerStats() {
       statsLoaded.value = true
     }
   } catch (e) {
-    // 静默失败：如果后端没有此接口，不显示统计面板
     statsLoaded.value = false
   }
 }

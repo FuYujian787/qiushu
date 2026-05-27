@@ -42,14 +42,14 @@ onMounted(() => {
 
 <style scoped>
 .notif-page {}
-.page-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
-.empty-state { background: white; border-radius: 1.5rem; padding: 2.5rem; text-align: center; color: #9ca3af; }
+.page-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary); }
+.empty-state { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; padding: 2.5rem; text-align: center; color: var(--text-tertiary); }
 .empty-icon { margin-bottom: 1rem; }
-.empty-icon :deep(.iconify) { color: #d1d5db; }
+.empty-icon :deep(.iconify) { color: var(--text-tertiary); }
 .empty-state p { font-size: 1.125rem; margin: 0; }
 .notif-list { display: flex; flex-direction: column; gap: 1rem; }
-.notif-item { background: white; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-.notif-item h4 { font-weight: 700; margin: 0; }
-.notif-desc { font-size: 0.875rem; color: #6b7280; margin: 0.5rem 0; }
-.notif-time { font-size: 0.75rem; color: #9ca3af; margin: 0; }
+.notif-item { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1rem; padding: 1.5rem; box-shadow: var(--glass-shadow); }
+.notif-item h4 { font-weight: 700; margin: 0; color: var(--text-primary); }
+.notif-desc { font-size: 0.875rem; color: var(--text-secondary); margin: 0.5rem 0; }
+.notif-time { font-size: 0.75rem; color: var(--text-tertiary); margin: 0; }
 </style>

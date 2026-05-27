@@ -75,25 +75,26 @@ function onSearch(e) {
 <style scoped>
 .page-header {
   height: 6rem;
-  background: rgba(255,255,255,0.5);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 2.5rem;
   flex-shrink: 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--glass-border);
 }
 .header-left {}
 .greeting-msg {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #374151;
+  color: var(--text-primary);
   margin: 0;
 }
 .date-text {
   font-size: 0.875rem;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   margin: 0;
 }
 .header-right {
@@ -109,28 +110,28 @@ function onSearch(e) {
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 .search-input {
   width: 20rem;
   height: 3rem;
   padding: 0 1rem 0 3rem;
-  background: white;
-  border: 1px solid #f3f4f6;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid var(--glass-border);
   border-radius: 1rem;
   font-size: 0.875rem;
   outline: none;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: var(--glass-shadow);
 }
 .search-input:focus {
-  border-color: #a78bfa;
-  box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+  border-color: var(--lavender-accent-soft);
+  box-shadow: 0 0 0 3px rgba(220,208,255,0.2);
 }
 .header-actions {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border-left: 1px solid #e5e7eb;
+  border-left: 1px solid var(--glass-border);
   padding-left: 1.5rem;
 }
 .action-btn {
@@ -139,13 +140,13 @@ function onSearch(e) {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
   border-radius: 0.75rem;
   transition: all 0.2s;
 }
 .action-btn:hover {
-  color: #7c3aed;
+  color: var(--lavender-accent);
 }
 .avatar-wrap {
   cursor: pointer;
@@ -158,7 +159,7 @@ function onSearch(e) {
   transition: all 0.2s;
 }
 .avatar-ring:hover {
-  box-shadow: 0 0 0 3px #e9d5ff;
+  box-shadow: 0 0 0 3px var(--lavender-primary);
 }
 .avatar-img {
   width: 100%;

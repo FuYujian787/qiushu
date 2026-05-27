@@ -85,24 +85,24 @@ function doLogout() {
 
 <style scoped>
 .profile-page { display: flex; justify-content: center; }
-.profile-card { max-width: 32rem; width: 100%; background: white; border-radius: 1.5rem; padding: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.profile-card { max-width: 32rem; width: 100%; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; padding: 2rem; box-shadow: var(--glass-shadow); }
 .profile-avatar-section { text-align: center; margin-bottom: 2rem; }
-.avatar-wrap { width: 8rem; height: 8rem; margin: 0 auto; border-radius: 1.5rem; background: #ede9fe; overflow: hidden; position: relative; cursor: pointer; }
+.avatar-wrap { width: 8rem; height: 8rem; margin: 0 auto; border-radius: 1.5rem; background: var(--lavender-accent-mist); overflow: hidden; position: relative; cursor: pointer; }
 .profile-avatar { width: 100%; height: 100%; object-fit: cover; }
 .avatar-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
 .avatar-wrap:hover .avatar-overlay { opacity: 1; }
 .avatar-overlay :deep(.iconify) { color: white; }
 .hidden-input { display: none; }
-.profile-name { font-size: 1.5rem; font-weight: 700; margin: 1rem 0 0.25rem 0; }
-.profile-meta { color: #7c3aed; margin: 0; font-size: 0.875rem; }
+.profile-name { font-size: 1.5rem; font-weight: 700; margin: 1rem 0 0.25rem 0; color: var(--text-primary); }
+.profile-meta { color: var(--lavender-accent); margin: 0; font-size: 0.875rem; }
 .profile-form { display: flex; flex-direction: column; gap: 1.25rem; }
 .form-group {}
-.form-group label { display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem; }
-.form-input { width: 100%; padding: 0.75rem 1rem; background: #f9fafb; border: 1px solid #f3f4f6; border-radius: 0.75rem; outline: none; box-sizing: border-box; }
-.form-input:focus { border-color: #7c3aed; box-shadow: 0 0 0 4px rgba(124,58,237,0.1); }
+.form-group label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; }
+.form-input { width: 100%; padding: 0.75rem 1rem; background: rgba(255,255,255,0.7); border: 1px solid var(--glass-border); border-radius: 0.75rem; outline: none; box-sizing: border-box; }
+.form-input:focus { border-color: var(--lavender-accent-soft); box-shadow: 0 0 0 4px rgba(220,208,255,0.15); }
 .profile-actions { display: flex; gap: 1rem; margin-top: 2rem; }
-.save-btn { flex: 1; padding: 0.75rem; background: #7c3aed; color: white; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
-.save-btn:hover { background: #6d28d9; }
-.logout-btn { flex: 1; padding: 0.75rem; background: #fef2f2; color: #ef4444; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
-.logout-btn:hover { background: #fee2e2; }
+.save-btn { flex: 1; padding: 0.75rem; background: var(--gradient-brand); color: var(--text-primary); border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(155, 142, 196, 0.3); }
+.save-btn:hover { filter: brightness(0.95); }
+.logout-btn { flex: 1; padding: 0.75rem; background: rgba(254,242,242,0.8); color: #ef4444; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
+.logout-btn:hover { background: rgba(254,226,226,0.9); }
 </style>

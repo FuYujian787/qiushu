@@ -2,9 +2,9 @@
   <aside class="sidebar">
     <div class="sidebar-logo" @click="store.navigateTo('home')">
       <div class="logo-icon">
-        <span class="iconify" data-icon="ph:books-duotone" data-width="36"></span>
+        <LogoIcon :size="64" />
       </div>
-      <h1 class="logo-text">求书</h1>
+      <h1 class="logo-text brand-text-hover brand-underline">紫金求思</h1>
     </div>
     <nav class="sidebar-nav" id="sidebarNav">
       <a v-for="item in navItems" :key="item.page" class="sidebar-item" :class="{ 'sidebar-active': store.currentPage.value === item.page }" @click.prevent="store.navigateTo(item.page)">
@@ -25,6 +25,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from '../stores/useStore'
+import LogoIcon from './LogoIcon.vue'
 
 const store = useStore()
 
@@ -55,12 +56,14 @@ function handlePublishClick() {
 <style scoped>
 .sidebar {
   width: 16rem;
-  background: white;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem 0;
-  box-shadow: 0 0 8px rgba(0,0,0,0.06);
+  border-right: 1px solid var(--glass-border);
   z-index: 10;
   flex-shrink: 0;
 }
@@ -72,24 +75,20 @@ function handlePublishClick() {
   cursor: pointer;
 }
 .logo-icon {
-  width: 4rem;
-  height: 4rem;
-  background: #f3f4f6;
-  border-radius: 1rem;
+  width: 5rem;
+  height: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 0.75rem;
 }
-.logo-icon :deep(.iconify) {
-  color: #7c3aed;
-}
 .logo-text {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #374151;
-  letter-spacing: 0.05em;
   margin: 0;
+  font-family: var(--font-brand);
+  letter-spacing: 0.08em;
+  line-height: 1.3;
 }
 .sidebar-nav {
   width: 100%;
@@ -104,7 +103,7 @@ function handlePublishClick() {
   width: 4px;
 }
 .sidebar-nav::-webkit-scrollbar-thumb {
-  background: #ddd6fe;
+  background: var(--lavender-primary);
   border-radius: 10px;
 }
 .sidebar-item {
@@ -112,7 +111,7 @@ function handlePublishClick() {
   align-items: center;
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
@@ -120,13 +119,13 @@ function handlePublishClick() {
   position: relative;
 }
 .sidebar-item:hover {
-  background: rgba(139, 92, 246, 0.1);
-  color: #7c3aed;
+  background: var(--lavender-accent-mist);
+  color: var(--lavender-accent);
 }
 .sidebar-active {
-  background: linear-gradient(90deg, #a78bfa, #7c3aed);
-  color: white;
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+  background: var(--gradient-brand);
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px rgba(155, 142, 196, 0.3);
 }
 .notif-dot {
   position: absolute;
@@ -145,8 +144,8 @@ function handlePublishClick() {
 .publish-btn {
   width: 100%;
   padding: 1rem;
-  background: #ede9fe;
-  color: #7c3aed;
+  background: var(--lavender-accent-mist);
+  color: var(--lavender-accent);
   border-radius: 1rem;
   font-weight: 700;
   display: flex;
@@ -157,6 +156,6 @@ function handlePublishClick() {
   transition: all 0.3s;
 }
 .publish-btn:hover {
-  background: #ddd6fe;
+  background: rgba(220, 208, 255, 0.3);
 }
 </style>

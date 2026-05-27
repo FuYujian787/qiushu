@@ -170,12 +170,16 @@ function addPost(post) {
 }
 
 function addReply(postId, reply) {
-  if (!postReplies.value[postId]) {
-    postReplies.value[postId] = []
-  }
-  postReplies.value[postId].push(reply)
+  // 确保 postId 为字符串，保证键值一致性
+  const key = String(postId)
+  // 创建新数组以保证响应式触发
+  const current = postReplies.value[key] ? [...postReplies.value[key]] : []
+  current.push(reply)
+  // 使用展开运算符创建新对象，强制触发 Vue 响应式更新
+  postReplies.value = { ...postReplies.value, [key]: current }
   saveLocal(KEYS.postReplies, postReplies.value)
 }
+
 
 function getMergedPosts() {
   const fixedPresets = communityPosts.value.map((p, idx) => {
@@ -192,9 +196,11 @@ function placeOrder(buyerName, address) {
       id: 'ORD-' + Date.now() + Math.random().toString(36).substr(2, 4),
       title: item.title,
       price: item.price,
-      status: '待收货',
+      status: '已售',
       date: new Date().toISOString().slice(0, 10),
       buyer: buyerName,
+      seller: item.seller || '未知卖家',
+      bookId: item.id,
     }
     orders.value.unshift(order)
     if (item.isUserPublished) {
@@ -219,6 +225,34 @@ function publishBook(book) {
   saveLocal(KEYS.publishedBooks, publishedBooks.value)
   if (productCache.value.length > 0) {
     productCache.value.unshift(book)
+  }
+}
+
+// Fetch user's published books
+function fetchUserBooks(userName) {
+  const allBooks = productCache.value || []
+  const userBooks = allBooks.filter(b => b.seller === userName || b.isUserPublished)
+  return { books: userBooks }
+}
+
+// Seller stats (localStorage-based)
+function fetchSellerStats(sellerName) {
+  // Count orders where the buyer purchased books from this seller
+  const allOrders = orders.value || []
+  // Check both: orders with seller field matching, OR orders where the book in productCache belongs to this seller
+  const soldBooks = allOrders.filter(o => {
+    // Direct match via seller field stored in order
+    if (o.seller === sellerName) return true
+    // Fallback: find the book in productCache to check seller
+    const book = productCache.value.find(p => p.id === o.bookId || p.title === o.title)
+    return book && book.seller === sellerName
+  })
+  const total_books_sold = soldBooks.length
+  const total_earnings = soldBooks.reduce((sum, o) => sum + parseFloat(o.price || 0), 0)
+  return {
+    success: true,
+    total_books_sold,
+    total_earnings: parseFloat(total_earnings.toFixed(2)),
   }
 }
 
@@ -271,6 +305,8 @@ export function useStore() {
     getMergedPosts,
     placeOrder,
     publishBook,
+    fetchUserBooks,
+    fetchSellerStats,
     navigateTo,
     saveLocal,
 

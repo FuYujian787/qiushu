@@ -2,8 +2,8 @@
   <div class="register-wrapper">
     <div class="register-card">
       <div class="logo-section">
-        <div class="logo-icon"><span class="iconify" data-icon="ph:books-duotone" data-width="36"></span></div>
-        <h1>求书</h1>
+        <div class="logo-icon"><LogoIcon :size="64" /></div>
+        <h1 class="register-brand-title">紫金求思</h1>
         <p>加入我们的智慧书享社区</p>
       </div>
       <div class="zju-section">
@@ -54,13 +54,14 @@
         <div class="login-link">已有账号？<a @click="goLogin">前往登录</a></div>
       </div>
     </div>
-    <footer class="footer">© 2026 求书校园二手书平台</footer>
+    <footer class="footer">© 2026 紫金求思校园二手书平台</footer>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useStore } from '../../stores/useStore'
+import LogoIcon from '../../components/LogoIcon.vue'
 
 const store = useStore()
 const zjuStuid = ref('')
@@ -140,7 +141,7 @@ function doZJURegister() {
   }
   store.addUser(newUser)
   store.login(newUser)
-  alert('注册成功！欢迎加入求书')
+  alert('注册成功！欢迎加入紫金求思')
   store.navigateTo('home')
 }
 
@@ -168,34 +169,62 @@ function goLogin() { store.navigateTo('login') }
 .register-wrapper { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; }
 .register-card { width: 100%; max-width: 28rem; }
 .logo-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 2rem; }
-.logo-icon { width: 4rem; height: 4rem; background: white; border-radius: 1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-.logo-icon :deep(.iconify) { color: #7c3aed; }
-.logo-section h1 { font-size: 1.875rem; font-weight: 700; color: #374151; letter-spacing: 0.05em; margin: 0; }
-.logo-section p { color: #9ca3af; margin-top: 0.5rem; }
-.zju-section, .platform-section, .normal-section { background: white; border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 10px 25px rgba(124,58,237,0.08); margin-bottom: 1.5rem; }
-.zju-section h2, .platform-section h3, .normal-section h3 { font-size: 1.125rem; font-weight: 700; color: #374151; margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem; }
+.logo-icon { width: 5rem; height: 5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
+.register-brand-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0;
+  font-family: var(--font-brand);
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #4A3B5A 0%, #7A6B8A 40%, #C4B5E0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow:
+    0 0 40px rgba(196, 181, 224, 0.12),
+    0 0 80px rgba(220, 208, 255, 0.06),
+    0 4px 12px rgba(74, 59, 90, 0.06);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.register-brand-title:hover {
+  letter-spacing: 0.16em;
+  text-shadow:
+    0 0 60px rgba(196, 181, 224, 0.25),
+    0 0 100px rgba(220, 208, 255, 0.12),
+    0 4px 20px rgba(74, 59, 90, 0.10);
+  background: linear-gradient(135deg, #C4B5E0 0%, #DCD0FF 40%, #B8A9DA 70%, #4A3B5A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.logo-section p { color: var(--text-tertiary); margin-top: 0.5rem; }
+.zju-section, .platform-section, .normal-section { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--glass-shadow-hover); margin-bottom: 1.5rem; }
+.zju-section h2, .platform-section h3, .normal-section h3 { font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 0.5rem; }
 .form-fields { display: flex; flex-direction: column; gap: 1rem; }
-.field label { display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.25rem; margin-left: 0.25rem; }
+.field label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; margin-left: 0.25rem; }
 .input-wrap { position: relative; }
-.input-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #9ca3af; }
-.input-field { width: 100%; padding: 0.75rem 1rem 0.75rem 2.75rem; background: #f9fafb; border: 1px solid #f3f4f6; border-radius: 0.75rem; outline: none; box-sizing: border-box; transition: all 0.2s; }
-.input-field:focus { border-color: #7c3aed; box-shadow: 0 0 0 4px rgba(124,58,237,0.1); }
-.input-field.disabled { background: #f3f4f6; color: #6b7280; }
-.zju-btn { width: 100%; padding: 0.75rem; background: #2563eb; color: white; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
-.zju-btn:hover { background: #1d4ed8; }
-.register-btn { width: 100%; padding: 1rem; background: #7c3aed; color: white; border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
-.register-btn:hover { background: #6d28d9; }
+.input-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
+.input-field { width: 100%; padding: 0.75rem 1rem 0.75rem 2.75rem; background: rgba(255,255,255,0.7); border: 1px solid var(--glass-border); border-radius: 0.75rem; outline: none; box-sizing: border-box; transition: all 0.2s; }
+.input-field:focus { border-color: var(--lavender-accent-soft); box-shadow: 0 0 0 4px rgba(220,208,255,0.15); }
+.input-field.disabled { background: rgba(243,244,246,0.5); color: var(--text-secondary); }
+.zju-btn { width: 100%; padding: 0.75rem; background: var(--gradient-brand); color: var(--text-primary); border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
+.zju-btn:hover { filter: brightness(0.95); }
+.register-btn { width: 100%; padding: 1rem; background: var(--gradient-brand); color: var(--text-primary); border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(155, 142, 196, 0.3); }
+.register-btn:hover { filter: brightness(0.95); }
 .verify-result { text-align: center; font-size: 0.875rem; }
 .verify-result.success { color: #16a34a; }
 .verify-result.error { color: #dc2626; }
-.verify-result.loading { color: #2563eb; }
+.verify-result.loading { color: var(--lavender-accent); }
 .divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; }
-.divider::before, .divider::after { flex-grow: 1; border-top: 1px solid #e5e7eb; content: ''; }
-.divider span { color: #9ca3af; font-size: 0.875rem; }
-.agree-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #6b7280; margin-bottom: 1.5rem; }
-.agree-label a { color: #7c3aed; font-weight: 500; }
-.checkbox { width: 1rem; height: 1rem; accent-color: #7c3aed; }
-.login-link { text-align: center; font-size: 0.875rem; color: #9ca3af; margin-top: 1rem; }
-.login-link a { color: #7c3aed; font-weight: 700; cursor: pointer; }
-.footer { margin-top: 3rem; color: #9ca3af; font-size: 0.75rem; text-align: center; }
+.divider::before, .divider::after { flex-grow: 1; border-top: 1px solid var(--glass-border); content: ''; }
+.divider span { color: var(--text-tertiary); font-size: 0.875rem; }
+.agree-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+.agree-label a { color: var(--lavender-accent); font-weight: 500; }
+.checkbox { width: 1rem; height: 1rem; accent-color: var(--lavender-accent); }
+.login-link { text-align: center; font-size: 0.875rem; color: var(--text-tertiary); margin-top: 1rem; }
+.login-link a { color: var(--lavender-accent); font-weight: 700; cursor: pointer; }
+.footer { margin-top: 3rem; color: var(--text-tertiary); font-size: 0.75rem; text-align: center; }
 </style>

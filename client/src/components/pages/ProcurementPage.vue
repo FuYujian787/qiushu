@@ -28,12 +28,14 @@
       </div>
     </div>
     <div v-if="totalPages > 1" class="pagination">
-      <button class="page-btn" :disabled="page <= 1" @click="goPage(page - 1)">‹</button>
-      <template v-for="p in pageNumbers" :key="p">
-        <button v-if="p === '...'" class="page-btn page-ellipsis" disabled>…</button>
-        <button v-else class="page-btn" :class="{ active: p === page }" @click="goPage(p)">{{ p }}</button>
-      </template>
-      <button class="page-btn" :disabled="page >= totalPages" @click="goPage(page + 1)">›</button>
+      <div class="pagination-buttons">
+        <button class="page-btn" :disabled="page <= 1" @click="goPage(page - 1)">‹</button>
+        <template v-for="p in pageNumbers" :key="p">
+          <button v-if="p === '...'" class="page-btn page-ellipsis" disabled>…</button>
+          <button v-else class="page-btn" :class="{ active: p === page }" @click="goPage(p)">{{ p }}</button>
+        </template>
+        <button class="page-btn" :disabled="page >= totalPages" @click="goPage(page + 1)">›</button>
+      </div>
       <div class="jump-area">
         <span class="jump-text">跳至</span>
         <input v-model.number="jumpVal" type="number" :min="1" :max="totalPages" class="jump-input" :placeholder="String(page)" />
@@ -136,35 +138,35 @@ function openDetail(id) {
 <style scoped>
 .procurement-page { display: flex; flex-direction: column; gap: 2rem; }
 .filter-bar { display: flex; align-items: center; gap: 1rem; }
-.filter-label { font-size: 0.875rem; font-weight: 700; color: #9ca3af; }
+.filter-label { font-size: 0.875rem; font-weight: 700; color: var(--text-tertiary); }
 .filter-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.filter-chip { padding: 0.375rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; background: white; border: 1px solid #f3f4f6; color: #6b7280; cursor: pointer; }
-.filter-chip:hover { border-color: #d8b4fe; }
-.filter-chip.active { background: #7c3aed; color: white; }
+.filter-chip { padding: 0.375rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 500; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--text-secondary); cursor: pointer; backdrop-filter: blur(8px); }
+.filter-chip:hover { border-color: var(--lavender-primary); }
+.filter-chip.active { background: var(--gradient-brand); color: var(--text-primary); border-color: transparent; }
 .book-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-.book-card { background: white; border-radius: 1.5rem; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); cursor: pointer; }
-.book-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-.book-img-wrap { position: relative; aspect-ratio: 3/4; background: #f9fafb; border-radius: 1rem; overflow: hidden; margin-bottom: 1rem; }
+.book-card { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; padding: 1rem; box-shadow: var(--glass-shadow); cursor: pointer; }
+.book-card:hover { box-shadow: var(--glass-shadow-hover); border-color: var(--glass-border-strong); }
+.book-img-wrap { position: relative; aspect-ratio: 3/4; background: rgba(255,255,255,0.3); border-radius: 1rem; overflow: hidden; margin-bottom: 1rem; }
 .book-img { width: 100%; height: 100%; object-fit: cover; }
 .book-condition-tag { position: absolute; top: 0.75rem; left: 0.75rem; padding: 0.25rem 0.75rem; background: rgba(0,0,0,0.5); color: white; font-size: 0.625rem; font-weight: 700; border-radius: 9999px; }
 .book-card-info {}
 .book-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
-.book-card-title { font-weight: 700; color: #374151; font-size: 0.875rem; margin: 0; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.book-card-price { color: #7c3aed; font-weight: 700; font-size: 0.875rem; margin-left: 0.5rem; white-space: nowrap; }
-.book-card-seller { font-size: 0.75rem; color: #9ca3af; margin: 0 0 0.75rem 0; }
+.book-card-title { font-weight: 700; color: var(--text-primary); font-size: 0.875rem; margin: 0; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.book-card-price { color: var(--lavender-accent); font-weight: 700; font-size: 0.875rem; margin-left: 0.5rem; white-space: nowrap; }
+.book-card-seller { font-size: 0.75rem; color: var(--text-tertiary); margin: 0 0 0.75rem 0; }
 .book-card-actions {}
-.add-cart-btn { width: 100%; padding: 0.625rem; background: #f3f4f6; color: #6b7280; font-size: 0.75rem; font-weight: 700; border-radius: 0.75rem; text-align: center; cursor: pointer; }
-.add-cart-btn:hover { background: #ede9fe; color: #7c3aed; }
-.empty-state { grid-column: 1 / -1; text-align: center; padding: 5rem 0; color: #9ca3af; font-size: 1.125rem; }
+.add-cart-btn { width: 100%; padding: 0.625rem; background: rgba(255,255,255,0.5); color: var(--text-secondary); font-size: 0.75rem; font-weight: 700; border-radius: 0.75rem; text-align: center; cursor: pointer; border: 1px solid var(--glass-border); }
+.add-cart-btn:hover { background: var(--lavender-accent-mist); color: var(--lavender-accent); }
+.empty-state { grid-column: 1 / -1; text-align: center; padding: 5rem 0; color: var(--text-tertiary); font-size: 1.125rem; }
 .pagination { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 1rem; }
-.pagination > div:nth-child(1) { display: flex; align-items: center; gap: 0.5rem; }
-.page-btn { width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: center; background: white; color: #6b7280; cursor: pointer; font-weight: 700; font-size: 1rem; }
-.page-btn:hover:not(:disabled):not(.active) { border-color: #a78bfa; color: #7c3aed; }
-.page-btn.active { background: #7c3aed; color: white; border-color: #7c3aed; }
+.pagination-buttons { display: flex; align-items: center; gap: 0.5rem; }
+.page-btn { width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; background: var(--glass-bg); color: var(--text-secondary); cursor: pointer; font-weight: 700; font-size: 1rem; backdrop-filter: blur(8px); }
+.page-btn:hover:not(:disabled):not(.active) { border-color: var(--lavender-primary); color: var(--lavender-accent); }
+.page-btn.active { background: var(--gradient-brand); color: var(--text-primary); border-color: transparent; }
 .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .page-ellipsis { border: none; background: none; cursor: default; }
-.jump-area { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: #6b7280; }
-.jump-input { width: 4rem; padding: 0.25rem 0.5rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; text-align: center; font-size: 0.875rem; outline: none; }
-.jump-btn { padding: 0.25rem 0.75rem; background: #ede9fe; color: #7c3aed; border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
-.jump-btn:hover { background: #ddd6fe; }
+.jump-area { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-secondary); }
+.jump-input { width: 4rem; padding: 0.25rem 0.5rem; border: 1px solid var(--glass-border); border-radius: 0.5rem; text-align: center; font-size: 0.875rem; outline: none; background: rgba(255,255,255,0.5); }
+.jump-btn { padding: 0.25rem 0.75rem; background: var(--lavender-accent-mist); color: var(--lavender-accent); border: none; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
+.jump-btn:hover { background: rgba(220,208,255,0.3); }
 </style>

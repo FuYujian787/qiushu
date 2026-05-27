@@ -33,14 +33,14 @@ const userOrders = computed(() => {
 
 <style scoped>
 .order-page {}
-.page-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
-.empty-state { background: white; border-radius: 1.5rem; padding: 2.5rem; text-align: center; color: #9ca3af; }
+.page-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary); }
+.empty-state { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; padding: 2.5rem; text-align: center; color: var(--text-tertiary); }
 .empty-icon { margin-bottom: 1rem; }
-.empty-icon :deep(.iconify) { color: #d1d5db; }
+.empty-icon :deep(.iconify) { color: var(--text-tertiary); }
 .empty-state p { font-size: 1.125rem; margin: 0; }
 .order-list { display: flex; flex-direction: column; gap: 1rem; }
-.order-item { background: white; border-radius: 1.5rem; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); display: flex; justify-content: space-between; align-items: center; }
-.order-info h4 { font-weight: 700; margin: 0; }
-.order-meta { font-size: 0.75rem; color: #9ca3af; margin: 0.25rem 0 0 0; }
-.order-status { color: #7c3aed; font-weight: 700; }
+.order-item { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--glass-shadow); display: flex; justify-content: space-between; align-items: center; }
+.order-info h4 { font-weight: 700; margin: 0; color: var(--text-primary); }
+.order-meta { font-size: 0.75rem; color: var(--text-tertiary); margin: 0.25rem 0 0 0; }
+.order-status { color: var(--lavender-accent); font-weight: 700; }
 </style>

@@ -18,14 +18,26 @@
         <div v-if="!alipayQr && !wechatQr" class="qr-placeholder">
           <svg width="200" height="200" viewBox="0 0 200 200"><rect width="200" height="200" fill="#f0f0f0"/><text x="100" y="110" text-anchor="middle" fill="#333" font-size="14">卖家未上传收款码</text></svg>
         </div>
-        <div class="payment-btn" @click="completePayment">我已完成支付</div>
+        <!-- 场景三：【思辨流转】粒子爆破按钮 -->
+        <div class="payment-btn btn-pulse" ref="btnRef" @click="completePayment">
+          我已完成支付
+          <div v-if="showParticles" class="particle-burst">
+            <div
+              v-for="p in particles"
+              :key="p.id"
+              class="particle"
+              :style="p.style"
+            />
+            <div class="ripple-ring" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from '../../stores/useStore'
 
 const store = useStore()
@@ -46,29 +58,87 @@ const wechatQr = computed(() => {
   return null
 })
 
+/* ===== 场景三：粒子爆破反馈 ===== */
+const showParticles = ref(false)
+const particles = ref([])
+const btnRef = ref(null)
+
 function completePayment() {
   if (!store.cart.length || !store.currentUser.value) return
-  const buyer = store.currentUser.value
-  const address = buyer.address || '未设置地址'
-  store.placeOrder(buyer.name, address)
-  alert('支付成功！')
-  store.navigateTo('orders')
+
+  // 触发粒子爆破
+  triggerParticles()
+
+  // 延迟执行支付逻辑，让粒子动画先跑
+  setTimeout(() => {
+    const buyer = store.currentUser.value
+    const address = buyer.address || '未设置地址'
+    store.placeOrder(buyer.name, address)
+    alert('支付成功！')
+    store.navigateTo('orders')
+  }, 300)
+}
+
+function triggerParticles() {
+  const colors = [
+    'rgba(220, 208, 255, 0.9)',  // 薰衣草淡紫
+    'rgba(196, 181, 224, 0.8)',  // 深薰衣草
+    'rgba(230, 215, 184, 0.8)',  // 紫金
+    'rgba(255, 255, 255, 0.7)',  // 白
+  ]
+
+  const list = []
+  for (let i = 0; i < 24; i++) {
+    const angle = (Math.PI * 2 * i) / 24 + (Math.random() - 0.5) * 0.3
+    const distance = 80 + Math.random() * 80
+    const tx = Math.cos(angle) * distance
+    const ty = Math.sin(angle) * distance
+    const size = 4 + Math.random() * 6
+    const color = colors[Math.floor(Math.random() * colors.length)]
+    const duration = 0.8 + Math.random() * 0.4
+
+    list.push({
+      id: i,
+      style: {
+        width: size + 'px',
+        height: size + 'px',
+        background: color,
+        boxShadow: `0 0 ${size * 2}px ${color}`,
+        '--tx': tx + 'px',
+        '--ty': ty + 'px',
+        animation: `particleFly ${duration}s cubic-bezier(0.25, 1, 0.5, 1) forwards`,
+        top: '50%',
+        left: '50%',
+        marginTop: -(size / 2) + 'px',
+        marginLeft: -(size / 2) + 'px',
+      },
+    })
+  }
+
+  particles.value = list
+  showParticles.value = true
+
+  // 动画结束后清理
+  setTimeout(() => {
+    showParticles.value = false
+    particles.value = []
+  }, 1200)
 }
 </script>
 
 <style scoped>
 .payment-page { display: flex; justify-content: center; }
-.payment-card { max-width: 28rem; width: 100%; background: white; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
-.payment-header { background: #7c3aed; padding: 2rem; text-align: center; color: white; }
-.payment-header :deep(.iconify) { color: white; }
+.payment-card { max-width: 28rem; width: 100%; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 1.5rem; overflow: hidden; box-shadow: var(--glass-shadow-hover); }
+.payment-header { background: var(--gradient-brand); padding: 2rem; text-align: center; color: var(--text-primary); }
+.payment-header :deep(.iconify) { color: var(--text-primary); }
 .payment-header h2 { font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0 0 0; }
 .payment-body { padding: 2rem; display: flex; flex-direction: column; align-items: center; }
-.payment-total { font-size: 2.25rem; font-weight: 700; margin: 0 0 1.5rem 0; }
+.payment-total { font-size: 2.25rem; font-weight: 700; color: var(--text-primary); margin: 0 0 1.5rem 0; }
 .qr-section { margin-bottom: 1.5rem; text-align: center; }
-.qr-section h3 { font-size: 1.125rem; font-weight: 700; color: #374151; margin: 0 0 0.75rem 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-.qr-img-wrap { width: 12rem; height: 12rem; margin: 0 auto; background: white; border: 2px solid #e5e7eb; border-radius: 1rem; overflow: hidden; }
+.qr-section h3 { font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.75rem 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+.qr-img-wrap { width: 12rem; height: 12rem; margin: 0 auto; background: white; border: 2px solid var(--glass-border); border-radius: 1rem; overflow: hidden; }
 .qr-img { width: 100%; height: 100%; object-fit: contain; }
 .qr-placeholder { margin-bottom: 1.5rem; }
-.payment-btn { width: 100%; padding: 1rem; background: #7c3aed; color: white; border-radius: 1rem; font-weight: 700; text-align: center; cursor: pointer; }
-.payment-btn:hover { background: #6d28d9; }
+.payment-btn { position: relative; width: 100%; padding: 1rem; background: var(--gradient-brand); color: var(--text-primary); border-radius: 1rem; font-weight: 700; text-align: center; cursor: pointer; overflow: hidden; box-shadow: 0 4px 12px rgba(155, 142, 196, 0.3); }
+.payment-btn:hover { filter: brightness(0.95); }
 </style>
