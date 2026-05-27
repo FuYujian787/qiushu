@@ -11,11 +11,27 @@
         <div class="form-fields">
           <div class="field">
             <label>用户名</label>
-            <div class="input-wrap"><span class="input-icon iconify" data-icon="solar:user-outline" data-width="20"></span><input v-model="username" placeholder="请输入用户名" type="text" class="input-field" /></div>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="4.5"/>
+                  <path d="M3 21c0-4 4-7 9-7s9 3 9 7"/>
+                </svg>
+              </span>
+              <input v-model="username" placeholder="请输入用户名" type="text" class="input-field" />
+            </div>
           </div>
           <div class="field">
             <label>密码</label>
-            <div class="input-wrap"><span class="input-icon iconify" data-icon="solar:lock-password-outline" data-width="20"></span><input v-model="password" placeholder="请输入密码" type="password" class="input-field" @keyup.enter="doLogin" /></div>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </span>
+              <input v-model="password" placeholder="请输入密码" type="password" class="input-field" @keyup.enter="doLogin" />
+            </div>
           </div>
         </div>
         <div class="form-options">

@@ -4,12 +4,12 @@
     <TheSidebar v-if="showSidebar" />
     <main class="main-area" :class="{ 'full-width': !showSidebar }">
       <ThePageHeader v-if="showSidebar" />
-      <SellerDashboard v-if="showSidebar && store.isLoggedIn.value" />
       <div class="page-content">
         <LoginPage v-if="store.currentPage.value === 'login'" />
         <RegisterPage v-else-if="store.currentPage.value === 'register'" />
         <HomePage v-else-if="store.currentPage.value === 'home'" />
         <ProcurementPage v-else-if="store.currentPage.value === 'procurement'" />
+        <StallPage v-else-if="store.currentPage.value === 'stall'" />
         <CartPage v-else-if="store.currentPage.value === 'cart'" />
         <OrderPage v-else-if="store.currentPage.value === 'orders'" />
         <NotificationPage v-else-if="store.currentPage.value === 'notifications'" />
@@ -29,11 +29,11 @@ import { useStore } from './stores/useStore'
 import StarCanvas from './components/StarCanvas.vue'
 import TheSidebar from './components/TheSidebar.vue'
 import ThePageHeader from './components/ThePageHeader.vue'
-import SellerDashboard from './components/SellerDashboard.vue'
 import LoginPage from './components/pages/LoginPage.vue'
 import RegisterPage from './components/pages/RegisterPage.vue'
 import HomePage from './components/pages/HomePage.vue'
 import ProcurementPage from './components/pages/ProcurementPage.vue'
+import StallPage from './components/pages/StallPage.vue'
 import CartPage from './components/pages/CartPage.vue'
 import OrderPage from './components/pages/OrderPage.vue'
 import NotificationPage from './components/pages/NotificationPage.vue'
