@@ -2,7 +2,8 @@
 通知路由：查询、标记已读
 """
 from flask import Blueprint, request, jsonify
-from models import db, Notification
+from db import db
+from models import Notification
 
 notifications_bp = Blueprint('notifications', __name__)
 

@@ -2,7 +2,8 @@
 认证路由：登录 / 注册
 """
 from flask import Blueprint, request, jsonify
-from models import db, User
+from db import db
+from models import User
 
 auth_bp = Blueprint('auth', __name__)
 
