@@ -10,6 +10,9 @@ from models import db, Book
 
 books_bp = Blueprint('books', __name__)
 
+# 用户发布书籍的 ID 偏移量，避免与 JSON 书籍 ID 冲突
+USER_BOOK_ID_OFFSET = 100000000
+
 # JSON 数据文件路径（位于 client/public/data/books.json）
 JSON_DATA_PATH = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
@@ -145,10 +148,6 @@ def get_random_books():
         return jsonify({'books': []}), 200
     selected = random.sample(all_books, min(count, len(all_books)))
     return jsonify({'books': selected}), 200
-
-
-# 用户发布书籍的 ID 偏移量，避免与 JSON 书籍 ID 冲突
-USER_BOOK_ID_OFFSET = 100000000
 
 
 @books_bp.route('/api/books/<int:book_id>', methods=['GET'])

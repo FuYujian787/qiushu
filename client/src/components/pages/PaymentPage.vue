@@ -47,9 +47,9 @@ const wechatQr = computed(() => {
 })
 
 function completePayment() {
-  if (!store.cart.length) return
+  if (!store.cart.length || !store.currentUser.value) return
   const buyer = store.currentUser.value
-  const address = buyer?.address || '未设置地址'
+  const address = buyer.address || '未设置地址'
   store.placeOrder(buyer.name, address)
   alert('支付成功！')
   store.navigateTo('orders')

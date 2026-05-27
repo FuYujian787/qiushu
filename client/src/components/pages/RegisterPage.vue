@@ -92,6 +92,14 @@ async function verifyZJU() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: zjuStuid.value, password: zjuPassword.value }),
     })
+    
+    // 检查 HTTP 状态码
+    if (!res.ok) {
+      verifyMsg.value = `❌ 服务器错误：${res.status}`
+      verifyStatus.value = 'error'
+      return
+    }
+    
     const data = await res.json()
     if (data.success) {
       zjuStudentInfo = data.student
