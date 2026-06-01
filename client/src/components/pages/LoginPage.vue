@@ -1,13 +1,14 @@
 <template>
   <div class="login-wrapper">
-    <div class="login-card">
+    <div class="login-card apple-auth-card">
       <div class="logo-section">
         <div class="logo-icon"><LogoIcon :size="64" /></div>
-        <h1 class="login-brand-title">紫金求思</h1>
+        <h1 class="login-brand-title apple-text-gradient">紫金求思</h1>
         <p>你的校园智慧购书管家</p>
       </div>
       <div class="form-section">
-        <h2>账号登录</h2>
+        <h2 class="apple-auth-title">账号登录</h2>
+        <p class="apple-auth-subtitle">欢迎回来！请输入你的账号信息</p>
         <div class="form-fields">
           <div class="field">
             <label>用户名</label>
@@ -18,7 +19,7 @@
                   <path d="M3 21c0-4 4-7 9-7s9 3 9 7"/>
                 </svg>
               </span>
-              <input v-model="username" placeholder="请输入用户名" type="text" class="input-field" />
+              <input v-model="username" placeholder="请输入用户名" type="text" class="input-field apple-liquid-input" />
             </div>
           </div>
           <div class="field">
@@ -30,7 +31,7 @@
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
               </span>
-              <input v-model="password" placeholder="请输入密码" type="password" class="input-field" @keyup.enter="doLogin" />
+              <input v-model="password" placeholder="请输入密码" type="password" class="input-field apple-liquid-input" @keyup.enter="doLogin" />
             </div>
           </div>
         </div>
@@ -39,7 +40,7 @@
           <a class="forgot-link">忘记密码？</a>
         </div>
         <label class="agree-label"><input type="checkbox" checked class="checkbox" />我已阅读并同意 <a>《服务协议》</a> 和 <a>《隐私协议》</a></label>
-        <button class="login-btn" @click="doLogin">登录</button>
+        <button class="login-btn apple-liquid-btn apple-liquid-btn-primary" @click="doLogin">登录</button>
         <div class="register-link">还没有账号？<a @click="goRegister">前往注册</a></div>
       </div>
     </div>

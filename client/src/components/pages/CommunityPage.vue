@@ -52,7 +52,7 @@
         </nav>
         <div class="category-footer">
           <button class="new-thought-btn" @click="togglePostForm">
-            <span class="new-thought-icon">✦</span>
+            <span class="iconify new-thought-icon" data-icon="solar:sparkles-outline" data-width="18"></span>
             <span>发布思想</span>
           </button>
         </div>
@@ -65,7 +65,9 @@
           <div v-if="showPostForm" class="new-post-form glass-crystal">
             <div class="form-header">
               <h4 class="form-title">记录你的思想</h4>
-              <button class="form-close-btn" @click="togglePostForm">✕</button>
+            <button class="form-close-btn" @click="togglePostForm">
+              <span class="iconify" data-icon="solar:close-circle-outline" data-width="20"></span>
+            </button>
             </div>
             <input
               v-model="newPostTitle"
@@ -148,7 +150,6 @@
                   💬
                 </button>
               </div>
-              <span class="post-time">{{ post.time }}</span>
             </div>
 
             <!-- 帖子标题 -->
@@ -183,19 +184,27 @@
             <!-- 帖子统计栏 -->
             <div class="post-stats">
               <button class="stat-btn" @click="likePost(post)" :class="{ 'stat-liked': post._liked }">
-                <span class="stat-icon">♡</span>
+                <span class="iconify stat-icon" :data-icon="post._liked ? 'solar:heart-bold' : 'solar:heart-outline'" data-width="15"></span>
                 <span>{{ post.likeCount || 0 }}</span>
               </button>
               <button class="stat-btn" @click="toggleReplyForm(post)">
-                <span class="stat-icon">↩</span>
+                <span class="iconify stat-icon" data-icon="solar:reply-outline" data-width="15"></span>
                 <span>{{ post.replyCount || (post.replies ? post.replies.length : 0) }}</span>
               </button>
               <span class="stat-btn stat-view">
-                <span class="stat-icon">◉</span>
+                <span class="iconify stat-icon" data-icon="solar:eye-outline" data-width="15"></span>
                 <span>{{ post.viewCount || 0 }}</span>
               </span>
-              <span class="stat-hot" v-if="post.hotScore">
-                热度 {{ post.hotScore.toFixed(1) }}
+              <span class="stat-footer-meta">
+                <span class="stat-footer-item" v-if="post.hotScore">
+                  <span class="iconify" data-icon="solar:fire-outline" data-width="13"></span>
+                  热度 {{ post.hotScore.toFixed(1) }}
+                </span>
+                <span class="stat-footer-divider" v-if="post.hotScore">·</span>
+                <span class="stat-footer-item">
+                  <span class="iconify" data-icon="solar:clock-circle-outline" data-width="13"></span>
+                  {{ post.time }}
+                </span>
               </span>
             </div>
 
@@ -225,7 +234,8 @@
                   </div>
                   <p class="reply-content">{{ reply.content }}</p>
                   <button class="reply-like-btn" @click="likeReply(post, reply)">
-                    ♡ {{ reply.likeCount || 0 }}
+                    <span class="iconify" data-icon="solar:heart-outline" data-width="13"></span>
+                    {{ reply.likeCount || 0 }}
                   </button>
                 </div>
               </TransitionGroup>
@@ -267,7 +277,7 @@
 
         <!-- 空状态 -->
         <div v-if="filteredPosts.length === 0" class="empty-state">
-          <div class="empty-icon">◌</div>
+          <span class="iconify empty-icon" data-icon="solar:document-text-outline" data-width="44"></span>
           <p class="empty-text">此分类暂无思辨</p>
           <p class="empty-hint">成为第一个发布思想的人</p>
         </div>
@@ -295,7 +305,7 @@
             class="knowledge-book-card"
           >
             <div class="knowledge-book-header">
-              <span class="knowledge-book-icon">📖</span>
+              <span class="iconify knowledge-book-icon" data-icon="solar:book-2-outline" data-width="18"></span>
               <span class="knowledge-book-title">《{{ book.title }}》</span>
             </div>
             <div class="knowledge-book-status" v-if="book.matched && book.availableCount > 0">
@@ -325,7 +335,9 @@
 
         <!-- 无联动时的优雅降级占位 -->
         <div class="knowledge-empty" v-else>
-          <div class="knowledge-empty-icon">◌</div>
+          <div class="knowledge-empty-icon">
+            <span class="iconify" data-icon="solar:hand-pointer-outline" data-width="36"></span>
+          </div>
           <p class="knowledge-empty-text">悬停帖子查看<br/>关联书籍信息</p>
           <p class="knowledge-empty-hint">帖子中的《书名》将自动<br/>联动书摊在售数据</p>
         </div>

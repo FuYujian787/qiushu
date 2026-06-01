@@ -80,6 +80,7 @@ function confirmPublish() {
     img: imgData.value || 'R-C.jpg',
     category: category.value,
     isUserPublished: true,
+    status: 'active',
     alipayQr: alipayData.value,
     wechatQr: wechatData.value,
   }

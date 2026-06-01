@@ -75,39 +75,7 @@ onMounted(async () => {
 </script>
 
 <style>
-/* ========== 全局背景图 + 白色半透明遮罩层 ========== */
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #f8f6fc;
-  font-family: var(--font-cn);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  position: relative;
-}
-
-/* 背景图层：浙大风景照（使用 R-C.jpg 作为背景） */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('/微信图片_20260526154819_1901_8.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -2;
-  filter: saturate(0.7) brightness(1.05);
-}
-
-/* 白色半透明遮罩层：65% 白色把背景图盖淡，产生空气感 */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255, 255, 255, 0.65);
-  z-index: -1;
-}
+/* 全局背景已统一由 apple-liquid-glass.css 管理 */
 </style>
 
 <style>

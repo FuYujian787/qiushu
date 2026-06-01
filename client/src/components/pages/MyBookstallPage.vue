@@ -330,19 +330,24 @@ function openDetail(id) {
 }
 .book-card {
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 16px;
   cursor: pointer;
   transition: all var(--transition-normal);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
 }
 .book-card:hover {
   transform: translateY(-3px);
   box-shadow: var(--glass-shadow-hover);
+  border-color: var(--glass-border-hover);
 }
 .book-cover {
   width: 100%;
   aspect-ratio: 3/4;
   background: rgba(255,255,255,0.5);
-  border-radius: 0.5rem;
+  border-radius: 4px;
   overflow: hidden;
   margin-bottom: 0.75rem;
 }
@@ -354,7 +359,7 @@ function openDetail(id) {
 .book-info {}
 .book-title {
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0;
   color: var(--text-primary);
   white-space: nowrap;
@@ -363,14 +368,17 @@ function openDetail(id) {
 }
 .book-condition {
   font-size: 0.7rem;
-  color: var(--text-tertiary);
+  color: var(--text-caption);
   margin: 0.2rem 0;
 }
 .book-price {
   font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--lavender-accent);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
   margin: 0.35rem 0 0 0;
+  letter-spacing: -0.02em;
 }
 .empty-books {
   grid-column: 1 / -1;

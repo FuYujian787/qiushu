@@ -408,6 +408,9 @@ onMounted(async () => {
   await loadConversations()
   loadingConversations.value = false
 
+  // 进入私信页面 → 清除侧边栏红点
+  store.resetChatUnreadCount()
+
   // 如果从其他页面跳转过来时携带了目标用户参数
   const targetUser = sessionStorage.getItem('chat_target_user')
   if (targetUser) {
@@ -423,6 +426,9 @@ onMounted(async () => {
 
 onUnmounted(() => {
   stopPolling()
+  // 离开私信页面时保存当前未读数，用于侧边栏红点
+  const totalUnread = conversations.value.reduce((sum, c) => sum + (c.unreadCount || 0), 0)
+  store.updateChatUnreadCount(totalUnread)
 })
 
 // 监听活跃对话变化

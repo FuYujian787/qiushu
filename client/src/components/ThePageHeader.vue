@@ -1,5 +1,5 @@
 <template>
-  <header class="page-header">
+  <header class="page-header apple-liquid-header">
     <div class="header-left">
       <h2 class="greeting-msg">{{ greetingText }}</h2>
       <p class="date-text">今天是 {{ todayDate }}，来看点新书吧</p>
@@ -79,8 +79,8 @@ function onSearch(e) {
 .page-header {
   height: 6rem;
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -110,7 +110,7 @@ function onSearch(e) {
 }
 .search-icon {
   position: absolute;
-  left: 1rem;
+  left: 20px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-tertiary);
@@ -118,17 +118,24 @@ function onSearch(e) {
 .search-input {
   width: 20rem;
   height: 3rem;
-  padding: 0 1rem 0 3rem;
-  background: rgba(255,255,255,0.8);
+  padding: 0 1rem 0 2.75rem;
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
-  border-radius: 1rem;
+  border-radius: 14px;
   font-size: 0.875rem;
   outline: none;
-  box-shadow: var(--glass-shadow);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.4);
+  transition: all 0.25s var(--ease-out, cubic-bezier(0.16,1,0.3,1));
+}
+.search-input::placeholder {
+  color: var(--text-tertiary);
 }
 .search-input:focus {
-  border-color: var(--lavender-accent-soft);
-  box-shadow: 0 0 0 3px rgba(220,208,255,0.2);
+  border-color: rgba(100,140,220,0.4);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.06), 0 0 0 4px rgba(100,140,220,0.07), 0 1px 0 rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.65);
 }
 .header-actions {
   display: flex;
@@ -155,14 +162,17 @@ function onSearch(e) {
   cursor: pointer;
 }
 .avatar-ring {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.75rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
   overflow: hidden;
-  transition: all 0.2s;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.2);
+  transition: all 0.25s var(--ease-out, cubic-bezier(0.16,1,0.3,1));
 }
 .avatar-ring:hover {
-  box-shadow: 0 0 0 3px var(--lavender-primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12), 0 0 0 2px rgba(175, 82, 222, 0.25);
+  border-color: rgba(255, 255, 255, 0.8);
 }
 .avatar-img {
   width: 100%;

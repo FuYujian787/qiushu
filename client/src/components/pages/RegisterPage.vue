@@ -25,8 +25,19 @@
         <h3>设置平台密码</h3>
         <div class="form-fields">
           <div class="field"><label>真实姓名</label><input v-model="zjuRealName" disabled class="input-field disabled" /></div>
-          <div class="field"><label>学院</label><input v-model="zjuCollege" disabled class="input-field disabled" /></div>
-          <div class="field"><label>年级</label><input v-model="zjuGrade" disabled class="input-field disabled" /></div>
+          <div class="field-row">
+            <div class="field field-half"><label>学院</label><input v-model="zjuCollege" disabled class="input-field disabled" /></div>
+            <div class="field field-half"><label>年级</label><input v-model="zjuGrade" disabled class="input-field disabled" /></div>
+          </div>
+          <div class="field"><label>专业</label><input v-model="zjuDepartment" disabled class="input-field disabled" /></div>
+          <div class="field-row">
+            <div class="field field-half"><label>校区</label><input v-model="zjuCampus" disabled class="input-field disabled" /></div>
+            <div class="field field-half"><label>班级</label><input v-model="zjuClassName" disabled class="input-field disabled" /></div>
+          </div>
+          <div class="data-source-badge data-source-badge--cas" v-if="dataSource === 'cas'">
+            <span class="iconify" data-icon="solar:check-circle-outline" data-width="14"></span>
+            浙大 CAS 统一认证通过，姓名和学院为真实数据
+          </div>
           <div class="field"><label>设置平台密码</label><input v-model="platformPw" placeholder="6-16位字母或数字" type="password" class="input-field" /></div>
           <div class="field"><label>确认密码</label><input v-model="platformPw2" placeholder="请再次输入密码" type="password" class="input-field" /></div>
           <button class="register-btn" @click="doZJURegister">完成注册</button>
@@ -69,6 +80,10 @@ const zjuPassword = ref('')
 const zjuRealName = ref('')
 const zjuCollege = ref('')
 const zjuGrade = ref('')
+const zjuDepartment = ref('')
+const zjuCampus = ref('')
+const zjuClassName = ref('')
+const dataSource = ref('')
 const platformPw = ref('')
 const platformPw2 = ref('')
 const regName = ref('张伟')
@@ -104,11 +119,16 @@ async function verifyZJU() {
     const data = await res.json()
     if (data.success) {
       zjuStudentInfo = data.student
-      verifyMsg.value = `✅ 验证成功！姓名：${data.student.name}`
+      dataSource.value = data.data_source || 'cas'
+      const srcLabel = '教务网实名认证'
+      verifyMsg.value = `✅ 验证成功（${srcLabel}）！姓名：${data.student.name}`
       verifyStatus.value = 'success'
       zjuRealName.value = data.student.name || ''
       zjuCollege.value = data.student.college || ''
       zjuGrade.value = data.student.grade || ''
+      zjuDepartment.value = data.student.department || ''
+      zjuCampus.value = data.student.campus || ''
+      zjuClassName.value = data.student.class_name || ''
       showPlatformCard.value = true
     } else {
       verifyMsg.value = `❌ ${data.message || '验证失败'}`
@@ -133,6 +153,8 @@ function doZJURegister() {
   const newUser = {
     name: stuid, password: platformPw.value, role: 'buyer',
     college: zjuCollege.value || '未设置', grade: zjuGrade.value || '大一',
+    department: zjuDepartment.value || '', campus: zjuCampus.value || '',
+    className: zjuClassName.value || '', studentId: stuid,
     address: '', avatar: store.DEFAULT_AVATAR,
   }
   if (store.userExists(stuid)) {
@@ -210,6 +232,18 @@ function goLogin() { store.navigateTo('login') }
 .input-field { width: 100%; padding: 0.75rem 1rem 0.75rem 2.75rem; background: rgba(255,255,255,0.7); border: 1px solid var(--glass-border); border-radius: 0.75rem; outline: none; box-sizing: border-box; transition: all 0.2s; }
 .input-field:focus { border-color: var(--lavender-accent-soft); box-shadow: 0 0 0 4px rgba(220,208,255,0.15); }
 .input-field.disabled { background: rgba(243,244,246,0.5); color: var(--text-secondary); }
+.field-row { display: flex; gap: 0.75rem; }
+.field-half { flex: 1; min-width: 0; }
+.data-source-badge {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.75rem; color: #b45309; background: rgba(251,191,36,0.08);
+  border: 1px solid rgba(251,191,36,0.2); border-radius: 0.5rem;
+  padding: 0.45rem 0.7rem; margin-top: 0.25rem;
+}
+.data-source-badge--cas {
+  color: #0d6b4e; background: rgba(22,163,74,0.08);
+  border: 1px solid rgba(22,163,74,0.2);
+}
 .zju-btn { width: 100%; padding: 0.75rem; background: var(--gradient-brand); color: var(--text-primary); border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; }
 .zju-btn:hover { filter: brightness(0.95); }
 .register-btn { width: 100%; padding: 1rem; background: var(--gradient-brand); color: var(--text-primary); border: none; border-radius: 0.75rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(155, 142, 196, 0.3); }

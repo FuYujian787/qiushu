@@ -117,11 +117,18 @@ function startChat(sellerName) {
 .detail-img-wrap { background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); padding: 1.5rem; border-radius: 2.5rem; box-shadow: var(--glass-shadow); }
 .detail-img { aspect-ratio: 3/4; border-radius: 1.5rem; overflow: hidden; width: 100%; object-fit: cover; }
 .detail-info { grid-column: span 8; background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 2.5rem; padding: 2.5rem; box-shadow: var(--glass-shadow); }
-.detail-title { font-size: 1.875rem; font-weight: 700; color: var(--text-primary); margin: 0; }
-.detail-author { color: var(--text-tertiary); margin-top: 0.5rem; font-size: 0.875rem; }
+.detail-title { font-size: 1.875rem; font-weight: 600; color: var(--text-primary); margin: 0; letter-spacing: -0.02em; }
+.detail-author { color: var(--text-caption); margin-top: 0.5rem; font-size: 0.875rem; }
 .detail-price { margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; }
-.current-price { font-size: 2.25rem; font-weight: 900; color: var(--lavender-accent); }
-.old-price { font-size: 0.875rem; color: var(--text-tertiary); text-decoration: line-through; }
+.current-price {
+  font-size: 2.25rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+}
+.old-price { font-size: 0.875rem; color: var(--text-caption); text-decoration: line-through; }
 .detail-actions { margin-top: 2rem; display: flex; gap: 1rem; }
 .detail-btn { flex: 1; padding: 1rem; border-radius: 1rem; font-weight: 700; text-align: center; cursor: pointer; }
 .detail-btn.primary { background: var(--gradient-brand); color: var(--text-primary); box-shadow: 0 4px 12px rgba(155, 142, 196, 0.3); }
