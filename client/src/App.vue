@@ -1,24 +1,29 @@
 <template>
   <div class="app-container">
     <StarCanvas />
-    <TheSidebar v-if="showSidebar" />
-    <main class="main-area" :class="{ 'full-width': !showSidebar }">
+    <a href="#main-content" class="skip-to-content">跳到主要内容</a>
+    <Transition name="sidebar-fade">
+      <TheSidebar v-if="showSidebar" />
+    </Transition>
+    <main class="main-area" :class="{ 'full-width': !showSidebar }" id="main-content" tabindex="-1">
       <ThePageHeader v-if="showSidebar" />
       <div class="page-content">
-        <LoginPage v-if="store.currentPage.value === 'login'" />
-        <RegisterPage v-else-if="store.currentPage.value === 'register'" />
-        <HomePage v-else-if="store.currentPage.value === 'home'" />
-        <ProcurementPage v-else-if="store.currentPage.value === 'procurement'" />
-        <StallPage v-else-if="store.currentPage.value === 'stall'" />
-        <CartPage v-else-if="store.currentPage.value === 'cart'" />
-        <OrderPage v-else-if="store.currentPage.value === 'orders'" />
-        <NotificationPage v-else-if="store.currentPage.value === 'notifications'" />
-        <CommunityPage v-else-if="store.currentPage.value === 'community'" />
-        <ProfilePage v-else-if="store.currentPage.value === 'profile'" />
-        <PublishPage v-else-if="store.currentPage.value === 'publish'" />
-        <BookDetailPage v-else-if="store.currentPage.value === 'bookDetail'" />
-        <PaymentPage v-else-if="store.currentPage.value === 'payment'" />
-        <ChatPage v-else-if="store.currentPage.value === 'chat'" />
+        <Transition name="page-enter" mode="out-in" @before-enter="onBeforeEnter">
+          <LoginPage v-if="store.currentPage.value === 'login'" key="login" />
+          <RegisterPage v-else-if="store.currentPage.value === 'register'" key="register" />
+          <HomePage v-else-if="store.currentPage.value === 'home'" key="home" />
+          <ProcurementPage v-else-if="store.currentPage.value === 'procurement'" key="procurement" />
+          <StallPage v-else-if="store.currentPage.value === 'stall'" key="stall" />
+          <CartPage v-else-if="store.currentPage.value === 'cart'" key="cart" />
+          <OrderPage v-else-if="store.currentPage.value === 'orders'" key="orders" />
+          <NotificationPage v-else-if="store.currentPage.value === 'notifications'" key="notifications" />
+          <CommunityPage v-else-if="store.currentPage.value === 'community'" key="community" />
+          <ProfilePage v-else-if="store.currentPage.value === 'profile'" key="profile" />
+          <PublishPage v-else-if="store.currentPage.value === 'publish'" key="publish" />
+          <BookDetailPage v-else-if="store.currentPage.value === 'bookDetail'" key="bookDetail" />
+          <PaymentPage v-else-if="store.currentPage.value === 'payment'" key="payment" />
+          <ChatPage v-else-if="store.currentPage.value === 'chat'" key="chat" />
+        </Transition>
       </div>
     </main>
   </div>
@@ -72,6 +77,11 @@ onMounted(async () => {
   }
   store.currentPage.value = 'login'
 })
+
+let prevRoute = ''
+function onBeforeEnter(el) {
+  prevRoute = store.currentPage.value
+}
 </script>
 
 <style>
@@ -113,8 +123,31 @@ onMounted(async () => {
 .app-container {
   display: flex;
   height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
+
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 0.5rem;
+  z-index: 1000;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-primary, #6c3fc0);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0 0 0.75rem 0.75rem;
+  text-decoration: none;
+  transition: top 0.2s var(--ease-out);
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
 .main-area {
   flex-grow: 1;
   display: flex;
@@ -128,5 +161,43 @@ onMounted(async () => {
   flex-grow: 1;
   overflow-y: auto;
   padding: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .page-content {
+    padding: 1rem;
+  }
+}
+
+/* ===== 页面切换动画 ===== */
+.page-enter-enter-active,
+.page-enter-leave-active {
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+}
+
+.page-enter-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-enter-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* ===== 侧栏渐入动画 ===== */
+.sidebar-fade-enter-active,
+.sidebar-fade-leave-active {
+  transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.sidebar-fade-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.sidebar-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
 }
 </style>

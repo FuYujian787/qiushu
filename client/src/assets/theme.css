@@ -19,10 +19,10 @@
 /* ========== 字体导入（Inter 已在 index.html 通过 Google Fonts 加载） ========== */
 
 :root {
-  /* ========== 字体家族 ========== */
-  --font-cn: 'PingFang SC', 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
-  --font-en: 'Inter', -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  --font-brand: 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'STHeiti', sans-serif;
+  /* ========== 字体家族（V2：学术人文主义） ========== */
+  --font-cn: 'Noto Serif SC', 'PingFang SC', 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei', sans-serif;
+  --font-en: 'DM Serif Display', 'Inter', -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --font-brand: 'DM Serif Display', 'Noto Serif SC', 'PingFang SC', serif;
 
   /* ========== 淡紫色系 ========== */
   --lavender-primary: #DCD0FF;
@@ -31,6 +31,15 @@
   --lavender-accent: #9B8EC4;
   --lavender-accent-soft: #B8A9DA;
   --lavender-accent-mist: rgba(155, 142, 196, 0.12);
+
+  /* ========== 学术书卷色（V2 新增） ========== */
+  --accent-gold: #c9a96e;
+  --accent-gold-light: rgba(201, 169, 110, 0.15);
+  --accent-ink: #1a1520;
+  --accent-parchment: #f7f3eb;
+  --accent-plum: #4a2c5e;
+  --accent-sage: #7a9a7e;
+  --accent-sage-light: rgba(122, 154, 126, 0.12);
 
   /* ========== 渐变品牌色 ========== */
   --gradient-brand: linear-gradient(135deg, #DCD0FF 0%, #C4B5E0 50%, #B8A9DA 100%);

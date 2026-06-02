@@ -1,35 +1,40 @@
 <template>
-  <aside class="sidebar apple-liquid-sidebar">
-    <div class="sidebar-logo" @click="store.navigateTo('home')">
+  <aside class="sidebar apple-liquid-sidebar" role="navigation" aria-label="主导航">
+    <div class="sidebar-logo" @click="store.navigateTo('home')" role="button" tabindex="0" aria-label="返回首页" @keydown.enter="store.navigateTo('home')">
       <div class="logo-icon">
         <LogoIcon :size="64" />
       </div>
       <h1 class="logo-text apple-text-gradient-accent">紫金求思</h1>
     </div>
-    <nav class="sidebar-nav" id="sidebarNav">
+    <nav class="sidebar-nav" id="sidebarNav" aria-label="功能导航">
       <a v-for="item in navItems" :key="item.page" 
          class="sidebar-item apple-liquid-nav-item" 
          :class="{ 'active': store.currentPage.value === item.page }" 
-         @click.prevent="handleNavClick(item.page)">
-        <span class="iconify mr-3" :data-icon="item.icon" data-width="22"></span>
+         @click.prevent="handleNavClick(item.page)"
+         :aria-label="item.label"
+         :aria-current="store.currentPage.value === item.page ? 'page' : undefined"
+         role="button"
+         tabindex="0"
+         @keydown.enter.prevent="handleNavClick(item.page)">
+        <span class="iconify mr-3" :data-icon="item.icon" data-width="22" aria-hidden="true"></span>
         <span>{{ item.label }}</span>
         <span v-if="item.page === 'notifications' && showNotifDot" class="red-dot"></span>
         <span v-if="item.page === 'chat' && showChatDot" class="red-dot"></span>
       </a>
     </nav>
     <!-- 求是书摊 — 侧栏快捷预览卡片 -->
-    <div class="stall-card apple-liquid-card" v-if="statsLoaded" @click="store.navigateTo('stall')">
+    <div class="stall-card apple-liquid-card" v-if="statsLoaded" @click="store.navigateTo('stall')" role="button" tabindex="0" aria-label="查看我的书摊数据" @keydown.enter="store.navigateTo('stall')">
       <div class="stall-card-header">
-        <span class="iconify" data-icon="ph:storefront-duotone" data-width="16" style="color: var(--apple-purple);"></span>
+        <span class="iconify" data-icon="ph:storefront-duotone" data-width="16" style="color: var(--apple-purple);" aria-hidden="true"></span>
         <span class="stall-card-title">我的书摊</span>
-        <span class="stall-card-arrow">→</span>
+        <span class="stall-card-arrow" aria-hidden="true">→</span>
       </div>
       <div class="stall-card-stats">
         <div class="stall-stat">
           <span class="stall-stat-value apple-text-gradient-accent">{{ sellerStats.total_books_sold }}</span>
           <span class="stall-stat-label">已售</span>
         </div>
-        <div class="stall-stat-divider"></div>
+        <div class="stall-stat-divider" aria-hidden="true"></div>
         <div class="stall-stat">
           <span class="stall-stat-value apple-text-gradient-accent">¥{{ sellerStats.total_earnings }}</span>
           <span class="stall-stat-label">收益</span>
@@ -37,8 +42,8 @@
       </div>
     </div>
     <div class="sidebar-footer">
-      <div class="publish-btn apple-liquid-btn" @click="handlePublishClick">
-        <span class="iconify" data-icon="solar:add-circle-bold" data-width="24"></span>
+      <div class="publish-btn apple-liquid-btn" @click="handlePublishClick" role="button" tabindex="0" aria-label="发布闲置书籍" @keydown.enter="handlePublishClick">
+        <span class="iconify" data-icon="solar:add-circle-bold" data-width="24" aria-hidden="true"></span>
         <span>发布闲置</span>
       </div>
     </div>
@@ -193,8 +198,8 @@ function stopChatPolling() {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
-  font-family: var(--font-brand);
-  letter-spacing: 0.08em;
+  font-family: var(--font-serif-display);
+  letter-spacing: 0.06em;
   line-height: 1.3;
 }
 .sidebar-nav {

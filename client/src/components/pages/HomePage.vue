@@ -1,9 +1,9 @@
 <template>
   <div class="home-page">
     <div class="top-grid">
-      <div class="card official-zone apple-liquid-card">
+      <div class="card official-zone apple-liquid-card stagger-item stagger-1">
         <div class="card-header">
-          <h3 class="apple-text-gradient">
+          <h3 class="apple-text-gradient font-serif-display">
             <span class="iconify" data-icon="solar:verified-check-outline" data-width="20"></span>
             官方专区
           </h3>
@@ -13,19 +13,19 @@
           </span>
         </div>
         <div class="publisher-grid">
-          <div v-for="pub in publishers" :key="pub.name" class="pub-item apple-liquid-card" :class="'bg-' + pub.color + '-50'">
+          <div v-for="(pub, idx) in publishers" :key="pub.name" class="pub-item apple-liquid-card" :class="'bg-' + pub.color + '-50'">
             <span class="iconify" :data-icon="pub.icon" :data-width="32" :style="{ color: pub.color + '-400' }"></span>
             <span class="pub-name">{{ pub.name }}</span>
           </div>
         </div>
       </div>
-      <div class="card community-zone apple-liquid-card">
-        <h3 class="apple-text-gradient">
+      <div class="card community-zone apple-liquid-card stagger-item stagger-2">
+        <h3 class="apple-text-gradient font-serif-display">
           <span class="iconify" data-icon="solar:users-group-two-rounded-outline" data-width="20"></span>
           学习社区
         </h3>
         <div class="topic-grid">
-          <div v-for="post in homePosts" :key="post.id" class="topic-item apple-liquid-nav-item" @click="goCommunity">
+          <div v-for="(post, idx) in homePosts" :key="post.id" class="topic-item apple-liquid-nav-item" @click="goCommunity">
             <span class="iconify topic-dot" data-icon="solar:circle-small-outline" data-width="10"></span>
             <span class="topic-title">{{ post.title }}</span>
           </div>
@@ -33,8 +33,8 @@
       </div>
     </div>
     <div class="bottom-grid">
-      <div class="card smart-list apple-liquid-card">
-        <h3 class="apple-text-gradient">
+      <div class="card smart-list apple-liquid-card stagger-item stagger-3">
+        <h3 class="apple-text-gradient font-serif-display">
           <span class="iconify" data-icon="solar:lightbulb-bolt-outline" data-width="20"></span>
           智慧购书清单
         </h3>
@@ -48,8 +48,8 @@
           </div>
         </div>
       </div>
-      <div class="card hot-books apple-liquid-card">
-        <h3 class="apple-text-gradient">
+      <div class="card hot-books apple-liquid-card stagger-item stagger-4">
+        <h3 class="apple-text-gradient font-serif-display">
           <span class="iconify" data-icon="solar:fire-outline" data-width="20"></span>
           热门书本
         </h3>

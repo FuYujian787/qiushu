@@ -64,7 +64,7 @@
         <Transition name="form-slide">
           <div v-if="showPostForm" class="new-post-form glass-crystal">
             <div class="form-header">
-              <h4 class="form-title">记录你的思想</h4>
+              <h4 class="form-title font-serif-display">记录你的思想</h4>
             <button class="form-close-btn" @click="togglePostForm">
               <span class="iconify" data-icon="solar:close-circle-outline" data-width="20"></span>
             </button>
@@ -145,9 +145,10 @@
                   v-if="store.isLoggedIn.value && post.author !== store.currentUser.value?.name"
                   class="chat-btn-mini"
                   @click.stop="startChat(post.author)"
+                  :aria-label="'私聊 ' + post.author"
                   title="私聊"
                 >
-                  💬
+                  <span class="iconify" data-icon="solar:chat-dots-outline" data-width="14"></span>
                 </button>
               </div>
             </div>

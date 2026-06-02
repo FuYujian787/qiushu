@@ -5,19 +5,19 @@
       <p class="date-text">今天是 {{ todayDate }}，来看点新书吧</p>
     </div>
     <div class="header-right">
-      <div class="search-box">
-        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="search-box" role="search">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input class="search-input" v-model="searchVal" placeholder="搜索书名、作者或 ISBN..." type="text" @input="onSearch" />
+        <input class="search-input" v-model="searchVal" placeholder="搜索书名、作者或 ISBN..." type="search" aria-label="搜索书名、作者或 ISBN" @input="onSearch" />
       </div>
       <div class="header-actions">
-        <span class="action-btn"><span class="iconify" data-icon="solar:question-circle-linear" data-width="24"></span></span>
-        <span class="action-btn notif-btn" @click="store.navigateTo('notifications')"><span class="iconify" data-icon="solar:bell-linear" data-width="24"></span></span>
-        <div class="avatar-wrap" @click="handleAvatarClick">
+        <span class="action-btn" aria-label="帮助" role="button" tabindex="0"><span class="iconify" data-icon="solar:question-circle-linear" data-width="24" aria-hidden="true"></span></span>
+        <span class="action-btn notif-btn" @click="store.navigateTo('notifications')" aria-label="消息通知" role="button" tabindex="0" @keydown.enter="store.navigateTo('notifications')"><span class="iconify" data-icon="solar:bell-linear" data-width="24" aria-hidden="true"></span></span>
+        <div class="avatar-wrap" @click="handleAvatarClick" role="button" tabindex="0" aria-label="个人中心" @keydown.enter="handleAvatarClick">
           <div class="avatar-ring">
-            <img :src="avatarSrc" alt="头像" class="avatar-img" />
+            <img :src="avatarSrc" alt="用户头像" class="avatar-img" />
           </div>
         </div>
       </div>
@@ -94,6 +94,7 @@ function onSearch(e) {
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
+  font-family: var(--font-serif-display);
 }
 .date-text {
   font-size: 0.875rem;
