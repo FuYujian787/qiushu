@@ -325,7 +325,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, reactive } from 'vue'
+import { ref, computed, onMounted, onUnmounted, reactive, watch } from 'vue'
 import { useStore } from '../../stores/useStore'
 
 const store = useStore()
@@ -507,10 +507,20 @@ function syncFormFromUser() {
   editPw2.value = ''
 }
 
-onMounted(() => {
+function refreshData() {
   loadStats()
   syncFormFromUser()
   loadEduData()
+}
+
+onMounted(() => {
+  refreshData()
+})
+
+watch(() => store.currentPage.value, (newPage) => {
+  if (newPage === 'profile') {
+    refreshData()
+  }
 })
 
 function triggerFileInput() {

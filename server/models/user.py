@@ -10,7 +10,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(64), unique=True, nullable=False, index=True)
-    password = db.Column(db.String(128), nullable=False)
+    password = db.Column(db.String(256), nullable=False)
     role = db.Column(db.String(16), default='buyer')
     college = db.Column(db.String(64), default='未设置')
     grade = db.Column(db.String(16), default='大一')

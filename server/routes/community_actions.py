@@ -67,8 +67,12 @@ def create_post():
 
     if not title:
         return jsonify({'success': False, 'message': '帖子标题不能为空'}), 400
+    if len(title) > 200:
+        return jsonify({'success': False, 'message': '帖子标题不能超过200字'}), 400
     if not content:
         return jsonify({'success': False, 'message': '帖子内容不能为空'}), 400
+    if len(content) > 10000:
+        return jsonify({'success': False, 'message': '帖子内容不能超过10000字'}), 400
     if not author:
         return jsonify({'success': False, 'message': '作者不能为空'}), 400
 

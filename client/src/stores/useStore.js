@@ -2,7 +2,7 @@ import { ref, reactive, computed, shallowRef } from 'vue'
 
 const DEFAULT_AVATAR = '5492ec47e5014900a8690086552604d9.jpg'
 const IMG_POOL = ['R-C.jpg']
-const TOTAL_PRODUCTS = 100000
+const TOTAL_PRODUCTS = 3000
 
 // localStorage keys
 const KEYS = {
@@ -17,6 +17,7 @@ const KEYS = {
   delistLogs: 'qushu_delist_logs',
   chatUnreadCount: 'qushu_chat_unread_count',
   notifReadTimestamp: 'qushu_notif_read_timestamp',
+  hasSeenWelcome: 'qushu_has_seen_welcome',
 }
 
 // Reactive state
@@ -40,6 +41,7 @@ const delistedIds = ref(new Set())
 const delistLogs = ref([])
 const chatUnreadCount = ref(0)
 const notifReadTimestamp = ref(0)
+const hasSeenWelcome = ref(false)
 
 // Load functions
 function loadLocal(key, fallback) {
@@ -66,6 +68,7 @@ function initFromLocal() {
   delistLogs.value = loadLocal(KEYS.delistLogs, [])
   chatUnreadCount.value = loadLocal(KEYS.chatUnreadCount, 0)
   notifReadTimestamp.value = loadLocal(KEYS.notifReadTimestamp, 0)
+  hasSeenWelcome.value = loadLocal(KEYS.hasSeenWelcome, false)
 }
 
 function generateProducts(categories) {
@@ -370,6 +373,7 @@ export function useStore() {
     delistLogs,
     chatUnreadCount,
     notifReadTimestamp,
+    hasSeenWelcome,
 
     // Functions
     initFromLocal,

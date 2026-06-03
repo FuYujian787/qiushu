@@ -11,6 +11,7 @@
         <Transition name="page-enter" mode="out-in" @before-enter="onBeforeEnter">
           <LoginPage v-if="store.currentPage.value === 'login'" key="login" />
           <RegisterPage v-else-if="store.currentPage.value === 'register'" key="register" />
+          <WelcomePage v-else-if="store.currentPage.value === 'welcome'" key="welcome" />
           <HomePage v-else-if="store.currentPage.value === 'home'" key="home" />
           <ProcurementPage v-else-if="store.currentPage.value === 'procurement'" key="procurement" />
           <StallPage v-else-if="store.currentPage.value === 'stall'" key="stall" />
@@ -49,9 +50,10 @@ import PublishPage from './components/pages/PublishPage.vue'
 import BookDetailPage from './components/pages/BookDetailPage.vue'
 import PaymentPage from './components/pages/PaymentPage.vue'
 import ChatPage from './components/pages/ChatPage.vue'
+import WelcomePage from './components/pages/WelcomePage.vue'
 
 const store = useStore()
-const authPages = ['login', 'register']
+const authPages = ['login', 'register', 'welcome']
 const showSidebar = computed(() => !authPages.includes(store.currentPage.value))
 
 onMounted(async () => {
@@ -71,7 +73,7 @@ onMounted(async () => {
     const user = store.users.value.find(u => u.name === savedName)
     if (user) {
       store.login(user)
-      store.currentPage.value = 'home'
+      store.currentPage.value = store.hasSeenWelcome.value ? 'home' : 'welcome'
       return
     }
   }

@@ -67,7 +67,7 @@ function doLogin() {
   const user = store.findUser(username.value, password.value)
   if (user) {
     store.login(user)
-    store.navigateTo('home')
+    store.navigateTo('welcome')
   } else {
     alert('登录失败，请检查账号密码')
   }

@@ -48,7 +48,7 @@ def publish_book():
 
     book = Book(
         title=title,
-        author=publisher,
+        author=str(data.get('author') or '未知'),
         price=round(float(price), 1),
         old_price=old_price,
         condition=condition,

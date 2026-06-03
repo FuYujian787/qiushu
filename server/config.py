@@ -1,15 +1,20 @@
 """
-应用配置模块
+应用配置
 """
 import os
+from datetime import timedelta
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# SQLite 数据库路径（重命名为 zju_books.db）
-DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'zju_books.db')
+class Config:
+    # Flask
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
 
-# Flask 密钥
-SECRET_KEY = 'qushu-platform-secret-key-2026'
+    # SQLite 数据库
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-# 分页默认值
-DEFAULT_PAGE_SIZE = 20
+    # JWT
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'dev-jwt-secret-key-change-in-production')
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=15)       # access_token 默认 15 分钟
+    JWT_BLACKLIST_ENABLED = True
+    JWT_BLACKLIST_TOKEN_CHECKS = ['access', 'refresh']     # 对两种 token 均启用黑名单检查

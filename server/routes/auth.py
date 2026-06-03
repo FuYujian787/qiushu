@@ -2,6 +2,7 @@
 认证路由：登录 / 注册
 """
 from flask import Blueprint, request, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
 from models import User
 
@@ -21,8 +22,8 @@ def login():
     if not name or not password:
         return jsonify({'success': False, 'message': '用户名和密码不能为空'}), 400
 
-    user = User.query.filter_by(name=name, password=password).first()
-    if not user:
+    user = User.query.filter_by(name=name).first()
+    if not user or not check_password_hash(user.password, password):
         return jsonify({'success': False, 'message': '用户名或密码错误'}), 401
 
     return jsonify({'success': True, 'user': user.to_dict()}), 200
@@ -49,7 +50,7 @@ def register():
 
     user = User(
         name=name,
-        password=password,
+        password=generate_password_hash(password),
         college=(data.get('college') or '未设置'),
         grade=(data.get('grade') or '大一'),
         address=(data.get('address') or ''),

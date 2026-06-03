@@ -164,7 +164,7 @@ function doZJURegister() {
   store.addUser(newUser)
   store.login(newUser)
   alert('注册成功！欢迎加入紫金求思')
-  store.navigateTo('home')
+  store.navigateTo('welcome')
 }
 
 function doRegister() {
@@ -181,7 +181,7 @@ function doRegister() {
   store.addUser(newUser)
   store.login(newUser)
   alert('注册成功')
-  store.navigateTo('home')
+  store.navigateTo('welcome')
 }
 
 function goLogin() { store.navigateTo('login') }
