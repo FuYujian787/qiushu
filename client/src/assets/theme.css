@@ -1,0 +1,205 @@
+/* ===== 求书 · 書緣 — Design Tokens & Theme ===== */
+
+/* ==================== 浅色模式（书韵 - 默认） ==================== */
+:root {
+  /* Surface */
+  --surface-primary: #F5F0E8;
+  --surface-secondary: #FFFFFF;
+  --surface-tertiary: #E8E0D0;
+  --surface-glass: rgba(255, 255, 255, 0.6);
+
+  /* Text */
+  --text-primary: #2C2416;
+  --text-secondary: #5C5240;
+  --text-muted: #8B8578;
+  --text-inverse: #F5F0E8;
+
+  /* Accent */
+  --accent-primary: #C41E3A;
+  --accent-primary-hover: #A0182E;
+  --accent-primary-light: #F0C4B4;
+  --accent-secondary: #5B8C5A;
+  --accent-gold: #B8860B;
+
+  /* Border & Shadow */
+  --border-default: rgba(44, 36, 22, 0.08);
+  --border-strong: rgba(44, 36, 22, 0.15);
+  --shadow-sm: 0 1px 3px rgba(44, 36, 22, 0.04);
+  --shadow-md: 0 4px 20px rgba(44, 36, 22, 0.08);
+  --shadow-lg: 0 8px 40px rgba(44, 36, 22, 0.12);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-display: 'Noto Serif SC', 'Source Han Serif CN', Georgia, serif;
+  --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-brush: 'Ma Shan Zheng', 'ZCOOL XiaoWei', cursive;
+  --font-mono: 'Space Grotesk', 'JetBrains Mono', monospace;
+}
+
+/* ==================== 暗色模式（赛博 - 用户切换） ==================== */
+[data-theme="cyber"] {
+  --surface-primary: #09051A;
+  --surface-secondary: rgba(255, 255, 255, 0.03);
+  --surface-tertiary: rgba(255, 255, 255, 0.06);
+  --surface-glass: rgba(9, 5, 26, 0.7);
+
+  --text-primary: #F0F0FF;
+  --text-secondary: #8892B0;
+  --text-muted: #5A6080;
+  --text-inverse: #09051A;
+
+  --accent-primary: #00D4FF;
+  --accent-primary-hover: #00F5FF;
+  --accent-primary-light: rgba(0, 212, 255, 0.12);
+  --accent-secondary: #A855F7;
+  --accent-gold: #FFD700;
+
+  --border-default: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* ==================== Element Plus 主题覆盖 ==================== */
+:root {
+  --el-color-primary: var(--accent-primary);
+  --el-color-primary-light-3: var(--accent-primary-light);
+  --el-color-success: var(--accent-secondary);
+  --el-color-warning: var(--accent-gold);
+  --el-border-radius-base: var(--radius-sm);
+  --el-border-radius-small: 4px;
+  --el-font-family: var(--font-body);
+
+  --el-input-border-color: var(--border-default);
+  --el-input-hover-border-color: var(--border-strong);
+  --el-input-focus-border-color: var(--accent-primary);
+  --el-input-bg-color: var(--surface-secondary);
+
+  --el-card-bg-color: var(--surface-secondary);
+  --el-card-border-color: var(--border-default);
+
+  --el-dialog-bg-color: var(--surface-secondary);
+  --el-overlay-color-lighter: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="cyber"] {
+  --el-color-primary: #00D4FF;
+  --el-color-primary-light-3: rgba(0, 212, 255, 0.12);
+  --el-bg-color: #09051A;
+  --el-bg-color-overlay: rgba(255, 255, 255, 0.03);
+  --el-text-color-primary: #F0F0FF;
+  --el-text-color-regular: #8892B0;
+  --el-border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ==================== 全局样式 ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--surface-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--accent-primary-hover);
+}
+
+/* ==================== 页面入场动画 ==================== */
+.page-enter {
+  animation: pageIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== 主题过渡 ==================== */
+.theme-transitioning,
+.theme-transitioning * {
+  transition: background-color 0.5s ease-in-out,
+              color 0.5s ease-in-out,
+              border-color 0.3s ease-in-out,
+              box-shadow 0.3s ease-in-out !important;
+}
+
+/* ==================== 滚动条 ==================== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ==================== 面包屑导航通用 ==================== */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+  min-height: calc(100vh - 64px - 200px);
+}
+
+/* ==================== 骨架屏动画 ==================== */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-tertiary) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    var(--surface-tertiary) 75%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ==================== 响应式 ==================== */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 16px 12px;
+  }
+}
