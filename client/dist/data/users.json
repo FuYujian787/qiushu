@@ -1,0 +1,20 @@
+[
+  {
+    "name": "张伟",
+    "password": "123",
+    "role": "buyer",
+    "college": "管理学院",
+    "grade": "大三",
+    "address": "",
+    "avatar": "5492ec47e5014900a8690086552604d9.jpg"
+  },
+  {
+    "name": "小明",
+    "password": "321",
+    "role": "buyer",
+    "college": "计算机学院",
+    "grade": "大二",
+    "address": "",
+    "avatar": "5492ec47e5014900a8690086552604d9.jpg"
+  }
+]

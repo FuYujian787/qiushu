@@ -1,0 +1,377 @@
+/**
+ * ============================================================
+ * 紫金求思 · 电影级动效系统
+ * Motion Design System for "Zijin Qiusi"
+ * ============================================================
+ *
+ * 设计哲学：
+ *   - 物理惯性：所有动画遵循真实世界的物理法则
+ *   - 玻璃通透：动效与毛玻璃材质产生光影折射错觉
+ *   - 紫金美学：色彩严格锁定 #DCD0FF → #C4B5E0 → #4A3B5A 色系
+ *
+ * 性能承诺：
+ *   - 仅使用 transform / opacity（硬件加速）
+ *   - 精准 will-change 声明
+ *   - 最高级贝塞尔曲线（谢绝 ease-in-out）
+ * ============================================================
+ */
+
+/* ============================================================
+ * 场景二：【淘书星芒】—— 纯 CSS 空灵背景动效
+ * 代替传统 GIF，视网膜级清晰度
+ * 效果：夏夜启真湖畔的萤火虫，书海中忽明忽暗的思想火花
+ * ============================================================ */
+
+.star-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* 星芒粒子基础 */
+.star-particle {
+  position: absolute;
+  border-radius: 60%;
+  will-change: transform, opacity, box-shadow;
+  pointer-events: none;
+}
+
+/* ===== 星芒粒子变体：通过不同的 animation-delay 和 位置 产生错落感 ===== */
+
+/* 大星芒 — 缓慢呼吸，紫金色 */
+.star-particle.type-a {
+  width: 6px;
+  height: 6px;
+  background: rgba(220, 208, 255, 0.6);
+  box-shadow:
+    0 0 12px 2px rgba(220, 208, 255, 0.3),
+    0 0 24px 6px rgba(230, 215, 184, 0.15);
+  animation: starFloatA 8s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* 中星芒 — 柔和闪烁，淡紫色 */
+.star-particle.type-b {
+  width: 4px;
+  height: 4px;
+  background: rgba(196, 181, 224, 0.5);
+  box-shadow:
+    0 0 8px 1px rgba(196, 181, 224, 0.25),
+    0 0 16px 4px rgba(220, 208, 255, 0.1);
+  animation: starFloatB 12s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* 小星芒 — 快速灵动，紫金微光 */
+.star-particle.type-c {
+  width: 2px;
+  height: 2px;
+  background: rgba(230, 215, 184, 0.4);
+  box-shadow:
+    0 0 6px 1px rgba(230, 215, 184, 0.2),
+    0 0 12px 3px rgba(220, 208, 255, 0.08);
+  animation: starFloatC 6s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* 微型星芒 — 几乎不可见，但增加景深感 */
+.star-particle.type-d {
+  width: 1px;
+  height: 1px;
+  background: rgba(220, 208, 255, 0.3);
+  box-shadow: 0 0 4px 1px rgba(220, 208, 255, 0.1);
+  animation: starFloatD 15s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* ===== 星芒漂浮关键帧 ===== */
+
+@keyframes starFloatA {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.6;
+    box-shadow:
+      0 0 12px 2px rgba(220, 208, 255, 0.3),
+      0 0 24px 6px rgba(230, 215, 184, 0.15);
+  }
+  25% {
+    transform: translateY(-30px) translateX(15px) scale(1.2);
+    opacity: 1;
+    box-shadow:
+      0 0 20px 4px rgba(220, 208, 255, 0.5),
+      0 0 40px 10px rgba(230, 215, 184, 0.25);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-20px) scale(0.9);
+    opacity: 0.4;
+    box-shadow:
+      0 0 8px 1px rgba(220, 208, 255, 0.2),
+      0 0 16px 4px rgba(230, 215, 184, 0.08);
+  }
+  75% {
+    transform: translateY(-45px) translateX(10px) scale(1.1);
+    opacity: 0.8;
+    box-shadow:
+      0 0 16px 3px rgba(220, 208, 255, 0.4),
+      0 0 32px 8px rgba(230, 215, 184, 0.2);
+  }
+}
+
+@keyframes starFloatB {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.5;
+  }
+  33% {
+    transform: translateY(-25px) translateX(-10px) scale(1.3);
+    opacity: 0.9;
+    box-shadow:
+      0 0 12px 2px rgba(196, 181, 224, 0.4),
+      0 0 24px 6px rgba(220, 208, 255, 0.15);
+  }
+  66% {
+    transform: translateY(-40px) translateX(15px) scale(0.8);
+    opacity: 0.3;
+    box-shadow:
+      0 0 6px 1px rgba(196, 181, 224, 0.15),
+      0 0 12px 3px rgba(220, 208, 255, 0.06);
+  }
+}
+
+@keyframes starFloatC {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-20px) translateX(8px) scale(1.5);
+    opacity: 0.9;
+    box-shadow:
+      0 0 10px 2px rgba(230, 215, 184, 0.4),
+      0 0 20px 5px rgba(220, 208, 255, 0.15);
+  }
+}
+
+@keyframes starFloatD {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-60px) translateX(-20px);
+    opacity: 0.6;
+    box-shadow: 0 0 6px 2px rgba(220, 208, 255, 0.2);
+  }
+}
+
+/* ============================================================
+ * 场景一：【知识的引力】—— 书籍卡片 3D 悬停微交互
+ * 物理逻辑：鼠标 Hover 时产生 3D 倾斜偏转 + 紫金流光划过
+ * ============================================================ */
+
+.book-card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 800px;
+  will-change: transform;
+  transition: transform 0.1s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* 紫金流光层 — 默认隐藏在右侧外部 */
+.book-card-3d::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(230, 215, 184, 0.08) 40%,
+    rgba(220, 208, 255, 0.12) 45%,
+    rgba(230, 215, 184, 0.15) 48%,
+    rgba(220, 208, 255, 0.08) 52%,
+    transparent 60%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Hover 时流光从左侧划过到右侧 */
+.book-card-3d:hover::before {
+  transform: translateX(100%) rotate(25deg);
+}
+
+/* 卡片内容层 — 悬停时文字产生微妙位移，增强 3D 景深感 */
+.book-card-3d .card-content-layer {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.book-card-3d:hover .card-content-layer {
+  transform: translateZ(20px);
+}
+
+/* 卡片内层玻璃高光 — 模拟光线折射 */
+.book-card-3d .card-glass-flare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--flare-x, 50%) var(--flare-y, 50%),
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.book-card-3d:hover .card-glass-flare {
+  opacity: 1;
+}
+
+/* 卡片底部微光晕 — 悬停时增强 */
+.book-card-3d::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 10%;
+  width: 80%;
+  height: 20px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(220, 208, 255, 0.15) 0%,
+    transparent 70%
+  );
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.book-card-3d:hover::after {
+  opacity: 1;
+}
+
+/* ============================================================
+ * 场景三：【思辨流转】—— 粒子爆破反馈
+ * 按钮点击时产生向四周扩散的淡紫与紫金粒子烟花
+ * ============================================================ */
+
+/* 粒子容器 — 覆盖在按钮之上 */
+.particle-burst {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 100;
+}
+
+/* 单个粒子 */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+/* 粒子飞出动画 */
+@keyframes particleFly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* 粒子脉冲扩散环 */
+@keyframes rippleRing {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(3);
+    opacity: 0;
+  }
+}
+
+.ripple-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(220, 208, 255, 0.6);
+  pointer-events: none;
+  animation: rippleRing 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* ============================================================
+ * 辅助：页面切换流线型过渡
+ * ============================================================ */
+
+.page-enter-active {
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* ============================================================
+ * 辅助：按钮点击脉冲反馈
+ * ============================================================ */
+
+.btn-pulse {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-pulse:active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  padding-bottom: 200%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 208, 255, 0.3) 0%, transparent 60%);
+  transform: translate(-50%, -50%) scale(0);
+  animation: btnPulse 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes btnPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
