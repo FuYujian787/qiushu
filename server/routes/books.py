@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from extensions import db, limiter
 from models import Book, BookImage, Review, BookJourney
 from services.auth import login_required
-from services.isbn_lookup import lookup_isbn
+
 from services.__init__ import ERROR_CODES
 
 books_bp = Blueprint('books', __name__)
@@ -239,13 +239,6 @@ def delete_book(book_id):
     book.status = '下架'
     db.session.commit()
     return jsonify({'status': 'success', 'message': '已下架'})
-
-
-@books_bp.route('/isbn/<isbn>', methods=['GET'])
-def lookup_isbn_route(isbn):
-    """ISBN 查询"""
-    result = lookup_isbn(isbn)
-    return jsonify({'status': 'success', 'data': result})
 
 
 @books_bp.route('/<book_id>/reviews', methods=['POST'])

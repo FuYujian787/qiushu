@@ -4,43 +4,6 @@
     <div v-else class="publish-card">
       <h2>发布闲置书籍</h2>
       
-      <!-- ISBN 查询区域 -->
-      <div class="isbn-section">
-        <div class="isbn-header">
-          <span class="iconify" data-icon="solar:barcode-outline" data-width="18"></span>
-          <span>ISBN 扫码识别</span>
-        </div>
-        <div class="isbn-input-wrap">
-          <input 
-            v-model="isbnCode" 
-            placeholder="输入 ISBN 码自动识别图书信息" 
-            class="isbn-input"
-            @blur="onIsbnInput"
-          />
-          <button class="isbn-search-btn" @click="searchByIsbn" :disabled="isbnLoading || !isbnCode.trim()">
-            <span class="iconify" data-icon="solar:search-outline" data-width="16"></span>
-            {{ isbnLoading ? '识别中...' : '查询' }}
-          </button>
-        </div>
-        <div v-if="isbnError" class="isbn-error">{{ isbnError }}</div>
-        <div v-if="isbnResult" class="isbn-result">
-          <div class="isbn-result-header">
-            <span class="iconify" data-icon="solar:check-circle-outline" data-width="16" style="color: #10b981"></span>
-            已识别图书信息
-          </div>
-          <div class="isbn-book-info">
-            <img :src="isbnResult.image" class="isbn-book-cover" />
-            <div class="isbn-book-detail">
-              <h4>{{ isbnResult.title }}</h4>
-              <p class="isbn-author">{{ isbnResult.author }}</p>
-              <p class="isbn-publisher">{{ isbnResult.publisher }}</p>
-              <p class="isbn-price">定价: ¥{{ isbnResult.price }}</p>
-            </div>
-          </div>
-          <button class="isbn-use-btn" @click="useIsbnInfo">使用此信息</button>
-        </div>
-      </div>
-
       <div class="form-fields">
         <div class="field"><label>书名 <span class="required">*</span></label><input v-model="title" placeholder="请输入书名" class="input-field" /></div>
         <div class="field"><label>作者</label><input v-model="author" placeholder="例如：张三" class="input-field" /></div>
@@ -81,93 +44,6 @@ const wechatInput = ref(null)
 const imgData = ref(null)
 const alipayData = ref(null)
 const wechatData = ref(null)
-
-// ISBN 相关变量
-const isbnCode = ref('')
-const isbnLoading = ref(false)
-const isbnError = ref('')
-const isbnResult = ref(null)
-
-// ISBN 校验函数
-function isValidIsbn(isbn) {
-  isbn = isbn.replace(/[-\s]/g, '')
-  if (isbn.length !== 10 && isbn.length !== 13) return false
-  
-  if (isbn.length === 13) {
-    let sum = 0
-    for (let i = 0; i < 12; i++) {
-      sum += parseInt(isbn[i]) * (i % 2 === 0 ? 1 : 3)
-    }
-    const checkDigit = (10 - (sum % 10)) % 10
-    return checkDigit === parseInt(isbn[12])
-  } else {
-    let sum = 0
-    for (let i = 0; i < 9; i++) {
-      sum += parseInt(isbn[i]) * (10 - i)
-    }
-    const lastChar = isbn[9].toUpperCase()
-    const checkDigit = lastChar === 'X' ? 10 : parseInt(lastChar)
-    return (sum + checkDigit) % 11 === 0
-  }
-}
-
-// ISBN 输入处理
-function onIsbnInput() {
-  isbnError.value = ''
-  isbnResult.value = null
-}
-
-// 搜索 ISBN
-async function searchByIsbn() {
-  const isbn = isbnCode.value.replace(/[-\s]/g, '').trim()
-  
-  if (!isbn) {
-    isbnError.value = '请输入 ISBN 码'
-    return
-  }
-  
-  if (!isValidIsbn(isbn)) {
-    isbnError.value = '请输入有效的 ISBN 码'
-    return
-  }
-  
-  isbnLoading.value = true
-  isbnError.value = ''
-  
-  try {
-    const response = await fetch(`/api/isbn/search?code=${encodeURIComponent(isbn)}`)
-    const data = await response.json()
-    
-    if (data.success) {
-      isbnResult.value = data.data
-    } else {
-      isbnError.value = data.message || '未找到该图书信息'
-    }
-  } catch (error) {
-    isbnError.value = '查询失败，请稍后重试'
-  } finally {
-    isbnLoading.value = false
-  }
-}
-
-// 使用 ISBN 信息填充表单
-function useIsbnInfo() {
-  if (!isbnResult.value) return
-  
-  title.value = isbnResult.value.title || ''
-  author.value = isbnResult.value.author || ''
-  publisher.value = isbnResult.value.publisher || ''
-  oldPrice.value = parseFloat(isbnResult.value.price) || null
-  
-  // 如果有封面图片，使用识别到的图片
-  if (isbnResult.value.image) {
-    imgPreview.value = isbnResult.value.image
-    imgData.value = isbnResult.value.image
-  }
-  
-  isbnResult.value = null
-  isbnCode.value = ''
-}
 
 function triggerUpload(type) {
   if (type === 'img') imgInput.value?.click()
@@ -236,24 +112,4 @@ function confirmPublish() {
 .publish-btn { width: 100%; padding: 1rem; background: var(--gradient-brand); color: var(--text-primary); border-radius: 0.75rem; font-weight: 700; text-align: center; cursor: pointer; margin-top: 2rem; box-shadow: 0 4px 12px rgba(155, 142, 196, 0.3); }
 .publish-btn:hover { filter: brightness(0.95); }
 
-/* ISBN 区域样式 */
-.isbn-section { background: var(--lavender-accent-mist); border-radius: 1rem; padding: 1.5rem; margin-bottom: 2rem; }
-.isbn-header { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; }
-.isbn-input-wrap { display: flex; gap: 0.75rem; }
-.isbn-input { flex: 1; padding: 0.75rem 1rem; background: rgba(255,255,255,0.8); border: 1px solid var(--glass-border); border-radius: 0.75rem; outline: none; font-size: 0.875rem; }
-.isbn-input:focus { border-color: var(--lavender-accent-soft); box-shadow: 0 0 0 4px rgba(220,208,255,0.15); }
-.isbn-search-btn { padding: 0.75rem 1.25rem; background: var(--lavender-primary); color: white; border: none; border-radius: 0.75rem; cursor: pointer; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; }
-.isbn-search-btn:hover:not(:disabled) { background: var(--lavender-accent-soft); }
-.isbn-search-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.isbn-error { color: #ef4444; font-size: 0.75rem; margin-top: 0.75rem; }
-.isbn-result { margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.6); border-radius: 0.75rem; }
-.isbn-result-header { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; color: var(--text-primary); margin-bottom: 1rem; }
-.isbn-book-info { display: flex; gap: 1rem; }
-.isbn-book-cover { width: 6rem; height: 8rem; object-fit: cover; border-radius: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.isbn-book-detail { flex: 1; }
-.isbn-book-detail h4 { margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 600; color: var(--text-primary); }
-.isbn-author, .isbn-publisher { margin: 0.25rem 0; font-size: 0.75rem; color: var(--text-secondary); }
-.isbn-price { margin: 0.5rem 0 0 0; font-size: 0.875rem; font-weight: 600; color: var(--lavender-primary); }
-.isbn-use-btn { margin-top: 1rem; padding: 0.5rem 1.5rem; background: var(--gradient-brand); color: var(--text-primary); border: none; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem; font-weight: 500; }
-.isbn-use-btn:hover { filter: brightness(0.95); }
 </style>

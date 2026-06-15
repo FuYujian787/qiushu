@@ -84,12 +84,23 @@ async function selectConv(conv) {
   await loadMessages(conv.id)
 }
 
+// Check if any pending image is still uploading
+const hasUploadingImages = computed(() =>
+  pendingImages.value.some(img => !img.url)
+)
+
 // ==================== Send Text Message ====================
 async function sendMessage() {
   const text = newMsgText.value.trim()
   const hasImages = pendingImages.value.length > 0
 
   if ((!text && !hasImages) || !activeConvId.value || sending.value) return
+
+  // Guard: don't send images that haven't finished uploading
+  if (hasUploadingImages.value) {
+    ElMessage.warning('请等待图片上传完成后再发送')
+    return
+  }
 
   sending.value = true
   try {
@@ -277,25 +288,17 @@ function scrollToBottom() {
 
 // ==================== Create/Find Conversation ====================
 async function startChat(peerUserId, peerUserName, bookId, bookTitle, orderId) {
-  let existing = conversations.value.find(c => {
-    return c.peer_id === peerUserId
-      || c.user1_id === peerUserId
-      || c.user2_id === peerUserId
-  })
-
-  if (existing) {
-    await selectConv(existing)
-    return
-  }
-
   try {
     const body = { user_id: peerUserId }
     if (orderId) body.order_id = orderId
     if (bookId) body.book_id = bookId
     const res = await api.post('/messages/conversations', body)
+    // 重新拉取以获取完整字段（peer_name、unread_count 等）
     await loadConversations()
-    const newConv = conversations.value.find(c => c.id === res.data.id)
-    await selectConv(newConv || res.data)
+    const conv = conversations.value.find(c => c.id === res.data.id)
+    if (conv) {
+      await selectConv(conv)
+    }
   } catch (err) {
     ElMessage.error(err.message || '创建会话失败')
   }
@@ -350,7 +353,7 @@ onMounted(async () => {
     selectConv(conversations.value[0])
   }
 
-  // Poll every 8s
+  // Poll every 30s
   pollTimer.value = setInterval(async () => {
     await loadConversations()
     if (activeConvId.value) {
@@ -367,7 +370,7 @@ onMounted(async () => {
         }
       } catch { /* ignore */ }
     }
-  }, 8000)
+  }, 30000)
 
   // Listen for paste globally on the chat panel
   document.addEventListener('paste', onPaste)
@@ -583,7 +586,7 @@ watch(() => route.query.user_id, async (newUserId) => {
               ></textarea>
               <button
                 class="send-btn"
-                :disabled="(!newMsgText.trim() && pendingImages.length === 0) || sending"
+                :disabled="(!newMsgText.trim() && pendingImages.length === 0) || sending || hasUploadingImages"
                 @click="sendMessage"
               >
                 {{ sending ? '发送中...' : '发送' }}
@@ -614,6 +617,11 @@ watch(() => route.query.user_id, async (newUserId) => {
   min-height: calc(100vh - 64px);
   padding-top: 64px;
   background: var(--surface-primary);
+}
+
+/* 暗色模式：让 CyberBackground 四层背景透出 */
+[data-theme="cyber"] .messages-page {
+  background: transparent;
 }
 
 .messages-layout {

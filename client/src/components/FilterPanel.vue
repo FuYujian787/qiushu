@@ -9,7 +9,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const filters = ref({ ...props.modelValue })
 
-const categories = ['数学', '计算机', '外语', '经管', '理工', '人文']
+const categories = ['数学', '计算机', '外语', '经管', '理工', '人文', '其他']
 const conditions = ['全新', '良好', '有笔记', '旧']
 const priceOptions = [
   { label: '全部', min: null, max: null },

@@ -23,7 +23,7 @@ const currentPage = ref(1)
 const totalBooks = ref(0)
 const totalPages = ref(1)
 
-const categories = ['数学', '计算机', '外语', '经管', '理工', '人文']
+const categories = ['数学', '计算机', '外语', '经管', '理工', '人文', '其他']
 const conditions = ['全新', '良好', '有笔记', '旧']
 
 const tabs = [

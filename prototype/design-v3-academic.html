@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>求书 — 知识流转，从一本旧书开始</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --cream: #FCFAF5;
+    --warm-white: #FAF8F3;
+    --sage: #8BA888;
+    --sage-dark: #6B8F68;
+    --terracotta: #D4785C;
+    --terracotta-light: #F0C4B4;
+    --charcoal: #2D2A26;
+    --slate: #5F5B57;
+    --stone: #A8A29E;
+    --border: #E8E3DA;
+    --border-light: #F0EDE6;
+    --shadow: 0 1px 3px rgba(45,42,38,0.04), 0 4px 16px rgba(45,42,38,0.06);
+    --shadow-lg: 0 4px 32px rgba(45,42,38,0.1);
+    --font-serif: 'DM Serif Display', 'Noto Serif SC', serif;
+    --font-body: 'DM Sans', 'Noto Sans SC', -apple-system, sans-serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:var(--font-body);
+    background:var(--cream);
+    color:var(--charcoal);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(to bottom, rgba(139,168,136,0.03) 0%, transparent 20%),
+      linear-gradient(to bottom, transparent 80%, rgba(212,120,92,0.02) 100%);
+  }
+
+  /* ===== NAV ===== */
+  .nav {
+    position:sticky; top:0; z-index:100;
+    background:rgba(252,250,245,0.88);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner {
+    max-width:1200px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px; padding:0 1.5rem;
+  }
+  .logo-group {
+    display:flex; align-items:center; gap:0.5rem; text-decoration:none; color:inherit;
+  }
+  .logo-icon {
+    font-family:var(--font-serif);
+    font-size:1.6rem; font-weight:700;
+    color:var(--terracotta);
+    letter-spacing:-0.02em;
+  }
+  .logo-divider {
+    width:1px; height:24px; background:var(--border);
+    margin:0 0.5rem;
+  }
+  .logo-tagline {
+    font-size:0.75rem; color:var(--stone);
+    font-weight:400; letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .nav-links { display:flex; gap:0.25rem; list-style:none; }
+  .nav-links a {
+    text-decoration:none; color:var(--slate);
+    padding:0.4rem 0.85rem; border-radius:8px;
+    font-size:0.85rem; font-weight:500;
+    transition:all 0.2s ease;
+  }
+  .nav-links a:hover { background:var(--border-light); color:var(--charcoal); }
+  .nav-links a.active { background:var(--charcoal); color:var(--cream); }
+  .btn {
+    padding:0.5rem 1.25rem; border-radius:10px;
+    font-size:0.85rem; font-weight:600; cursor:pointer;
+    transition:all 0.2s ease; border:none;
+    font-family:var(--font-body);
+    text-decoration:none; display:inline-flex; align-items:center; gap:0.4rem;
+  }
+  .btn-ghost { background:transparent; color:var(--charcoal); }
+  .btn-ghost:hover { background:var(--border-light); }
+  .btn-primary {
+    background:var(--charcoal); color:var(--cream);
+  }
+  .btn-primary:hover { background:#1a1816; transform:translateY(-1px); }
+
+  /* ===== HERO ===== */
+  .hero {
+    max-width:1200px; margin:0 auto;
+    padding:5rem 1.5rem 4rem;
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:4rem; align-items:center;
+  }
+  .hero-content { }
+  .hero-eyebrow {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    font-size:0.75rem; font-weight:600; letter-spacing:0.1em;
+    color:var(--sage-dark); text-transform:uppercase;
+    margin-bottom:1.25rem;
+  }
+  .hero-eyebrow::before {
+    content:''; display:block; width:24px; height:1px;
+    background:var(--sage);
+  }
+  .hero-title {
+    font-family:var(--font-serif);
+    font-size:clamp(2.5rem, 4.5vw, 3.75rem);
+    font-weight:700; letter-spacing:-0.02em;
+    line-height:1.1; margin-bottom:1.25rem;
+    color:var(--charcoal);
+  }
+  .hero-title .em {
+    color:var(--terracotta);
+    font-style:italic;
+  }
+  .hero-desc {
+    font-size:1.05rem; color:var(--slate);
+    max-width:460px; margin-bottom:2rem;
+    line-height:1.65; font-weight:400;
+  }
+  .hero-stats {
+    display:flex; gap:2.5rem;
+    margin-bottom:2rem;
+  }
+  .stat-num {
+    font-family:var(--font-serif);
+    font-size:2rem; font-weight:700;
+    color:var(--charcoal);
+    line-height:1;
+  }
+  .stat-label {
+    font-size:0.75rem; color:var(--stone);
+    margin-top:0.3rem; letter-spacing:0.04em;
+  }
+  .hero-visual {
+    position:relative;
+  }
+  .hero-card-stack {
+    position:relative;
+    height:380px;
+  }
+  .hero-card {
+    position:absolute;
+    background:var(--warm-white);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    padding:1.5rem;
+    width:280px;
+    transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .hero-card:nth-child(1) {
+    top:0; left:0; z-index:3;
+    transform:rotate(-2deg);
+  }
+  .hero-card:nth-child(2) {
+    top:30px; left:40px; z-index:2;
+    transform:rotate(1deg);
+  }
+  .hero-card:nth-child(3) {
+    top:60px; left:80px; z-index:1;
+    transform:rotate(3deg);
+  }
+  .hero-card:hover { transform:rotate(0deg) translateY(-6px); z-index:10; }
+  .hc-cover {
+    width:100%; height:140px;
+    border-radius:10px;
+    background:linear-gradient(135deg, #E8E0D5, #D5C8B0);
+    margin-bottom:1rem;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-serif);
+    font-size:1.1rem; color:rgba(45,42,38,0.4);
+  }
+  .hc-title { font-weight:600; font-size:0.95rem; margin-bottom:0.25rem; }
+  .hc-author { font-size:0.8rem; color:var(--stone); margin-bottom:0.75rem; }
+  .hc-price { font-family:var(--font-serif); font-size:1.2rem; font-weight:700; color:var(--terracotta); }
+
+  /* ===== SEARCH BAR ===== */
+  .search-section {
+    max-width:1200px; margin:0 auto; padding:0 1.5rem 4rem;
+  }
+  .search-wrap {
+    display:flex; align-items:center;
+    background:var(--warm-white);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:0.35rem;
+    box-shadow:var(--shadow);
+    transition:box-shadow 0.3s, border-color 0.3s;
+  }
+  .search-wrap:focus-within {
+    box-shadow:var(--shadow-lg);
+    border-color:var(--terracotta-light);
+  }
+  .search-icon {
+    padding:0 0.75rem;
+    font-size:1.1rem; color:var(--stone);
+  }
+  .search-wrap input {
+    flex:1; border:none; outline:none;
+    padding:0.85rem 0;
+    font-size:0.95rem; font-family:var(--font-body);
+    background:transparent; color:var(--charcoal);
+  }
+  .search-wrap input::placeholder { color:var(--stone); }
+  .search-shortcut {
+    padding:0.25rem 0.5rem; border-radius:6px;
+    background:var(--border-light);
+    font-size:0.7rem; color:var(--stone);
+    font-family:monospace; margin-right:0.5rem;
+  }
+  .search-btn {
+    padding:0.7rem 1.5rem; border-radius:10px;
+    background:var(--sage); color:white; border:none;
+    font-weight:600; cursor:pointer; font-family:var(--font-body);
+    transition:background 0.2s;
+  }
+  .search-btn:hover { background:var(--sage-dark); }
+
+  /* ===== CATEGORIES ===== */
+  .cats {
+    display:flex; gap:0.5rem; flex-wrap:wrap;
+    margin-top:1rem; padding:0 0.25rem;
+  }
+  .cat-chip {
+    padding:0.4rem 1rem; border-radius:50px;
+    font-size:0.82rem; font-weight:500;
+    cursor:pointer;
+    border:1px solid var(--border);
+    background:transparent; color:var(--slate);
+    transition:all 0.2s;
+    font-family:var(--font-body);
+  }
+  .cat-chip:hover { border-color:var(--sage); color:var(--sage-dark); }
+  .cat-chip.active { background:var(--sage); color:white; border-color:var(--sage); }
+
+  /* ===== MAIN ===== */
+  .main { max-width:1200px; margin:0 auto; padding:0 1.5rem 4rem; }
+
+  .section-header {
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:1.75rem; padding-top:2rem;
+  }
+  .section-title {
+    font-family:var(--font-serif);
+    font-size:1.6rem; font-weight:700;
+    letter-spacing:-0.02em;
+  }
+  .section-count {
+    font-size:0.85rem; color:var(--stone);
+    margin-left:0.5rem; font-weight:400;
+  }
+  .section-link {
+    font-size:0.85rem; color:var(--sage-dark);
+    text-decoration:none; font-weight:500;
+    transition:color 0.2s;
+    display:flex; align-items:center; gap:0.25rem;
+  }
+  .section-link:hover { color:var(--terracotta); }
+
+  /* BOOK GRID */
+  .book-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    gap:1.25rem;
+  }
+  .book-card {
+    background:var(--warm-white);
+    border-radius:14px;
+    border:1px solid var(--border);
+    overflow:hidden;
+    cursor:pointer;
+    transition:all 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .book-card:hover {
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-lg);
+    border-color:transparent;
+  }
+  .book-cover {
+    height:170px;
+    background:linear-gradient(135deg, #E8E4DA, #D8D0C0);
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .book-cover-text {
+    font-family:var(--font-serif);
+    font-size:1rem; color:rgba(45,42,38,0.35);
+    font-style:italic;
+  }
+  .book-condition {
+    position:absolute; top:0.75rem; right:0.75rem;
+    padding:0.2rem 0.6rem; border-radius:50px;
+    font-size:0.65rem; font-weight:600;
+  }
+  .cond-good { background:rgba(139,168,136,0.15); color:var(--sage-dark); }
+  .cond-notes { background:rgba(212,120,92,0.12); color:var(--terracotta); }
+  .cond-new { background:rgba(139,168,136,0.08); color:#4A7C4F; }
+  .book-body { padding:1rem 1.25rem 1.25rem; }
+  .book-title { font-weight:600; font-size:0.9rem; line-height:1.4; margin-bottom:0.25rem; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .book-meta { font-size:0.78rem; color:var(--stone); margin-bottom:0.75rem; }
+  .book-footer { display:flex; align-items:center; justify-content:space-between; }
+  .book-price { font-family:var(--font-serif); font-size:1.15rem; font-weight:700; color:var(--terracotta); }
+  .book-price-original { font-size:0.75rem; color:var(--stone); text-decoration:line-through; margin-left:0.35rem; }
+  .book-course-tag {
+    font-size:0.65rem; padding:0.15rem 0.5rem;
+    border-radius:4px; background:var(--border-light);
+    color:var(--sage-dark);
+  }
+
+  /* ===== FEATURE SECTION ===== */
+  .features {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:1.25rem;
+    margin-top:2rem;
+  }
+  .feature-card {
+    background:var(--warm-white);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:1.5rem;
+    transition:all 0.3s;
+    cursor:default;
+  }
+  .feature-card:hover { border-color:var(--terracotta-light); }
+  .feature-icon {
+    width:44px; height:44px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.25rem; margin-bottom:1rem;
+  }
+  .fi-orange { background:rgba(212,120,92,0.1); }
+  .fi-green { background:rgba(139,168,136,0.1); }
+  .fi-gray { background:rgba(45,42,38,0.06); }
+  .feature-title { font-weight:600; font-size:1rem; margin-bottom:0.4rem; }
+  .feature-desc { font-size:0.85rem; color:var(--slate); line-height:1.55; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    border-top:1px solid var(--border);
+    padding:3rem 1.5rem;
+    background:var(--warm-white);
+  }
+  .footer-grid {
+    max-width:1200px; margin:0 auto;
+    display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:3rem;
+  }
+  .footer-brand { font-family:var(--font-serif); font-size:1.2rem; font-weight:700; margin-bottom:0.5rem; }
+  .footer-desc { font-size:0.8rem; color:var(--stone); line-height:1.5; }
+  .footer-col-title { font-weight:600; font-size:0.8rem; margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--slate); }
+  .footer-col ul { list-style:none; }
+  .footer-col a { text-decoration:none; color:var(--stone); font-size:0.85rem; display:block; padding:0.3rem 0; transition:color 0.2s; }
+  .footer-col a:hover { color:var(--charcoal); }
+  .footer-bottom {
+    max-width:1200px; margin:2rem auto 0; padding-top:1.5rem;
+    border-top:1px solid var(--border);
+    display:flex; justify-content:space-between;
+    font-size:0.75rem; color:var(--stone);
+  }
+
+  @media (max-width:768px) {
+    .hero { grid-template-columns:1fr; gap:2rem; padding:3rem 1.25rem 2rem; }
+    .hero-card-stack { height:220px; }
+    .hero-card { width:200px; padding:1rem; }
+    .hero-card:nth-child(3) { display:none; }
+    .nav-links { display:none; }
+    .book-grid { grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); }
+    .footer-grid { grid-template-columns:1fr 1fr; gap:1.5rem; }
+    .search-shortcut { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo-group">
+      <span class="logo-icon">求书</span>
+      <span class="logo-divider"></span>
+      <span class="logo-tagline">ZJU Bookloop</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">首页</a></li>
+      <li><a href="#">浏览</a></li>
+      <li><a href="#">论坛</a></li>
+      <li><a href="#">许愿墙</a></li>
+      <li><a href="#">发布</a></li>
+    </ul>
+    <div>
+      <button class="btn btn-ghost">登录</button>
+      <button class="btn btn-primary">注册</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">浙江大学 · 校园知识流转平台</div>
+    <h1 class="hero-title">让每一本旧书<br>找到它的<span class="em">下一位读者</span></h1>
+    <p class="hero-desc">
+      从线性代数到机器学习，从求是园到紫金港。
+      连接浙大师生，让教材在校园中循环流转，
+      让知识在流转中增值。
+    </p>
+    <div class="hero-stats">
+      <div><div class="stat-num">1,248</div><div class="stat-label">在售书籍</div></div>
+      <div><div class="stat-num">3,562</div><div class="stat-label">注册用户</div></div>
+      <div><div class="stat-num">892</div><div class="stat-label">成功交易</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="hero-card">
+        <div class="hc-cover">线性代数</div>
+        <div class="hc-title">线性代数（第七版）</div>
+        <div class="hc-author">同济大学数学系</div>
+        <div class="hc-price">¥18</div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-cover">数据结构</div>
+        <div class="hc-title">数据结构（C语言版）</div>
+        <div class="hc-author">严蔚敏 · 清华大学出版社</div>
+        <div class="hc-price">¥20</div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-cover">Python</div>
+        <div class="hc-title">Python编程从入门到实践</div>
+        <div class="hc-author">Eric Matthes · 人民邮电</div>
+        <div class="hc-price">¥28</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="搜索书名、作者、ISBN、或课程代码…" aria-label="搜索书籍">
+    <span class="search-shortcut">⌘K</span>
+    <button class="search-btn">搜索</button>
+  </div>
+  <div class="cats">
+    <button class="cat-chip active">全部</button>
+    <button class="cat-chip">计算机</button>
+    <button class="cat-chip">数学</button>
+    <button class="cat-chip">外语</button>
+    <button class="cat-chip">经管</button>
+    <button class="cat-chip">理工</button>
+    <button class="cat-chip">人文</button>
+    <button class="cat-chip">医学</button>
+    <button class="cat-chip">考研</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="section-header">
+    <div>
+      <span class="section-title">热门在售</span>
+      <span class="section-count">1,248 本</span>
+    </div>
+    <a href="#" class="section-link">浏览全部 →</a>
+  </div>
+
+  <div class="book-grid" id="bookGrid"></div>
+
+  <!-- FEATURES -->
+  <div class="section-header" style="padding-top:4rem;">
+    <span class="section-title">为什么选择求书</span>
+  </div>
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon fi-orange">🤖</div>
+      <div class="feature-title">AI 智能定价</div>
+      <div class="feature-desc">基于历史交易数据和书况，AI自动给出合理售价建议，不再纠结定价问题。</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-green">📚</div>
+      <div class="feature-title">课程-教材匹配</div>
+      <div class="feature-desc">输入你的课表，系统自动匹配所需教材的二手书。选课即选书，一步到位。</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-gray">💬</div>
+      <div class="feature-title">课程论坛</div>
+      <div class="feature-desc">每门课都有专属讨论区。选课经验、考试重点、教材评价——学长学姐的声音在这里。</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-orange">🔍</div>
+      <div class="feature-title">ISBN 扫码识别</div>
+      <div class="feature-desc">扫一扫书籍条形码，自动填充书名、作者、出版社。发布书籍只需3秒。</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-green">🔄</div>
+      <div class="feature-title">以书换书</div>
+      <div class="feature-desc">不想花钱？用你闲置的书换别人闲置的书。知识交换，零成本获取新知识。</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon fi-gray">🎓</div>
+      <div class="feature-title">浙大通行证登录</div>
+      <div class="feature-desc">统一身份认证，学号一键登录。自动同步个人信息，建立可信的交易环境。</div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">求书</div>
+      <div class="footer-desc">
+        浙江大学校内二手书交易平台。<br>
+        知识流转，从一本旧书开始。
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">产品</div>
+      <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#">浏览书籍</a></li>
+        <li><a href="#">课程论坛</a></li>
+        <li><a href="#">求书许愿墙</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">支持</div>
+      <ul>
+        <li><a href="#">使用指南</a></li>
+        <li><a href="#">社区公约</a></li>
+        <li><a href="#">常见问题</a></li>
+        <li><a href="#">联系我们</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">技术</div>
+      <ul>
+        <li><a href="#">API 文档</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">系统状态</a></li>
+        <li><a href="#">更新日志</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 求书 — 浙江大学课程大作业项目</span>
+    <span>Powered by Vue 3 + Flask + MySQL + AI</span>
+  </div>
+</footer>
+
+<script>
+const books = [
+  {t:'线性代数（第七版）',a:'同济大学数学系 · 高等教育出版社',p:18,o:39,c:'良好',course:'MATH1001'},
+  {t:'计算机组成与设计',a:'Patterson · 机械工业出版社',p:45,o:99,c:'有笔记',course:'CS2003'},
+  {t:'高等数学（第七版）上册',a:'同济大学数学系',p:15,o:35,c:'良好',course:'MATH1002'},
+  {t:'新概念英语4',a:'L.G. Alexander',p:12,o:29,c:'全新',course:'ENGL2001'},
+  {t:'数据结构（C语言版）',a:'严蔚敏 · 清华大学出版社',p:20,o:42,c:'良好',course:'CS2001'},
+  {t:'Python编程从入门到实践',a:'Eric Matthes · 人民邮电',p:28,o:89,c:'有笔记',course:'CS1002'},
+  {t:'微观经济学（第九版）',a:'N.G. Mankiw',p:35,o:78,c:'良好',course:'ECON2001'},
+  {t:'大学物理（第四版）上册',a:'张三慧 · 清华大学出版社',p:22,o:45,c:'良好',course:'PHYS1001'},
+  {t:'信息安全原理与实践',a:'吴翰清 · 电子工业出版社',p:32,o:69,c:'有笔记',course:'CS3005'},
+  {t:'高等代数',a:'北京大学数学系',p:16,o:33,c:'良好',course:'MATH2001'},
+  {t:'C++ Primer（第五版）',a:'Stanley Lippman',p:38,o:128,c:'有笔记',course:'CS1003'},
+  {t:'模拟电子技术基础',a:'童诗白 · 高等教育出版社',p:25,o:52,c:'良好',course:'EE2001'},
+];
+
+const cc = b => b.c==='良好'?'cond-good':b.c==='全新'?'cond-new':'cond-notes';
+document.getElementById('bookGrid').innerHTML = books.map(b=>`
+  <article class="book-card" tabindex="0">
+    <div class="book-cover">
+      <span class="book-cover-text">${b.t.slice(0,6)}</span>
+      <span class="book-condition ${cc(b)}">${b.c}</span>
+    </div>
+    <div class="book-body">
+      <div class="book-title">${b.t}</div>
+      <div class="book-meta">${b.a}</div>
+      <div class="book-footer">
+        <div>
+          <span class="book-price">¥${b.p}</span>
+          <span class="book-price-original">¥${b.o}</span>
+        </div>
+        <span class="book-course-tag">${b.course}</span>
+      </div>
+    </div>
+  </article>
+`).join('');
+
+// Cat chips
+document.querySelectorAll('.cat-chip').forEach(c => {
+  c.addEventListener('click',function(){
+    document.querySelectorAll('.cat-chip').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

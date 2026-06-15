@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>求书 · 書緣 — 浙江大学校内二手书交易平台</title>
+<style>
+  /* ===== DESIGN TOKENS =====
+   * Paper:     #F5F0E8  (rice paper base)
+   * Ink:       #2C2416  (main text)
+   * Ink-Light: #5C5240  (secondary text)
+   * Vermilion: #C41E3A  (accent, seals)
+   * Jade:      #5B8C5A  (success, growth)
+   * Gold:      #B8860B  (premium touch)
+   * Mist:      #E8E0D0  (card bg)
+   * Cloud:     #FFFFFF  (pure white cards)
+   */
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap');
+
+  :root {
+    --paper: #F5F0E8;
+    --ink: #2C2416;
+    --ink-light: #5C5240;
+    --ink-muted: #8B8578;
+    --vermilion: #C41E3A;
+    --vermilion-light: #E8A0A8;
+    --jade: #5B8C5A;
+    --gold: #B8860B;
+    --mist: #E8E0D0;
+    --cloud: #FFFFFF;
+    --shadow-sm: 0 1px 3px rgba(44,36,22,0.06);
+    --shadow-md: 0 4px 20px rgba(44,36,22,0.08);
+    --shadow-lg: 0 8px 40px rgba(44,36,22,0.12);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --font-display: 'Noto Serif SC', 'Source Han Serif CN', 'STSong', serif;
+    --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --font-brush: 'Ma Shan Zheng', 'ZCOOL XiaoWei', cursive;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(196,30,58,0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(91,140,90,0.03) 0%, transparent 50%);
+  }
+
+  /* ===== NAVIGATION ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(44,36,22,0.06);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 0.75rem;
+    text-decoration: none; color: inherit;
+  }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: var(--vermilion);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 900;
+    box-shadow: 0 2px 12px rgba(196,30,58,0.2);
+  }
+  .logo-text {
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .logo-tag {
+    font-family: var(--font-brush);
+    font-size: 0.95rem; color: var(--vermilion);
+    margin-left: 0.25rem; letter-spacing: 0.1em;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 1.5rem; list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none; color: var(--ink-light);
+    font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s var(--ease-out-expo);
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: var(--vermilion);
+    transition: width 0.3s var(--ease-out-expo);
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-actions {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s var(--ease-out-expo);
+    border: none;
+    text-decoration: none;
+    font-family: var(--font-body);
+  }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+  }
+  .btn-ghost:hover { background: rgba(44,36,22,0.04); }
+  .btn-primary {
+    background: var(--vermilion); color: white;
+    box-shadow: 0 2px 12px rgba(196,30,58,0.25);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(196,30,58,0.35);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* ===== HERO ===== */
+  .hero {
+    max-width: 1280px; margin: 0 auto;
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+  }
+  .hero-seal {
+    display: inline-block;
+    width: 80px; height: 80px;
+    border: 3px solid var(--vermilion);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-brush);
+    font-size: 1.5rem; color: var(--vermilion);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: sealAppear 0.8s var(--ease-out-expo) 0.2s forwards;
+    transform: rotate(-8deg);
+    line-height: 1.2;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  @keyframes sealAppear {
+    from { opacity: 0; transform: rotate(-8deg) scale(0.5); }
+    to { opacity: 1; transform: rotate(-8deg) scale(1); }
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease-out-expo) 0.4s forwards;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--vermilion);
+    position: relative;
+  }
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--ink-light);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease-out-expo) 0.6s forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Search Bar */
+  .search-bar {
+    max-width: 600px; margin: 0 auto;
+    display: flex; gap: 0;
+    background: var(--cloud);
+    border-radius: 50px;
+    box-shadow: var(--shadow-md), 0 0 0 1px rgba(44,36,22,0.04);
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease-out-expo) 0.8s forwards;
+    transition: box-shadow 0.3s var(--ease-out-expo);
+  }
+  .search-bar:focus-within {
+    box-shadow: var(--shadow-lg), 0 0 0 2px var(--vermilion-light);
+  }
+  .search-bar input {
+    flex: 1; border: none; outline: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem; font-family: var(--font-body);
+    color: var(--ink); background: transparent;
+  }
+  .search-bar input::placeholder { color: var(--ink-muted); }
+  .search-bar button {
+    border: none; background: var(--vermilion);
+    color: white; padding: 1rem 2rem;
+    font-size: 1rem; font-weight: 600;
+    cursor: pointer; font-family: var(--font-body);
+    transition: background 0.2s;
+  }
+  .search-bar button:hover { background: #a0182e; }
+
+  /* Category Pills */
+  .categories {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    justify-content: center; margin-top: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease-out-expo) 1s forwards;
+  }
+  .cat-pill {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(44,36,22,0.12);
+    background: transparent;
+    color: var(--ink-light);
+    font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; font-family: var(--font-body);
+    transition: all 0.25s var(--ease-out-expo);
+  }
+  .cat-pill:hover, .cat-pill.active {
+    background: var(--ink); color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .main {
+    max-width: 1280px; margin: 0 auto; padding: 0 2rem 4rem;
+  }
+
+  /* Section Header */
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 2rem; padding-top: 3rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 1.75rem; font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block; width: 4px; height: 1.2em;
+    background: var(--vermilion);
+    margin-right: 0.75rem; vertical-align: text-bottom;
+    border-radius: 2px;
+  }
+  .section-more {
+    font-size: 0.9rem; color: var(--ink-muted);
+    text-decoration: none; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .section-more:hover { color: var(--ink); }
+
+  /* Book Grid */
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .book-card {
+    background: var(--cloud);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(44,36,22,0.04);
+    cursor: pointer;
+    transition: all 0.35s var(--ease-out-expo);
+    position: relative;
+  }
+  .book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(44,36,22,0.08);
+  }
+  .book-card:active { transform: scale(0.985); }
+  .book-cover {
+    height: 200px;
+    background: linear-gradient(135deg, #E8E0D0 0%, #D5C8B0 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .book-cover::after {
+    content: '';
+    position: absolute; left: 0; top: 0;
+    width: 2px; height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(44,36,22,0.15), transparent);
+  }
+  .book-cover-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--ink);
+    padding: 1rem; text-align: center;
+    line-height: 1.5;
+    opacity: 0.8;
+  }
+  .book-condition {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.7rem; font-weight: 600;
+    backdrop-filter: blur(8px);
+  }
+  .cond-good { background: rgba(91,140,90,0.15); color: var(--jade); }
+  .cond-notes { background: rgba(184,134,11,0.15); color: var(--gold); }
+  .book-info { padding: 1rem 1.25rem 1.25rem; }
+  .book-title {
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 0.25rem;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .book-author {
+    font-size: 0.8rem; color: var(--ink-muted);
+    margin-bottom: 0.75rem;
+  }
+  .book-footer {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .book-price {
+    font-family: var(--font-display);
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--vermilion);
+  }
+  .book-price .yen { font-size: 0.8rem; }
+  .book-seller {
+    font-size: 0.75rem; color: var(--ink-muted);
+    display: flex; align-items: center; gap: 0.35rem;
+  }
+  .seller-avatar {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--mist);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; color: var(--ink-light);
+  }
+
+  /* ===== WISH WALL ===== */
+  .wish-wall {
+    background: linear-gradient(135deg, rgba(196,30,58,0.04) 0%, rgba(91,140,90,0.04) 100%);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    border: 1px dashed rgba(44,36,22,0.1);
+    margin-top: 1rem;
+  }
+  .wish-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .wish-card {
+    background: var(--cloud);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    border: 1px solid rgba(44,36,22,0.05);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s var(--ease-out-expo);
+    position: relative;
+  }
+  .wish-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--vermilion-light);
+  }
+  .wish-header {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .wish-icon {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--vermilion-light), transparent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .wish-book {
+    font-weight: 600; font-size: 0.95rem;
+  }
+  .wish-reason {
+    font-size: 0.8rem; color: var(--ink-muted);
+    line-height: 1.5; margin-bottom: 0.75rem;
+  }
+  .wish-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.75rem; color: var(--ink-muted);
+  }
+  .wish-days {
+    color: var(--vermilion); font-weight: 600;
+  }
+  .btn-wish {
+    font-size: 0.8rem; padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    border: 1px solid var(--vermilion);
+    background: transparent;
+    color: var(--vermilion);
+    cursor: pointer; font-family: var(--font-body);
+    font-weight: 600;
+    transition: all 0.25s var(--ease-out-expo);
+  }
+  .btn-wish:hover {
+    background: var(--vermilion); color: white;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    border-top: 1px solid rgba(44,36,22,0.06);
+    padding: 2.5rem 2rem;
+  }
+  .footer-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--ink);
+  }
+  .footer-tag {
+    font-family: var(--font-brush);
+    color: var(--vermilion);
+    font-size: 0.85rem; margin-left: 0.5rem;
+  }
+  .footer-links {
+    display: flex; gap: 2rem; list-style: none;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    text-decoration: none; color: var(--ink-muted);
+    font-size: 0.85rem; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-copy {
+    font-size: 0.8rem; color: var(--ink-muted);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero { padding: 3rem 1rem 2rem; }
+    .hero-title { font-size: 2rem; }
+    .book-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+    .wish-grid { grid-template-columns: 1fr; }
+    .wish-wall { padding: 1.5rem; }
+    .section-header { flex-direction: column; gap: 0.5rem; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+
+  /* ===== MISC ===== */
+  ::selection {
+    background: rgba(196,30,58,0.15);
+    color: var(--ink);
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">求</div>
+      <span class="logo-text">求书</span>
+      <span class="logo-tag">·書緣</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">首页</a></li>
+      <li><a href="#">分类浏览</a></li>
+      <li><a href="#">课程论坛</a></li>
+      <li><a href="#">求书许愿</a></li>
+      <li><a href="#">以书换书</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-ghost" id="loginBtn">登录</button>
+      <button class="btn btn-primary" id="registerBtn">注册</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-seal">浙大<br>書缘</div>
+  <h1 class="hero-title">
+    流转的不只是<em>书</em><br>是浙大人的知识与记忆
+  </h1>
+  <p class="hero-subtitle">
+    连接每一位浙大学子，让教材在校园里循环流转。
+    每本书都是一段故事，每次交易都是一次传承。
+  </p>
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <input type="text" placeholder="搜书名、作者、课程名、ISBN…" aria-label="搜索书籍">
+    <button>🔍 搜索</button>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="categories">
+    <button class="cat-pill active">全部</button>
+    <button class="cat-pill">计算机</button>
+    <button class="cat-pill">数学</button>
+    <button class="cat-pill">外语</button>
+    <button class="cat-pill">经济管理</button>
+    <button class="cat-pill">人文社科</button>
+    <button class="cat-pill">理工</button>
+    <button class="cat-pill">医学</button>
+    <button class="cat-pill">考研考公</button>
+  </div>
+</section>
+
+<!-- MAIN: 热门书籍 -->
+<main class="main">
+  <div class="section-header">
+    <h2 class="section-title">热门在售</h2>
+    <a href="#" class="section-more">浏览全部 →</a>
+  </div>
+
+  <div class="book-grid" id="bookGrid">
+    <!-- Book cards generated by JS -->
+  </div>
+
+  <!-- WISH WALL -->
+  <div class="section-header">
+    <h2 class="section-title">求书许愿墙</h2>
+    <a href="#" class="section-more">发布求书帖 →</a>
+  </div>
+
+  <div class="wish-wall">
+    <div class="wish-grid" id="wishGrid">
+      <!-- Wish cards generated by JS -->
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <span class="footer-brand">求书</span>
+      <span class="footer-tag">·書緣</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#">关于我们</a></li>
+      <li><a href="#">使用指南</a></li>
+      <li><a href="#">社区公约</a></li>
+      <li><a href="#">联系我们</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 求书 · 浙江大学校内二手书交易平台</span>
+  </div>
+</footer>
+
+<script>
+// ===== MOCK DATA =====
+const books = [
+  { title: '线性代数（第七版）', author: '同济大学数学系', price: 18, original: 39, condition: '良好', category: '数学', cover: '线性代数', seller: '李同学' },
+  { title: '计算机组成与设计：硬件/软件接口', author: 'Patterson & Hennessy', price: 45, original: 99, condition: '有笔记', category: '计算机', cover: '计组', seller: '王同学' },
+  { title: '高等数学（第七版）上册', author: '同济大学数学系', price: 15, original: 35, condition: '良好', category: '数学', cover: '高等数学', seller: '张同学' },
+  { title: '新概念英语4', author: 'Alexander', price: 12, original: 29, condition: '全新', category: '外语', cover: '新概念', seller: '赵同学' },
+  { title: '数据结构（C语言版）', author: '严蔚敏', price: 20, original: 42, condition: '良好', category: '计算机', cover: '数据结构', seller: '陈同学' },
+  { title: 'Python编程：从入门到实践', author: 'Eric Matthes', price: 28, original: 89, condition: '有笔记', category: '计算机', cover: 'Python', seller: '刘同学' },
+  { title: '微观经济学（第九版）', author: '曼昆', price: 35, original: 78, condition: '良好', category: '经济管理', cover: '微观经济学', seller: '周同学' },
+  { title: '大学物理（上）', author: '张三慧', price: 22, original: 45, condition: '良好', category: '理工', cover: '大学物理', seller: '吴同学' },
+];
+
+const wishes = [
+  { book: '算法导论（第三版）', reason: '考研复试准备，急需这本书刷题，有好心人出吗？', days: 5,  poster: '大三·计算机' },
+  { book: '信号与系统（第二版）', reason: '下学期必修课，想提前预习，有笔记的最好~', days: 2,  poster: '大二·信电' },
+  { book: '浙江大学校史', reason: '一直想了解浙大的历史，有这本经典校史的吗？', days: 12, poster: '大四·人文' },
+  { book: '机器学习（西瓜书）', reason: '周志华老师的经典，想入一本二手的学习参考', days: 1,  poster: '研一·AI' },
+  { book: '大学化学', reason: '跨专业选修课需要，不想花太多钱买新书', days: 3,  poster: '大一·工科' },
+];
+
+// ===== RENDER =====
+function renderBookGrid() {
+  const grid = document.getElementById('bookGrid');
+  grid.innerHTML = books.map(b => `
+    <article class="book-card" tabindex="0" role="button" aria-label="${b.title} - ¥${b.price}">
+      <div class="book-cover">
+        <span class="book-cover-title">${b.cover}</span>
+        <span class="book-condition ${b.condition === '良好' ? 'cond-good' : 'cond-notes'}">${b.condition}</span>
+      </div>
+      <div class="book-info">
+        <div class="book-title">${b.title}</div>
+        <div class="book-author">${b.author}</div>
+        <div class="book-footer">
+          <span class="book-price"><span class="yen">¥</span>${b.price}</span>
+          <span class="book-seller">
+            <span class="seller-avatar">${b.seller[0]}</span>
+            ${b.seller}
+          </span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+
+function renderWishGrid() {
+  const grid = document.getElementById('wishGrid');
+  grid.innerHTML = wishes.map(w => `
+    <div class="wish-card">
+      <div class="wish-header">
+        <div class="wish-icon">📖</div>
+        <span class="wish-book">《${w.book}》</span>
+      </div>
+      <div class="wish-reason">"${w.reason}"</div>
+      <div class="wish-footer">
+        <span>${w.poster} · <span class="wish-days">已等待 ${w.days} 天</span></span>
+        <button class="btn-wish">我有这本</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+renderBookGrid();
+renderWishGrid();
+
+// ===== CATEGORY FILTER =====
+document.querySelectorAll('.cat-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ===== LOGIN/REGISTER (placeholder) =====
+document.getElementById('loginBtn').addEventListener('click', () => {
+  alert('登录功能 — 支持浙大通行证统一认证\n(JWT + CAS SSO)');
+});
+document.getElementById('registerBtn').addEventListener('click', () => {
+  // Trigger a subtle animation on the seal
+  const seal = document.querySelector('.hero-seal');
+  seal.style.animation = 'none';
+  seal.offsetHeight; // trigger reflow
+  seal.style.animation = 'sealAppear 0.8s cubic-bezier(0.16,1,0.3,1) forwards';
+});
+</script>
+
+</body>
+</html>

@@ -60,7 +60,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
             <button type="submit" class="modal-submit">搜索</button>
           </form>
           <div class="modal-hints">
-            <div class="hint-item"><span class="hint-tag">分类</span>数学 · 计算机 · 外语 · 经管 · 理工 · 人文</div>
+            <div class="hint-item"><span class="hint-tag">分类</span>数学 · 计算机 · 外语 · 经管 · 理工 · 人文 · 其他</div>
             <div class="hint-item"><span class="hint-tag">书况</span>全新 · 良好 · 有笔记 · 旧</div>
           </div>
         </div>

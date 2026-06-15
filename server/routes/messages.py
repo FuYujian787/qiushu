@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from flask import Blueprint, request, jsonify, current_app
 from werkzeug.utils import secure_filename
-from extensions import db
+from extensions import db, limiter
 from models import Conversation, Message, User, Order
 from services.auth import login_required
 from services.__init__ import ERROR_CODES
@@ -34,6 +34,7 @@ def _validate_image(file_bytes):
 
 @messages_bp.route('/conversations', methods=['GET'])
 @login_required
+@limiter.limit('120 per minute')
 def list_conversations():
     """获取当前用户的所有会话（按最后消息时间倒序）"""
     user_id = request.current_user_id
@@ -79,6 +80,7 @@ def list_conversations():
 
 @messages_bp.route('/conversations', methods=['POST'])
 @login_required
+@limiter.limit('30 per minute')
 def create_conversation():
     """创建或获取已有会话"""
     data = request.get_json() or {}
@@ -141,6 +143,7 @@ def create_conversation():
 
 @messages_bp.route('/conversations/<conv_id>', methods=['GET'])
 @login_required
+@limiter.limit('120 per minute')
 def get_messages(conv_id):
     """获取某个会话的消息列表（分页）"""
     conv = Conversation.query.get(conv_id)
@@ -174,6 +177,7 @@ def get_messages(conv_id):
 
 @messages_bp.route('', methods=['POST'])
 @login_required
+@limiter.limit('60 per minute')
 def send_message():
     """发送消息（支持 text / image / order_card 三种类型）"""
     data = request.get_json() or {}
@@ -236,6 +240,7 @@ def send_message():
 
 @messages_bp.route('/upload-image', methods=['POST'])
 @login_required
+@limiter.limit('30 per minute')
 def upload_image():
     """上传聊天图片"""
     if 'image' not in request.files:
@@ -277,6 +282,7 @@ def upload_image():
 
 @messages_bp.route('/order-card/<order_id>', methods=['GET'])
 @login_required
+@limiter.limit('30 per minute')
 def get_order_card(order_id):
     """获取订单卡片数据（用于发送订单卡片消息）"""
     order = Order.query.get(order_id)
@@ -302,6 +308,7 @@ def get_order_card(order_id):
 
 @messages_bp.route('/conversations/<conv_id>/read', methods=['PUT'])
 @login_required
+@limiter.limit('120 per minute')
 def mark_read(conv_id):
     """将会话中所有对方发来的消息标记为已读"""
     conv = Conversation.query.get(conv_id)
@@ -330,6 +337,7 @@ def mark_read(conv_id):
 
 @messages_bp.route('/unread-count', methods=['GET'])
 @login_required
+@limiter.limit('60 per minute')
 def unread_count():
     """获取当前用户的总未读消息数"""
     user_id = request.current_user_id

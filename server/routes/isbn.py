@@ -84,22 +84,20 @@ def search_book_by_isbn(isbn):
     if isbn_clean in mock_books:
         return mock_books[isbn_clean]
     
-    # 尝试调用豆瓣图书 API
+    # 使用本地 ISBN 查询服务（多层降级：本地库 → CourseBook → OpenLibrary → 手动）
     try:
-        url = f"https://api.douban.com/v2/book/isbn/{isbn_clean}"
-        response = requests.get(url, timeout=10)
-        
-        if response.status_code == 200:
-            data = response.json()
+        from services.isbn_lookup import lookup_isbn
+        result = lookup_isbn(isbn_clean)
+        if result and result.get('title'):
             return {
-                "title": data.get("title", ""),
-                "author": "/".join(data.get("author", [])),
-                "publisher": data.get("publisher", ""),
-                "price": data.get("price", ""),
-                "image": data.get("image", "")
+                "title": result.get("title", ""),
+                "author": result.get("author", ""),
+                "publisher": result.get("publisher", ""),
+                "price": "",
+                "image": result.get("cover_url", "")
             }
     except Exception as e:
-        print(f"Error fetching from Douban API: {e}")
+        print(f"Error looking up ISBN: {e}")
     
     return None
 

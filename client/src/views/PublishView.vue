@@ -22,10 +22,8 @@ const form = reactive({
 const images = ref([])
 const imagePreviewUrls = ref([])
 const loading = ref(false)
-const showScanner = ref(false)
-const scannerError = ref('')
 
-const categories = ['数学', '计算机', '外语', '经管', '理工', '人文']
+const categories = ['数学', '计算机', '外语', '经管', '理工', '人文', '其他']
 const conditions = ['全新', '良好', '有笔记', '旧']
 
 async function handleImageUpload(e) {
@@ -82,22 +80,6 @@ async function handleSubmit() {
   }
 }
 
-async function handleIsbnLookup() {
-  if (!form.isbn) return
-  try {
-    const res = await api.get(`/books/isbn/${form.isbn}`)
-    if (res.data?.title) {
-      form.title = res.data.title
-      form.author = res.data.author
-      ElMessage.success('已从 ISBN 获取书籍信息')
-    } else {
-      ElMessage.info('未找到匹配数据，请手动填写')
-    }
-  } catch {
-    ElMessage.info('ISBN 查询失败，请手动填写')
-  }
-}
-
 async function handleAiPrice() {
   if (!form.title) { ElMessage.warning('请先输入书名'); return }
   try {
@@ -144,10 +126,7 @@ async function handleAiPrice() {
             </div>
             <div class="field">
               <label>ISBN</label>
-              <div class="isbn-row">
-                <input v-model="form.isbn" placeholder="978xxxxxxxxxx" class="input" />
-                <button type="button" class="isbn-btn" @click="handleIsbnLookup">查询</button>
-              </div>
+              <input v-model="form.isbn" placeholder="978xxxxxxxxxx（选填）" class="input" />
             </div>
             <div class="field-row">
               <div class="field">
@@ -287,24 +266,6 @@ async function handleAiPrice() {
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
-
-.isbn-row {
-  display: flex;
-  gap: 8px;
-}
-
-.isbn-btn {
-  padding: 10px 16px;
-  background: var(--surface-tertiary);
-  border: 1px solid var(--border-default);
-  border-radius: 8px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.isbn-btn:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
 
 .ai-price-btn {
   display: flex;
